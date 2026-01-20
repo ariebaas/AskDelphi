@@ -1,0 +1,97 @@
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING AUTHENTICATION AND CONNECTION:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver is reachable (status=401)
+[E2E] 2026-01-20 21:47:45 INFO: Resetting mockserver state...
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver reset complete
+[E2E] 2026-01-20 21:47:45 INFO: Test 1: Creating AskDelphiSession with valid credentials...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ AskDelphiSession created successfully
+[E2E] 2026-01-20 21:47:45 INFO: Test 2: Verifying session token retrieval via AskDelphiSession...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Session token obtained and used successfully (404 = project not found, auth worked)
+[E2E] 2026-01-20 21:47:45 INFO: Test 3: Testing invalid credentials (should fail)...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Invalid credentials correctly rejected (status=401)
+[E2E] 2026-01-20 21:47:45 INFO: Test 4: Testing request without Authorization header (should fail)...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Request without auth header correctly rejected (status=401)
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: ALL AUTHENTICATION TESTS PASSED!
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING CONTENT EXPORT:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver is reachable (status=401)
+[E2E] 2026-01-20 21:47:45 INFO: Resetting mockserver state...
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver reset complete
+[E2E] 2026-01-20 21:47:45 INFO: Setting up test data...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Imported 1 root topics
+[E2E] 2026-01-20 21:47:45 INFO: Calling export endpoint...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Export endpoint called successfully
+[E2E] 2026-01-20 21:47:45 INFO: Validating export structure...
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Export structure is valid
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Metadata valid (exported 15 topics)
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Content design valid (41 topic types)
+[E2E] 2026-01-20 21:47:45 INFO: ✓ Topics valid (15 topics exported)
+[E2E] 2026-01-20 21:47:45 INFO:   First topic: Onboard nieuwe medewerker
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: EXPORT TEST PASSED!
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver is reachable (status=401)
+[E2E] 2026-01-20 21:47:45 INFO: Resetting mockserver state...
+[E2E] 2026-01-20 21:47:45 INFO: Mockserver reset complete
+[E2E] 2026-01-20 21:47:45 INFO: Loaded example JSON from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\examples\process_onboard_account.json
+[E2E] 2026-01-20 21:47:45 INFO: Process id=onboard-account title=Onboard nieuwe medewerker (#steps=0)
+[E2E] 2026-01-20 21:47:45 INFO: Mapped process to 1 root topic(s)
+[E2E] 2026-01-20 21:47:45 INFO: TOPIC TREE STRUCTURE:
+[onboard-account] Onboard nieuwe medewerker (Digitale Coach Homepagina)
+  ├─ [task-1] Voorbereiding (Task)
+    ├─ [step-1-1] Account aanmaken (Action)
+      ├─ [instr-1-1-1] Stap 1: Ga naar HR-systeem (Simple topic)
+      ├─ [instr-1-1-2] Stap 2: Vul gegevens in (Simple topic)
+    ├─ [step-1-2] Werkplek voorbereiden (Action)
+      ├─ [instr-1-2-1] Laptop klaarleggen (Simple topic)
+      ├─ [instr-1-2-2] Toegangspas aanmaken (Simple topic)
+  ├─ [task-2] Eerste werkdag (Task)
+    ├─ [step-2-1] Welkom en rondleiding (Action)
+      ├─ [instr-2-1-1] Welkom heten (Simple topic)
+      ├─ [instr-2-1-2] Rondleiding kantoor (Simple topic)
+    ├─ [step-2-2] Introductie IT-systemen (Action)
+      ├─ [instr-2-2-1] Email en Outlook (Simple topic)
+      ├─ [instr-2-2-2] Intranet en documenten (Simple topic)
+[E2E] 2026-01-20 21:47:45 INFO: Created AskDelphiSession for base_url=http://127.0.0.1:8000, project_id=test-project
+[E2E] 2026-01-20 21:47:45 INFO: Starting import of topic tree into mockserver...
+[E2E] 2026-01-20 21:47:45 INFO: Import finished
+[E2E] 2026-01-20 21:47:45 INFO: Homepage topic check: GET /topics/onboard-account -> status=200
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING PARTS (CONTENT) MANAGEMENT:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Checkout topic instr-1-1-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Create part customPart for topic instr-1-1-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Get parts for topic instr-1-1-2: status=200, count=2
+[E2E] 2026-01-20 21:47:45 INFO: Update part customPart for topic instr-1-1-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Delete part customPart for topic instr-1-1-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Verify part deletion: remaining parts=['contentPart'] (should not contain customPart)
+[E2E] 2026-01-20 21:47:45 INFO: Checkin topic instr-1-1-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING TOPIC UPDATE:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Checkout topic step-1-1 for update: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Update topic step-1-1: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Checkin topic step-1-1 after update: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Verify update: topic title is now 'Account aanmaken (Updated)'
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING TOPIC DELETION:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Delete topic instr-2-2-2: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Verify deletion: GET /topics/instr-2-2-2 -> status=404 (should be 404)
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: TESTING PROJECT DELETION:
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: Create test project test-project-delete: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Verify project exists: GET /projects/test-project-delete -> status=200
+[E2E] 2026-01-20 21:47:45 INFO: Delete project test-project-delete: status=200
+[E2E] 2026-01-20 21:47:45 INFO: Verify deletion: GET /projects/test-project-delete -> status=404 (should be 404)
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
+[E2E] 2026-01-20 21:47:45 INFO: ALL TESTS PASSED!
+[E2E] 2026-01-20 21:47:45 INFO: ============================================================
