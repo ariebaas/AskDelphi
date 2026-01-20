@@ -10,18 +10,34 @@ Usage:
 import argparse
 import json
 import logging
+import os
 from datetime import datetime
 from pathlib import Path
 
 from askdelphi.session import AskDelphiSession
 from config import env
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+# Configure logging with both file and console output
+log_file = os.path.join(os.path.dirname(__file__), f"export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+log_format = "[EXPORT] %(asctime)s %(levelname)s: %(message)s"
+
+# File handler
+file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
+file_handler.setLevel(logging.INFO)
+formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
+formatter.default_msec_format = "%s.%03d"
+file_handler.setFormatter(formatter)
+
+# Console handler
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
+
+# Root logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 
 def export_content(output_path: str) -> None:

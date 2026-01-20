@@ -27,14 +27,14 @@ log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
 # File handler
 file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.INFO)
-formatter = logging.Formatter(log_format)
+formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
 file_handler.setFormatter(formatter)
 
 # Console handler
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(logging.Formatter(log_format))
+console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
 
 # Root logger
 logger = logging.getLogger()
