@@ -1,0 +1,120 @@
+﻿{
+  "process": {
+    "id": "onboard-account",
+    "title": "Onboard nieuwe medewerker",
+    "description": "Proces voor het onboarden van een nieuwe medewerker.",
+    "tags": ["onboarding", "hr", "process"],
+    "tasks": [
+      {
+        "id": "task-1",
+        "title": "Voorbereiding",
+        "description": "Zorg dat alles klaarstaat voor de eerste werkdag.",
+        "topicType": "Task",
+        "tags": ["preparation", "setup"],
+        "steps": [
+          {
+            "id": "step-1-1",
+            "title": "Account aanmaken",
+            "description": "Maak een nieuw account aan in het HR-systeem.",
+            "topicType": "Action",
+            "tags": ["account", "hr-system"],
+            "instructions": [
+              {
+                "id": "instr-1-1-1",
+                "title": "Stap 1: Ga naar HR-systeem",
+                "content": "Open het HR-systeem en log in met admin credentials.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "hr"]
+              },
+              {
+                "id": "instr-1-1-2",
+                "title": "Stap 2: Vul gegevens in",
+                "content": "Vul naam, e-mail en afdeling in.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "data-entry"]
+              }
+            ]
+          },
+          {
+            "id": "step-1-2",
+            "title": "Werkplek voorbereiden",
+            "description": "Regel laptop, toegangspas en werkplek.",
+            "topicType": "Action",
+            "tags": ["workspace", "equipment"],
+            "instructions": [
+              {
+                "id": "instr-1-2-1",
+                "title": "Laptop klaarleggen",
+                "content": "Zet laptop op en installeer noodzakelijke software.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "it"]
+              },
+              {
+                "id": "instr-1-2-2",
+                "title": "Toegangspas aanmaken",
+                "content": "Maak toegangspas aan bij beveiliging.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "security"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "task-2",
+        "title": "Eerste werkdag",
+        "description": "Begeleid de medewerker tijdens de eerste dag.",
+        "topicType": "Task",
+        "tags": ["first-day", "onboarding"],
+        "steps": [
+          {
+            "id": "step-2-1",
+            "title": "Welkom en rondleiding",
+            "description": "Ontvang de medewerker en geef een rondleiding.",
+            "topicType": "Action",
+            "tags": ["welcome", "tour"],
+            "instructions": [
+              {
+                "id": "instr-2-1-1",
+                "title": "Welkom heten",
+                "content": "Ontvang de medewerker vriendelijk en maak hem/haar op zijn/haar gemak.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "welcome"]
+              },
+              {
+                "id": "instr-2-1-2",
+                "title": "Rondleiding kantoor",
+                "content": "Laat alle belangrijke locaties zien: toiletten, keuken, vergaderruimtes.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "tour"]
+              }
+            ]
+          },
+          {
+            "id": "step-2-2",
+            "title": "Introductie IT-systemen",
+            "description": "Leg uit hoe de belangrijkste systemen werken.",
+            "topicType": "Action",
+            "tags": ["it", "systems"],
+            "instructions": [
+              {
+                "id": "instr-2-2-1",
+                "title": "Email en Outlook",
+                "content": "Toon hoe je email checkt en agenda's deelt.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "email"]
+              },
+              {
+                "id": "instr-2-2-2",
+                "title": "Intranet en documenten",
+                "content": "Leg uit waar belangrijke documenten en richtlijnen staan.",
+                "topicType": "Simple topic",
+                "tags": ["instruction", "intranet"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
