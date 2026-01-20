@@ -5,14 +5,20 @@ This script:
 2. Exports all content to a JSON file
 
 Usage:
-    python run_import_and_export.py --input examples/process_onboard_account.json --output export_with_content.json
+    python run_import_and_export.py --input ../examples/process_onboard_account.json --output export_with_content.json
 """
 
 import argparse
 import json
 import logging
+import os
+import sys
+from datetime import datetime
 from pathlib import Path
 import requests
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from askdelphi.session import AskDelphiSession
 from config import env
@@ -20,12 +26,34 @@ from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+# Configure logging with both file and console output
+log_dir = os.path.dirname(__file__)
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, f"import_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+log_format = "[IMPORT_EXPORT] %(asctime)s %(levelname)s: %(message)s"
+
+# File handler with flush
+class FlushFileHandler(logging.FileHandler):
+    def emit(self, record):
+        super().emit(record)
+        self.flush()
+
+file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
+file_handler.setLevel(logging.INFO)
+formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
+formatter.default_msec_format = "%s.%03d"
+file_handler.setFormatter(formatter)
+
+# Console handler
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
+
+# Root logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 
 def import_and_export(input_file: str, schema_file: str, output_file: str) -> None:
@@ -133,8 +161,8 @@ def main():
     parser.add_argument(
         "--output",
         type=str,
-        default="export/export_with_content.json",
-        help="Output file path (default: export/export_with_content.json)"
+        default=f"export_with_content_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+        help="Output file path (default: export_with_content_YYYYMMDD_HHMMSS.json)"
     )
     
     args = parser.parse_args()

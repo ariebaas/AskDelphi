@@ -25,8 +25,13 @@ from config import env
 log_file = os.path.join(os.path.dirname(__file__), f"e2e_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
 
-# File handler
-file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
+# File handler with flush
+class FlushFileHandler(logging.FileHandler):
+    def emit(self, record):
+        super().emit(record)
+        self.flush()
+
+file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.INFO)
 formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
@@ -483,3 +488,12 @@ def test_import_onboard_account():
     logging.info("=" * 60)
     logging.info("ALL TESTS PASSED!")
     logging.info("=" * 60)
+
+
+if __name__ == "__main__":
+    try:
+        test_authentication_and_connection()
+        test_export_content()
+        test_import_onboard_account()
+    except Exception as e:
+        logging.error("Test execution failed: %s", str(e), exc_info=True)

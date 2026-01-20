@@ -1,0 +1,16 @@
+[EXPORT] 2026-01-20 21:40:22 INFO: ============================================================
+[EXPORT] 2026-01-20 21:40:22 INFO: EXPORTING CONTENT FROM ASKDELPHI
+[EXPORT] 2026-01-20 21:40:22 INFO: ============================================================
+[EXPORT] 2026-01-20 21:40:22 INFO: Creating AskDelphiSession...
+[EXPORT] 2026-01-20 21:40:22 INFO: ✓ AskDelphiSession created
+[EXPORT] 2026-01-20 21:40:22 INFO: Fetching export from AskDelphi...
+[EXPORT] 2026-01-20 21:40:22 INFO: ✓ Export fetched successfully
+[EXPORT] 2026-01-20 21:40:22 INFO: Saving export to export_20260120_214022.json...
+[EXPORT] 2026-01-20 21:40:22 INFO: ✓ Export saved to export_20260120_214022.json
+[EXPORT] 2026-01-20 21:40:22 INFO: ============================================================
+[EXPORT] 2026-01-20 21:40:22 INFO: EXPORT SUMMARY:
+[EXPORT] 2026-01-20 21:40:22 INFO:   Topics exported: 15
+[EXPORT] 2026-01-20 21:40:22 INFO:   Exported at: 2026-01-20T20:40:22.276036Z
+[EXPORT] 2026-01-20 21:40:22 INFO:   Source: digitalecoach-mock-server
+[EXPORT] 2026-01-20 21:40:22 INFO: ============================================================
+[EXPORT] 2026-01-20 21:40:22 INFO: ✓ Export completed successfully!

@@ -11,14 +11,18 @@ import argparse
 import json
 import logging
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from askdelphi.session import AskDelphiSession
 from config import env
 
 # Configure logging with both file and console output
-log_dir = os.path.join(os.path.dirname(__file__), "tests")
+log_dir = os.path.dirname(__file__)
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[EXPORT] %(asctime)s %(levelname)s: %(message)s"
