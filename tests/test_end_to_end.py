@@ -13,6 +13,7 @@ import time
 import os
 import logging
 import requests
+from datetime import datetime
 
 from askdelphi.session import AskDelphiSession
 from importer.mapper import DigitalCoachMapper
@@ -21,7 +22,7 @@ from config import env
 
 
 # Configure logging to write to both file and console
-log_file = os.path.join(os.path.dirname(__file__), "e2e_test.log")
+log_file = os.path.join(os.path.dirname(__file__), f"e2e_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
 
 # File handler
