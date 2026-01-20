@@ -21,7 +21,7 @@ from config import env
 
 
 # Configure logging to write to both file and console
-log_file = os.path.join(os.path.dirname(__file__), "..", "e2e_test.log")
+log_file = os.path.join(os.path.dirname(__file__), "e2e_test.log")
 log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
 
 # File handler
