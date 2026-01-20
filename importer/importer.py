@@ -26,9 +26,6 @@ class DigitalCoachImporter:
 
     def _import_topic_recursive(self, topic: TopicNode) -> None:
         """Create or update a single topic and recurse into its children."""
-        # Extract tags from metadata
-        tags = topic.metadata.get("tags", [])
-        
         payload = {
             "id": topic.id,
             "title": topic.title,
@@ -36,7 +33,7 @@ class DigitalCoachImporter:
             "topicTypeNamespace": topic.topic_type["namespace"],
             "parentId": topic.parent_id,
             "metadata": topic.metadata,
-            "tags": tags,
+            "tags": topic.tags,
         }
 
         try:

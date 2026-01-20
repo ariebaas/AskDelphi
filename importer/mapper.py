@@ -20,6 +20,7 @@ class TopicNode:
     parent_id: Optional[str]
     metadata: Dict[str, Any] = field(default_factory=dict)
     children: List["TopicNode"] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
 
 
 class DigitalCoachMapper:
@@ -46,8 +47,8 @@ class DigitalCoachMapper:
             parent_id=None,
             metadata={
                 "description": process.get("description", ""),
-                "tags": process.get("tags", [])
             },
+            tags=process.get("tags", []),
         )
 
         # Support both tasks and steps
@@ -73,8 +74,8 @@ class DigitalCoachMapper:
             parent_id=parent_id,
             metadata={
                 "description": task.get("description", ""),
-                "tags": task.get("tags", [])
             },
+            tags=task.get("tags", []),
         )
 
         for step in task.get("steps", []):
@@ -95,8 +96,8 @@ class DigitalCoachMapper:
             parent_id=parent_id,
             metadata={
                 "description": step.get("description", ""),
-                "tags": step.get("tags", [])
             },
+            tags=step.get("tags", []),
         )
 
         for instr in step.get("instructions", []):
@@ -117,6 +118,6 @@ class DigitalCoachMapper:
             parent_id=parent_id,
             metadata={
                 "content": instr.get("content", ""),
-                "tags": instr.get("tags", [])
             },
+            tags=instr.get("tags", []),
         )
