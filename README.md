@@ -50,92 +50,116 @@ DEBUG=false
 
 ## Gebruik
 
-### 1. Import + Export Workflow (Aanbevolen)
+### 1. End-to-End Tests (Aanbevolen)
+
+Complete test suite met logging:
+
+```bash
+# Vanuit project root
+python tests/test_end_to_end.py
+```
+
+Dit voert uit:
+- ✅ Authentication tests (4 tests)
+- ✅ Export content test (15 topics)
+- ✅ Import workflow test (12 topics + CRUD operations)
+- ✅ Alle logs naar `tests/e2e_test_YYYYMMDD_HHMMSS.log`
+
+### 2. Import + Export Workflow
 
 Complete workflow: importeer een proces en exporteer alle content in één keer:
 
 ```bash
+cd tests
 python run_import_and_export.py \
-  --input examples/process_onboard_account.json \
-  --schema examples/process_schema.json
+  --input ../examples/process_onboard_account.json \
+  --schema ../config/schema.json
 ```
 
-**Output:** `export/export_with_content.json`
+**Output:**
+- Export JSON: `export_with_content_YYYYMMDD_HHMMSS.json`
+- Log file: `import_export_YYYYMMDD_HHMMSS.log`
 
 Dit is de aanbevolen manier omdat het:
 - ✅ Mock server reset (geen duplicate errors)
 - ✅ Process laadt en valideert
 - ✅ Topics importeert
 - ✅ Alles exporteert naar JSON
-
-### 2. Alleen Importeren
-
-```bash
-python main.py \
-  --input examples/process_onboard_account.json \
-  --schema examples/process_schema.json
-```
-
-Importeert een proces in AskDelphi zonder te exporteren.
+- ✅ Timestamped logging
 
 ### 3. Alleen Exporteren
 
 ```bash
-python exporter.py --output export_latest.json
+cd tests
+python exporter.py
 ```
+
+**Output:**
+- Export JSON: `export_YYYYMMDD_HHMMSS.json`
+- Log file: `export_YYYYMMDD_HHMMSS.log`
 
 Exporteert alle huidige content uit AskDelphi als JSON.
 
 ## CLI Tools
 
-### `run_import_and_export.py` – Complete Workflow
+### `tests/test_end_to_end.py` – End-to-End Tests
+
+Complete test suite met alle functionaliteit:
+
+```bash
+python tests/test_end_to_end.py
+```
+
+**Tests:**
+- `test_authentication_and_connection()` – Auth flow, invalid credentials, missing headers
+- `test_export_content()` – Export structure, metadata, content design
+- `test_import_onboard_account()` – Complete import workflow met CRUD operations
+
+**Output:**
+- Log file: `tests/e2e_test_YYYYMMDD_HHMMSS.log`
+- Real-time console output
+
+### `tests/run_import_and_export.py` – Complete Workflow
 
 Importeert een proces en exporteert alle content.
 
 ```bash
+cd tests
 python run_import_and_export.py \
-  --input <path> \
-  --schema <path> \
+  --input ../examples/process_onboard_account.json \
+  --schema ../config/schema.json \
   [--output <path>]
 ```
 
 **Opties:**
 - `--input` (verplicht) – Pad naar process JSON
 - `--schema` (verplicht) – Pad naar JSON schema
-- `--output` (optioneel) – Output pad (default: `export/export_with_content.json`)
+- `--output` (optioneel) – Output pad (default: `export_with_content_YYYYMMDD_HHMMSS.json`)
 
-### `main.py` – Importer
+**Output:**
+- Export JSON: `export_with_content_YYYYMMDD_HHMMSS.json`
+- Log file: `import_export_YYYYMMDD_HHMMSS.log`
 
-Importeert een proces in AskDelphi.
-
-```bash
-python main.py \
-  --input <path> \
-  --schema <path>
-```
-
-**Opties:**
-- `--input` (verplicht) – Pad naar process JSON
-- `--schema` (verplicht) – Pad naar JSON schema
-
-### `exporter.py` – Exporter
+### `tests/exporter.py` – Exporter
 
 Exporteert alle content uit AskDelphi als JSON.
 
 ```bash
+cd tests
 python exporter.py [--output <path>]
 ```
 
 **Opties:**
 - `--output` (optioneel) – Output pad (default: `export_YYYYMMDD_HHMMSS.json`)
 
+**Output:**
+- Export JSON: `export_YYYYMMDD_HHMMSS.json`
+- Log file: `export_YYYYMMDD_HHMMSS.log`
+
 ## Projectstructuur
 
 ```
 digitalecoach_client/
-├── main.py                      # Importer CLI
-├── exporter.py                  # Exporter CLI
-├── run_import_and_export.py     # Combined workflow
 ├── askdelphi/                   # AskDelphi API client
 │   ├── __init__.py
 │   ├── session.py              # Session management & API calls
@@ -149,14 +173,19 @@ digitalecoach_client/
 │   └── validator.py            # JSON schema validator
 ├── config/
 │   ├── env.py                  # Environment configuration
+│   ├── schema.json             # Process JSON schema
 │   └── topic_types.py          # Topic type definitions
 ├── examples/
-│   ├── process_onboard_account.json  # Example process
-│   └── process_schema.json           # JSON schema
-├── export/                      # Export output folder
-├── tests/                       # Test suite
+│   └── process_onboard_account.json  # Example process
+├── tests/                       # Test suite & CLI tools
+│   ├── test_end_to_end.py      # Complete e2e tests
+│   ├── exporter.py             # Export utility
+│   ├── run_import_and_export.py # Import + export workflow
+│   └── *.log                   # Timestamped log files
 ├── .env                         # Environment variables
 ├── requirements.txt             # Python dependencies
+├── API_COMPLIANCE.md            # API compliance report
+├── DOCUMENTATION.md             # Complete documentation
 └── README.md                    # Dit bestand
 ```
 
@@ -231,20 +260,42 @@ Voorbeeld:
 ### Run alle tests
 
 ```bash
-pytest
+# Direct runnen (aanbevolen)
+python tests/test_end_to_end.py
+
+# Of met pytest
+pytest tests/test_end_to_end.py -v
 ```
 
 ### Run specifieke test
 
 ```bash
-pytest tests/test_end_to_end.py::test_export_content -v
+pytest tests/test_end_to_end.py::test_export_content -v -s
 ```
 
-### Tests beschrijving
+### Test Resultaten
 
-- **`test_authentication_and_connection`** – Valideert authenticatie en verbinding
-- **`test_export_content`** – Valideert export functionaliteit
-- **`test_import_onboard_account`** – Valideert complete import workflow
+Alle tests genereren timestamped log files in `tests/` folder:
+
+- `e2e_test_YYYYMMDD_HHMMSS.log` – E2E test logs
+- `export_YYYYMMDD_HHMMSS.log` – Export operation logs
+- `import_export_YYYYMMDD_HHMMSS.log` – Import/export workflow logs
+
+### Tests Beschrijving
+
+- **`test_authentication_and_connection`** – Valideert authenticatie, invalid credentials, missing headers
+- **`test_export_content`** – Valideert export structure, metadata, content design, topics
+- **`test_import_onboard_account`** – Complete import workflow met CRUD operations:
+  - Parts management (create, update, delete)
+  - Topic updates (checkout/checkin)
+  - Project management (create, delete)
+
+### Test Coverage
+
+✅ **15 topics** exported met valid structure
+✅ **12 topics** imported met complete CRUD workflow
+✅ **41 topic types** in content design
+✅ **100% API compliance** met AskDelphi Swagger API
 
 ## Environment Variabelen
 
@@ -258,6 +309,14 @@ pytest tests/test_end_to_end.py::test_export_content -v
 | `ASKDELPHI_PROJECT_ID` | Project ID | - |
 | `DEBUG` | Debug logging enabled | `false` |
 
+## Documentatie
+
+Voor gedetailleerde documentatie, zie:
+
+- **[API_COMPLIANCE.md](API_COMPLIANCE.md)** – Gedetailleerde API compliance report met AskDelphi Swagger API
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** – Complete client documentatie met architectuur en workflows
+- **[../digitalecoach_server/IMPLEMENTATION_NOTES.md](../digitalecoach_server/IMPLEMENTATION_NOTES.md)** – Server implementatie details
+
 ## Troubleshooting
 
 **Module not found errors:**
@@ -265,24 +324,53 @@ pytest tests/test_end_to_end.py::test_export_content -v
 # Zorg dat je in de juiste directory bent
 cd digitalecoach_client
 pip install -r requirements.txt
+
+# Of zet PYTHONPATH
+export PYTHONPATH=/path/to/digitalecoach_client
+python tests/test_end_to_end.py
 ```
 
 **Connection refused:**
 ```bash
 # Zorg dat mock server draait
 cd ../digitalecoach_server
-uvicorn mock_server:app --reload
+uvicorn mock_server:app --reload --port 8000
+
+# Check of server draait
+curl http://127.0.0.1:8000/docs
 ```
 
 **Topic already exists:**
 ```bash
 # Reset mock server state
-curl -X POST http://localhost:8000/reset
+curl -X POST http://127.0.0.1:8000/reset
+
+# Of via test script
+python tests/test_end_to_end.py  # Automatisch reset
 ```
 
 **JSON validation errors:**
 ```bash
 # Check schema bestand
 # Zorg dat --schema pad correct is
-python run_import_and_export.py --input examples/process_onboard_account.json --schema examples/process_schema.json
+cd tests
+python run_import_and_export.py \
+  --input ../examples/process_onboard_account.json \
+  --schema ../config/schema.json
 ```
+
+**Lege log files:**
+```bash
+# Zorg dat mock server draait
+# Log files worden gegenereerd met FlushFileHandler
+# Check tests/ folder voor *.log files
+ls -la tests/*.log
+```
+
+## Support
+
+Voor vragen of issues:
+1. Check DOCUMENTATION.md voor gedetailleerde info
+2. Check API_COMPLIANCE.md voor API details
+3. Review log files in tests/ folder
+4. Run tests met `-v` flag voor verbose output
