@@ -33,6 +33,7 @@ class DigitalCoachImporter:
             "topicTypeNamespace": topic.topic_type["namespace"],
             "parentId": topic.parent_id,
             "metadata": topic.metadata,
+            "tags": topic.metadata.get("tags", []),
         }
 
         try:

@@ -44,7 +44,10 @@ class DigitalCoachMapper:
             title=process.get("title", "Digitale Coach"),
             topic_type=home_type,
             parent_id=None,
-            metadata={"description": process.get("description", "")},
+            metadata={
+                "description": process.get("description", ""),
+                "tags": process.get("tags", [])
+            },
         )
 
         # Support both tasks and steps
@@ -68,7 +71,10 @@ class DigitalCoachMapper:
             title=task["title"],
             topic_type=task_type,
             parent_id=parent_id,
-            metadata={"description": task.get("description", "")},
+            metadata={
+                "description": task.get("description", ""),
+                "tags": task.get("tags", [])
+            },
         )
 
         for step in task.get("steps", []):
@@ -87,7 +93,10 @@ class DigitalCoachMapper:
             title=step["title"],
             topic_type=step_type,
             parent_id=parent_id,
-            metadata={"description": step.get("description", "")},
+            metadata={
+                "description": step.get("description", ""),
+                "tags": step.get("tags", [])
+            },
         )
 
         for instr in step.get("instructions", []):
@@ -106,5 +115,8 @@ class DigitalCoachMapper:
             title=instr["title"],
             topic_type=instr_type,
             parent_id=parent_id,
-            metadata={"content": instr.get("content", "")},
+            metadata={
+                "content": instr.get("content", ""),
+                "tags": instr.get("tags", [])
+            },
         )
