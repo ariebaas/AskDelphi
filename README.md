@@ -54,8 +54,20 @@ DEBUG=false
 
 Complete test suite met logging:
 
+#### Linux/macOS
 ```bash
 # Vanuit project root
+python tests/test_end_to_end.py
+```
+
+#### Windows (PowerShell)
+```powershell
+# Zorg dat mock server draait (in ander PowerShell venster)
+# cd ..\digitalecoach_server
+# .\venv\Scripts\Activate.ps1
+# uvicorn mock_server:app --reload --port 8000
+
+# In client directory
 python tests/test_end_to_end.py
 ```
 
@@ -69,10 +81,19 @@ Dit voert uit:
 
 Complete workflow: importeer een proces en exporteer alle content in één keer:
 
+#### Linux/macOS
 ```bash
 cd tests
 python run_import_and_export.py \
   --input ../examples/process_onboard_account.json \
+  --schema ../config/schema.json
+```
+
+#### Windows (PowerShell)
+```powershell
+cd tests
+python run_import_and_export.py `
+  --input ../examples/process_onboard_account.json `
   --schema ../config/schema.json
 ```
 
@@ -89,7 +110,14 @@ Dit is de aanbevolen manier omdat het:
 
 ### 3. Alleen Exporteren
 
+#### Linux/macOS
 ```bash
+cd tests
+python exporter.py
+```
+
+#### Windows (PowerShell)
+```powershell
 cd tests
 python exporter.py
 ```
