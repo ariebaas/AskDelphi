@@ -41,4 +41,5 @@ venv.bak/
 .env.local
 export/
 *.json
-!examples/process_onboard_account.json
+!examples/
+!examples/**
