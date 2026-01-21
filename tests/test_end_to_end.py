@@ -14,11 +14,18 @@ import os
 import logging
 import requests
 from datetime import datetime
+from pathlib import Path
 
 from askdelphi.session import AskDelphiSession
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 from config import env
+
+# Clean up cached tokens before running tests
+cache_file = Path(".askdelphi_tokens.json")
+if cache_file.exists():
+    cache_file.unlink()
+    logging.info("Cleaned up cached tokens")
 
 
 # Configure logging to write to both file and console
@@ -89,7 +96,7 @@ def test_authentication_and_connection():
             nt_account=env.ASKDELPHI_NT_ACCOUNT,
             acl=env.ASKDELPHI_ACL,
             project_id=env.ASKDELPHI_PROJECT_ID,
-            use_auth_cache=env.USE_AUTH_CACHE,
+            use_auth_cache=False,
         )
         logging.info("✓ AskDelphiSession created successfully")
         assert session is not None
@@ -297,7 +304,7 @@ def test_import_onboard_account():
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
-        use_auth_cache=env.USE_AUTH_CACHE,
+        use_auth_cache=False,
     )
 
     logging.info("Created AskDelphiSession for base_url=%s, project_id=%s", env.ASKDELPHI_BASE_URL, env.ASKDELPHI_PROJECT_ID)

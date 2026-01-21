@@ -15,6 +15,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Clean up cached tokens before running
+cache_file = Path(".askdelphi_tokens.json")
+if cache_file.exists():
+    cache_file.unlink()
+
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
