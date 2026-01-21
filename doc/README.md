@@ -216,33 +216,50 @@ python exporter.py [--output <path>]
 
 ```
 digitalecoach_client/
-├── askdelphi/                   # AskDelphi API client
-│   ├── __init__.py
-│   ├── session.py              # Session management & API calls
-│   ├── exceptions.py           # Custom exceptions
-│   ├── checkout.py             # Checkout/checkin operations
-│   ├── parts.py                # Parts management
-│   └── project.py              # Project management
-├── importer/                    # Import pipeline
-│   ├── mapper.py               # JSON → Topic tree mapper
-│   ├── importer.py             # Topic importer
-│   └── validator.py            # JSON schema validator
-├── config/
-│   ├── env.py                  # Environment configuration
-│   ├── schema.json             # Process JSON schema
-│   └── topic_types.py          # Topic type definitions
-├── examples/
-│   └── process_onboard_account.json  # Example process
+├── src/                         # Source code (organized structure)
+│   ├── api_client/              # AskDelphi API client
+│   │   ├── __init__.py
+│   │   ├── session.py           # Session management & API calls
+│   │   ├── exceptions.py        # Custom exceptions
+│   │   ├── auth.py              # Authentication & token management
+│   │   ├── checkout.py          # Checkout/checkin operations
+│   │   ├── parts.py             # Parts management
+│   │   └── project.py           # Project management
+│   ├── importer/                # Import pipeline
+│   │   ├── mapper.py            # JSON → Topic tree mapper
+│   │   ├── importer.py          # Topic importer
+│   │   └── validator.py         # JSON schema validator
+│   └── config/
+│       ├── env.py               # Environment configuration
+│       └── topic_types.py       # Topic type definitions
 ├── tests/                       # Test suite & CLI tools
-│   ├── test_end_to_end.py      # Complete e2e tests
-│   ├── exporter.py             # Export utility
+│   ├── test_auth.py             # Authentication tests
+│   ├── test_end_to_end.py       # Complete e2e tests
+│   ├── test_sanering_import.py  # Sanering import tests
+│   ├── exporter.py              # Export utility
 │   ├── run_import_and_export.py # Import + export workflow
-│   └── *.log                   # Timestamped log files
+│   ├── conftest.py              # Pytest configuration
+│   └── *.log                    # Timestamped test logs
+├── log/                         # Log files
+│   ├── import_*.log             # main.py import logs
+│   ├── export_*.json            # main.py export results
+│   └── test/                    # Test-specific logs
+│       ├── pytest_*.log         # Pytest logs
+│       ├── sanering_test_*.log  # Sanering test logs
+│       └── export_*.json        # Test export results
+├── procesbeschrijving/          # Process definitions
+│   ├── process_sanering.json    # Sanering process
+│   └── process_schema.json      # Process schema
+├── archief/                     # Archive folder
+├── doc/
+│   ├── API_COMPLIANCE.md        # API compliance report
+│   ├── DOCUMENTATION.md         # Complete documentation
+│   ├── PRODUCTIE_SETUP.md       # Production setup instructions
+│   └── README.md                # Dit bestand
+├── main.py                      # Main import script
 ├── .env                         # Environment variables
 ├── requirements.txt             # Python dependencies
-├── API_COMPLIANCE.md            # API compliance report
-├── DOCUMENTATION.md             # Complete documentation
-└── README.md                    # Dit bestand
+└── .gitignore                   # Git ignore rules
 ```
 
 ## Workflow Details

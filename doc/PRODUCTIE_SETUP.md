@@ -1,5 +1,18 @@
 # Hoe main.py runnen?
 
+## Projectstructuur
+
+De client code is georganiseerd in een `src/` folder:
+- `src/api_client/` – AskDelphi API client
+- `src/importer/` – Import pipeline
+- `src/config/` – Configuration
+
+Logs worden opgeslagen in:
+- `log/import_*.log` – main.py import logs
+- `log/export_*.json` – main.py export results
+- `log/test/pytest_*.log` – Test logs
+- `log/test/sanering_test_*.log` – Sanering test logs
+
 ## Mock Server (Testen)
 
 Open PowerShell en voer dit uit:
@@ -13,6 +26,10 @@ $env:ASKDELPHI_ACL='Everyone'
 $env:ASKDELPHI_PROJECT_ID='dummy-project'
 $env:USE_AUTH_CACHE='false'
 python main.py --input procesbeschrijving/process_sanering.json --schema procesbeschrijving/process_schema.json
+
+Output:
+- Log: log/import_YYYYMMDD_HHMMSS.log
+- Export: log/export_YYYYMMDD_HHMMSS.json
 
 ## Productie (Traditioneel)
 
@@ -28,6 +45,10 @@ $env:ASKDELPHI_PROJECT_ID='your-project'
 $env:USE_AUTH_CACHE='false'
 python main.py --input procesbeschrijving/process_sanering.json --schema procesbeschrijving/process_schema.json
 
+Output:
+- Log: log/import_YYYYMMDD_HHMMSS.log
+- Export: log/export_YYYYMMDD_HHMMSS.json
+
 ## Productie (Token Caching)
 
 Vervang de waarden en voer uit:
@@ -39,3 +60,16 @@ $env:ASKDELPHI_PORTAL_CODE='your-portal-code'
 $env:ASKDELPHI_NT_ACCOUNT='your-username'
 $env:USE_AUTH_CACHE='true'
 python main.py --input procesbeschrijving/process_sanering.json --schema procesbeschrijving/process_schema.json
+
+Output:
+- Log: log/import_YYYYMMDD_HHMMSS.log
+- Export: log/export_YYYYMMDD_HHMMSS.json
+
+## Tests runnen
+
+Alle tests (20 tests):
+python -m pytest tests/ -v
+
+Output:
+- Logs: log/test/pytest_YYYYMMDD_HHMMSS.log
+- Sanering test logs: log/test/sanering_test_YYYYMMDD_HHMMSS.log
