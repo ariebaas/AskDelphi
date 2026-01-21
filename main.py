@@ -19,6 +19,11 @@ from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 logger = logging.getLogger(__name__)
 
 
