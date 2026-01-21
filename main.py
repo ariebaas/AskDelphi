@@ -23,7 +23,7 @@ from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 
-log_dir = os.path.join(os.path.dirname(__file__), 'log', 'test')
+log_dir = os.path.join(os.path.dirname(__file__), 'log')
 os.makedirs(log_dir, exist_ok=True)
 
 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -134,8 +134,8 @@ def run(input_file: str, schema_file: str) -> None:
     try:
         export_data = session.get("/export")
         
-        # Save export to JSON file
-        export_file = os.path.join(log_dir, f'export_{timestamp}.json')
+        # Save export to JSON file in /log
+        export_file = os.path.join(os.path.dirname(__file__), 'log', f'export_{timestamp}.json')
         with open(export_file, 'w', encoding='utf-8') as f:
             json.dump(export_data, f, indent=2, ensure_ascii=False)
         
