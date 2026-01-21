@@ -27,19 +27,24 @@ class FlushFileHandler(logging.FileHandler):
         self.flush()
 
 file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
-file_handler.setLevel(logging.INFO)
+# Set file handler to DEBUG if env_config.DEBUG is True, otherwise INFO
+file_handler.setLevel(logging.DEBUG if env_config.DEBUG else logging.INFO)
 formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
 file_handler.setFormatter(formatter)
 
 console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
+# Set console handler to DEBUG if env_config.DEBUG is True, otherwise INFO
+console_handler.setLevel(logging.DEBUG if env_config.DEBUG else logging.INFO)
 console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG if env_config.DEBUG else logging.INFO)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
+
+if env_config.DEBUG:
+    logging.info("DEBUG MODE ENABLED - Verbose logging active")
 
 
 def wait_for_mockserver(url, timeout=10):

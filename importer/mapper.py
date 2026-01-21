@@ -4,10 +4,14 @@ This module translates a hierarchical process definition into
 a tree of TopicNode objects that can be imported into AskDelphi.
 """
 
+import logging
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from config.topic_types import DEFAULT_TOPIC_TYPES
+import config.env as env_config
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -32,7 +36,12 @@ class DigitalCoachMapper:
 
     def map_process(self, process: dict) -> List[TopicNode]:
         """Map the root process into a list of root TopicNode objects."""
+        logger.info(f"Mapping process: {process.get('id')} - {process.get('title')}")
+        if env_config.DEBUG:
+            logger.debug(f"  Description: {process.get('description', 'N/A')}")
+            logger.debug(f"  Tags: {process.get('tags', [])}")
         root_topic = self._map_homepage(process)
+        logger.info(f"✓ Process mapped to 1 root topic with {len(root_topic.children)} children")
         return [root_topic]
 
     def _map_homepage(self, process: dict) -> TopicNode:
@@ -64,6 +73,9 @@ class DigitalCoachMapper:
 
     def _map_task(self, task: dict, parent_id: str) -> TopicNode:
         """Map a single task and its steps."""
+        if env_config.DEBUG:
+            logger.debug(f"  Mapping task: {task.get('id')} - {task.get('title')}")
+        
         # Use specified topic type or default to Task
         topic_type_name = task.get("topicType", "Task")
         task_type = self.topic_types.get(topic_type_name, self.topic_types.get("Task", self.topic_types["Digitale Coach Stap"]))
@@ -78,7 +90,11 @@ class DigitalCoachMapper:
             tags=task.get("tags", []),
         )
 
-        for step in task.get("steps", []):
+        steps = task.get("steps", [])
+        if env_config.DEBUG:
+            logger.debug(f"    → Mapping {len(steps)} step(s)")
+        
+        for step in steps:
             step_node = self._map_step(step, parent_id=node.id)
             node.children.append(step_node)
 
@@ -86,6 +102,9 @@ class DigitalCoachMapper:
 
     def _map_step(self, step: dict, parent_id: str) -> TopicNode:
         """Map a single process step and its instructions."""
+        if env_config.DEBUG:
+            logger.debug(f"      Mapping step: {step.get('id')} - {step.get('title')}")
+        
         # Use specified topic type or default to Digitale Coach Stap
         topic_type_name = step.get("topicType", "Digitale Coach Stap")
         step_type = self.topic_types.get(topic_type_name, self.topic_types["Digitale Coach Stap"])
@@ -100,7 +119,11 @@ class DigitalCoachMapper:
             tags=step.get("tags", []),
         )
 
-        for instr in step.get("instructions", []):
+        instructions = step.get("instructions", [])
+        if env_config.DEBUG:
+            logger.debug(f"        → Mapping {len(instructions)} instruction(s)")
+        
+        for instr in instructions:
             instr_node = self._map_instruction(instr, parent_id=node.id)
             node.children.append(instr_node)
 
@@ -108,6 +131,9 @@ class DigitalCoachMapper:
 
     def _map_instruction(self, instr: dict, parent_id: str) -> TopicNode:
         """Map a single instruction under a step."""
+        if env_config.DEBUG:
+            logger.debug(f"          Mapping instruction: {instr.get('id')} - {instr.get('title')}")
+        
         # Use specified topic type or default to Digitale Coach Instructie
         topic_type_name = instr.get("topicType", "Digitale Coach Instructie")
         instr_type = self.topic_types.get(topic_type_name, self.topic_types["Digitale Coach Instructie"])

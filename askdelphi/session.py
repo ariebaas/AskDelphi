@@ -138,7 +138,7 @@ class AskDelphiSession:
         }
 
         if DEBUG:
-            print("\n🔐 [DEBUG] Requesting new session token...")
+            print("\n[DEBUG] Requesting new session token...")
 
         response = requests.post(f"{self.base_url}/auth/session", json=auth_payload)
 
@@ -152,5 +152,5 @@ class AskDelphiSession:
         self.token_expiry = time.time() + data.get("expiresIn", 3600)
 
         if DEBUG:
-            print(f"🔑 [DEBUG] New session token: {self.session_token}")
-            print(f"⏳ [DEBUG] Token expires in: {data.get('expiresIn', 3600)} sec")
+            print(f"[DEBUG] New session token: {self.session_token}")
+            print(f"[DEBUG] Token expires in: {data.get('expiresIn', 3600)} sec")
