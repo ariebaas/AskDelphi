@@ -133,6 +133,11 @@ class TestAskDelphiAuth:
         assert auth.project_id == "def-456"
         assert auth.acl_entry_id == "ghi-789"
 
+    @patch.dict('os.environ', {
+        'ASKDELPHI_PROJECT_ID': '',
+        'ASKDELPHI_ACL_ENTRY_ID': '',
+        'ASKDELPHI_CMS_URL': ''
+    }, clear=False)
     def test_auth_initialization_missing_credentials(self):
         """Test dat authenticatie fout genereert wanneer credentials ontbreken."""
         with pytest.raises(ValueError):
