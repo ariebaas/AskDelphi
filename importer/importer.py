@@ -5,10 +5,10 @@ en part updates met behulp van AskDelphiSession en helper services.
 """
 
 import logging
-from askdelphi.session import AskDelphiSession
-from askdelphi.checkout import CheckoutService
-from askdelphi.parts import PartService
-from askdelphi.exceptions import AskDelphiAuthError
+from api_client.session import AskDelphiSession
+from api_client.checkout import CheckoutService
+from api_client.parts import PartService
+from api_client.exceptions import AskDelphiAuthError
 from importer.mapper import TopicNode
 import config.env as env_config
 

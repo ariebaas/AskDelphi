@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
 import pytest
 
-from askdelphi.auth import parse_cms_url, TokenCache, AskDelphiAuth
+from api_client.auth import parse_cms_url, TokenCache, AskDelphiAuth
 
 
 class TestParseCmsUrl:

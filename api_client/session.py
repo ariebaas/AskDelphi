@@ -16,8 +16,8 @@ import requests
 from dotenv import load_dotenv
 
 from config.env import DEBUG
-from askdelphi.exceptions import AskDelphiAuthError
-from askdelphi.auth import AskDelphiAuth, parse_cms_url
+from api_client.exceptions import AskDelphiAuthError
+from api_client.auth import AskDelphiAuth, parse_cms_url
 
 
 class AskDelphiSession:

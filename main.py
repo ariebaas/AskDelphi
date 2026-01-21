@@ -10,7 +10,7 @@ Dit script:
 import json
 import argparse
 
-from askdelphi.session import AskDelphiSession
+from api_client.session import AskDelphiSession
 from config import env
 from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper

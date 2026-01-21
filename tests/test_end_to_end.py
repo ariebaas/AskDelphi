@@ -16,7 +16,7 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
-from askdelphi.session import AskDelphiSession
+from api_client.session import AskDelphiSession
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 from config import env

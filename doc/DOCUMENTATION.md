@@ -148,7 +148,9 @@ The client now supports intelligent authentication with automatic token caching:
 
 #### Python Code Example
 ```python
-from askdelphi.session import AskDelphiSession
+from api_client.session import AskDelphiSession
+from api_client.checkout import CheckoutService
+from api_client.parts import PartService
 from config import env
 
 # Initialize with CMS URL (automatically extracts credentials)

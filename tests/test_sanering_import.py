@@ -16,7 +16,7 @@ os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from askdelphi.session import AskDelphiSession
+from api_client.session import AskDelphiSession
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 import config.env as env_config
