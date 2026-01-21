@@ -8,12 +8,10 @@ Deze tests:
 """
 
 import json
-import subprocess
 import time
 import os
 import logging
 import requests
-from datetime import datetime
 from pathlib import Path
 
 from src.api_client.session import AskDelphiSession
@@ -27,31 +25,8 @@ if cache_file.exists():
 
 os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
-log_file = os.path.join(os.path.dirname(__file__), f"e2e_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
-log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
-
-
-class FlushFileHandler(logging.FileHandler):
-    def emit(self, record):
-        super().emit(record)
-        self.flush()
-
-
-file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
-file_handler.setLevel(logging.INFO)
-formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
-formatter.default_msec_format = "%s.%03d"
-file_handler.setFormatter(formatter)
-
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
-
-# Root logger
+# Logging is configured by conftest.py for all tests
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
 
 
 def wait_for_mockserver(url: str, timeout: int = 10):
