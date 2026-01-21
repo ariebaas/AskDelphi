@@ -1,0 +1,373 @@
+"1c36acca-3a2c-442f-aaee-59932753d7f4": {
+      "id": "1c36acca-3a2c-442f-aaee-59932753d7f4",
+      "version_id": "b1897947-2258-4429-b5b1-cd2ea701171a",
+      "title": "Kwijtschelding (MKB)",
+      "topic_type_id": "7d332fbb-44f5-469f-b570-874e701e526b",
+      "topic_type_title": "Digitale Coach Procespagina",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:02:46.393",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "fe932c90-e383-48c6-a3a5-beaa41ebe3a3",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "93989da9-4452-4e91-b347-7732712da4ce",
+          "cba95ed8-f33e-48e6-ace6-b12b1ffb2788",
+          "5b5e9e18-2b56-418e-b4a0-d4042145c232",
+          "4032fb63-c6d7-488a-9738-64345ed56bfe",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+          "f922f105-013e-4486-929a-ec0a8d0692af"
+        ],
+        "parent": null
+      },
+      "_checksum": "sha256:a0db07df1c42a4de"
+    }, 
+ 
+ "cba95ed8-f33e-48e6-ace6-b12b1ffb2788": {
+      "id": "cba95ed8-f33e-48e6-ace6-b12b1ffb2788",
+      "version_id": "feaff4f2-fc80-4d08-80bc-021fae1754de",
+      "title": "Bekijk verzoek",
+      "topic_type_id": "6aba8437-c8df-42d2-a868-840847c124ca",
+      "topic_type_title": "Taak",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:07:44.21",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "a6accfc8-d1f4-45e8-9472-7deea30a40f8",
+          "9fe06b6c-b415-4787-8103-3cfe73fdca03",
+          "07b9d857-f9c6-480f-b2ad-e426636df765",
+          "9a5637e7-143c-46bf-acd3-952994fe94ca",
+          "b78eb9d8-1a27-4bbb-a542-3102e39deb86",
+          "d8fba97e-e900-4080-b1b5-cee9057bf8e0",
+          "ee4d99e0-335d-42eb-8051-411a5e296a97",
+          "60f6c267-3947-4ada-9f2a-7b413a078b70",
+          "a67c9356-c298-4b8a-8a67-d11ef49d30f2",
+          "43da34e7-1431-4a54-a805-ab776b2214e6",
+          "65b9d13f-6bea-432c-ad63-03de77fbc362",
+          "93bb06c6-0dfa-4036-86e4-88b1e4460d76",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec"
+        ],
+        "parent": "1c36acca-3a2c-442f-aaee-59932753d7f4"
+      },
+      "_checksum": "sha256:924868cf1bcdcf30"
+    }, 
+ 
+ "b78eb9d8-1a27-4bbb-a542-3102e39deb86": {
+      "id": "b78eb9d8-1a27-4bbb-a542-3102e39deb86",
+      "version_id": "a63f7109-1f1e-49a1-a498-90398bfc4b16",
+      "title": "Controleer op aanwezigheid formulier",
+      "topic_type_id": "c568af9a-6c89-45cf-a580-bc94e1c62ae3",
+      "topic_type_title": "Stap",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:05:17.437",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "93bb06c6-0dfa-4036-86e4-88b1e4460d76",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+          "2140a2fa-02dc-41d9-90af-aba064fdb3fd",
+          "efa78689-69c4-4667-89bb-a5d43a136c1a"
+        ],
+        "parent": "cba95ed8-f33e-48e6-ace6-b12b1ffb2788"
+      },
+      "_checksum": "sha256:2f02bb565f0ca645"
+    },
+
+"efa78689-69c4-4667-89bb-a5d43a136c1a": {
+      "id": "efa78689-69c4-4667-89bb-a5d43a136c1a",
+      "version_id": "42364e19-a55a-45f5-bf5f-630847a1432c",
+      "title": "Sanering (Taskforce)",
+      "topic_type_id": "7d332fbb-44f5-469f-b570-874e701e526b",
+      "topic_type_title": "Digitale Coach Procespagina",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:02:02.817",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "2ca8f2ff-bfd0-440c-90a1-3ff86c6095e6",
+          "e7bf21e0-ddb7-488a-8faa-2df124e52ec1",
+          "a3a0b60c-703d-45d1-b2c4-66eaf0f8bf4f",
+          "e7bf21e0-ddb7-488a-8faa-2df124e52ec1",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "5f441623-1aa7-4a63-9acc-ae47e330c68a",
+          "86c81037-0a10-477a-a842-af5354252f26",
+          "a3a0b60c-703d-45d1-b2c4-66eaf0f8bf4f",
+          "812812f2-4577-4686-8544-31ffd0f13887",
+          "955f215f-75c5-4f6f-a2f6-c44865689190",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+          "86c81037-0a10-477a-a842-af5354252f26",
+          "5f441623-1aa7-4a63-9acc-ae47e330c68a",
+          "fe932c90-e383-48c6-a3a5-beaa41ebe3a3",
+          "f922f105-013e-4486-929a-ec0a8d0692af",
+          "955f215f-75c5-4f6f-a2f6-c44865689190",
+          "812812f2-4577-4686-8544-31ffd0f13887"
+        ],
+        "parent": "b78eb9d8-1a27-4bbb-a542-3102e39deb86"
+      },
+      "_checksum": "sha256:1623ab20c2c00a8e"
+    },
+
+"5f441623-1aa7-4a63-9acc-ae47e330c68a": {
+      "id": "5f441623-1aa7-4a63-9acc-ae47e330c68a",
+      "version_id": "58e6cf6d-c723-4b85-86f4-4faa1048ca24",
+      "title": "Selecteer zaak",
+      "topic_type_id": "6aba8437-c8df-42d2-a868-840847c124ca",
+      "topic_type_title": "Taak",
+      "created_at": null,
+      "modified_at": "2025-10-03T10:59:51.343",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "514b9081-be14-4aba-b07f-0cff39213a91", # "Open postbak in WAB"
+          "25c21bdc-ca98-46bf-a95b-65c1382b7040", # "Selecteer alleen kwijtscheldings/ saneringsverzoeken"
+          "71441259-488b-4198-96fd-783a36c9858e", # "In behandeling nemen poststuk saneringen"
+          "60391bdd-0bfa-4181-98ff-f6ab8534b572", # "Controleer taken op je naam"
+          "54215f44-b4e3-43f8-bc87-e15e4d8de414", # "WAB-KB"
+          "81edcdae-337a-4c11-a275-8f2a85be1033", # 
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec"  # "Documenttype Hierarchie"
+        ],
+        "parent": "efa78689-69c4-4667-89bb-a5d43a136c1a"
+      },
+      "_checksum": "sha256:f2786531d1a2ab58"
+    },
+
+
+ "f80a0410-8278-4f1c-86d4-efd51804d1ec": {
+      "id": "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+      "version_id": "372e63ce-bc31-452d-90ec-a801d3b00050",
+      "title": "Documenttype",
+      "topic_type_id": "776892da-9f31-4856-8f3d-9196fceb3755",
+      "topic_type_title": "Hiërarchie",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:04:03.537",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [],
+        "parent": "acde958e-0b1f-4fac-9cf2-0270bd1dac15"
+      },
+      "_checksum": "sha256:b525d4c7f20c732c"
+    },
+
+    "514b9081-be14-4aba-b07f-0cff39213a91": {
+      "id": "514b9081-be14-4aba-b07f-0cff39213a91",
+      "version_id": "0a8b9611-7dbe-424c-bb20-36a02a509b4a",
+      "title": "Open postbak in WAB",
+      "topic_type_id": "c568af9a-6c89-45cf-a580-bc94e1c62ae3",
+      "topic_type_title": "Stap",
+      "created_at": null,
+      "modified_at": "2025-10-03T10:59:43.063",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec", # "Documenttype Hierarchie"
+          "81edcdae-337a-4c11-a275-8f2a85be1033", # "Ketens"
+          "f651b5a3-3e2b-4aaa-8206-decaa7670f4e"  # "Externe link"
+        ],
+        "parent": "5f441623-1aa7-4a63-9acc-ae47e330c68a"
+      },
+      "_checksum": "sha256:f734f1ed358bd997"
+    },
+
+    "f651b5a3-3e2b-4aaa-8206-decaa7670f4e": {
+      "id": "f651b5a3-3e2b-4aaa-8206-decaa7670f4e",
+      "version_id": "8bcdc86a-683f-48ed-bf91-1e2d612c13a9",
+      "title": "wab",
+      "topic_type_id": "64707088-30a9-45f3-a4cf-8d60e43ac965",
+      "topic_type_title": "Externe link",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:02:48.41",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [],
+        "parent": "514b9081-be14-4aba-b07f-0cff39213a91"
+      },
+      "_checksum": "sha256:e2184b2feffd1173"
+    },
+
+     "25c21bdc-ca98-46bf-a95b-65c1382b7040": {
+      "id": "25c21bdc-ca98-46bf-a95b-65c1382b7040",
+      "version_id": "1527623a-1f61-4d4b-adc5-207f61666b13",
+      "title": "Selecteer alleen kwijtscheldings/ saneringsverzoeken",
+      "topic_type_id": "c568af9a-6c89-45cf-a580-bc94e1c62ae3",
+      "topic_type_title": "Stap",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:03:30.85",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "4280225a-0b04-47e9-96a4-d9c82fd799a7"
+        ],
+        "parent": "5f441623-1aa7-4a63-9acc-ae47e330c68a"
+      },
+      "_checksum": "sha256:56e03233faf72542"
+    },
+
+     "71441259-488b-4198-96fd-783a36c9858e": {
+      "id": "71441259-488b-4198-96fd-783a36c9858e",
+      "version_id": "ba12d23a-f25e-47ef-9da6-bfc31c4c9a2e",
+      "title": "In behandeling nemen poststuk saneringen",
+      "topic_type_id": "c568af9a-6c89-45cf-a580-bc94e1c62ae3",
+      "topic_type_title": "Stap",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:00:59.01",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "3203f553-cad6-4deb-92d0-fbb05323c683",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec",
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "4e372304-e2ed-49d4-b2ee-747a515113a3"
+        ],
+        "parent": "5f441623-1aa7-4a63-9acc-ae47e330c68a"
+      },
+      "_checksum": "sha256:41e174b2f31fa1bb"
+    },
+
+    "60391bdd-0bfa-4181-98ff-f6ab8534b572": {
+      "id": "60391bdd-0bfa-4181-98ff-f6ab8534b572",
+      "version_id": "53ae999c-fb6a-41e2-87eb-dc82e545f3c1",
+      "title": "Controleer taken op je naam",
+      "topic_type_id": "c568af9a-6c89-45cf-a580-bc94e1c62ae3",
+      "topic_type_title": "Stap",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:03:29.097",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [
+          "81edcdae-337a-4c11-a275-8f2a85be1033",
+          "0642c538-7932-4b73-9709-b71f86df3d5a",
+          "f80a0410-8278-4f1c-86d4-efd51804d1ec"
+        ],
+        "parent": "5f441623-1aa7-4a63-9acc-ae47e330c68a"
+      },
+      "_checksum": "sha256:4c2fcc74553e3fc5"
+    },
+
+     "54215f44-b4e3-43f8-bc87-e15e4d8de414": {
+      "id": "54215f44-b4e3-43f8-bc87-e15e4d8de414",
+      "version_id": "ea738d20-5a19-4261-a038-bf807158b09e",
+      "title": "WAB-KB",
+      "topic_type_id": "ece342d0-593a-4c22-828f-8db6934ecec3",
+      "topic_type_title": "Intranet",
+      "created_at": null,
+      "modified_at": "2025-10-03T11:04:57.45",
+      "tags": [],
+      "parts": {
+        "topicEditorData": {
+          "id": "topicEditorData",
+          "name": "topicEditorData",
+          "type": null,
+          "content": null
+        }
+      },
+      "relations": {
+        "related": [],
+        "children": [],
+        "parent": "a3a0b60c-703d-45d1-b2c4-66eaf0f8bf4f"
+      },
+      "_checksum": "sha256:d65c5ba9857321b3"
+    },

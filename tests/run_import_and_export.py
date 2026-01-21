@@ -5,7 +5,7 @@ This script:
 2. Exports all content to a JSON file
 
 Usage:
-    python run_import_and_export.py --input ../examples/process_onboard_account.json --output export_with_content.json
+    python run_import_and_export.py --input ../procesbeschrijving/process_onboard_account.json --output export_with_content.json
 """
 
 import argparse

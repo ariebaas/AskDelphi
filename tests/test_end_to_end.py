@@ -261,7 +261,7 @@ def test_import_onboard_account():
     requests.post(f"{env.ASKDELPHI_BASE_URL}/reset")
     logging.info("Mockserver reset complete")
 
-    example_path = os.path.join(os.path.dirname(__file__), "..", "examples", "process_onboard_account.json")
+    example_path = os.path.join(os.path.dirname(__file__), "..", "procesbeschrijving", "process_onboard_account.json")
     with open(example_path, "r", encoding="utf-8-sig") as f:
         data = json.load(f)
 

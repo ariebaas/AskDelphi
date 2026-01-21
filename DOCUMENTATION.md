@@ -243,7 +243,7 @@ Output:
 ```bash
 cd tests
 python run_import_and_export.py \
-  --input ../examples/process_onboard_account.json \
+  --input ../procesbeschrijving/process_onboard_account.json \
   --schema ../config/schema.json
 ```
 
@@ -503,8 +503,8 @@ digitalecoach_client/
 │   ├── env.py             # Environment configuration
 │   ├── schema.json        # Process schema
 │   └── topic_types.py     # Topic type definitions
-├── examples/
-│   └── process_onboard_account.json  # Example process
+├── procesbeschrijving/
+│   └── process_onboard_account.json  # Process description
 ├── tests/
 │   ├── test_end_to_end.py           # E2E tests
 │   ├── exporter.py                  # Export utility

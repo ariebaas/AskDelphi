@@ -75,7 +75,7 @@ def test_sanering_import():
     logging.info("✓ Mockserver reset complete")
     
     # Load process_sanering.json
-    example_path = os.path.join(os.path.dirname(__file__), "..", "examples", "process_sanering.json")
+    example_path = os.path.join(os.path.dirname(__file__), "..", "procesbeschrijving", "process_sanering.json")
     with open(example_path, "r", encoding="utf-8-sig") as f:
         data = json.load(f)
     
