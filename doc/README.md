@@ -17,10 +17,10 @@ Client applicatie voor het importeren en exporteren van processen naar/van AskDe
 
 ### Vereisten
 - Python 3.8+
-- pip
+- pip of uv
 - Digitale Coach Mock Server draaiend op `http://localhost:8000`
 
-### Setup
+### Setup met pip (standaard)
 
 ```bash
 # Clone of navigeer naar project
@@ -33,6 +33,25 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 # Installeer dependencies
 pip install -r requirements.txt
 ```
+
+### Setup met uv (sneller & makkelijker)
+
+```bash
+# Clone of navigeer naar project
+cd digitalecoach_client
+
+# Installeer dependencies (uv maakt automatisch venv aan)
+uv sync
+
+# Activeer omgeving
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+```
+
+**Voordelen van uv:**
+- ⚡ 10-100x sneller dan pip
+- 📦 Automatische virtual environment
+- 🔒 Deterministische dependency resolution
+- 🎯 Eenvoudiger dependency management
 
 ## Configuratie
 
