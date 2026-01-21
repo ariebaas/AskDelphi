@@ -139,7 +139,7 @@ class TestAskDelphiAuth:
             AskDelphiAuth(tenant_id="tenant-123")
 
     @patch.dict('os.environ', {'ASKDELPHI_PORTAL_CODE': 'ABC123-XYZ789'})
-    @patch('askdelphi.auth.requests.Session')
+    @patch('api_client.auth.requests.Session')
     def test_authenticate_with_portal_code(self, mock_session):
         """Test authentication with portal code."""
         auth = AskDelphiAuth(
@@ -166,7 +166,7 @@ class TestAskDelphiAuth:
         mock_session.return_value.get.return_value = mock_response
         
         # Mock API token response
-        with patch('askdelphi.auth.requests.get') as mock_get:
+        with patch('api_client.auth.requests.get') as mock_get:
             import base64
             payload = {
                 "exp": int(time.time()) + 3600,
@@ -229,10 +229,10 @@ class TestAskDelphiAuth:
 class TestSessionIntegration:
     """Test integration with AskDelphiSession."""
 
-    @patch('askdelphi.session.AskDelphiAuth')
+    @patch('api_client.session.AskDelphiAuth')
     def test_session_with_cms_url(self, mock_auth_class):
         """Test session initialization with CMS URL."""
-        from askdelphi.session import AskDelphiSession
+        from api_client.session import AskDelphiSession
         
         cms_url = "https://company.askdelphi.com/cms/tenant/abc-123/project/def-456/acl/ghi-789/page"
         
@@ -245,10 +245,10 @@ class TestSessionIntegration:
         assert session.project_id == "def-456"
         assert session.acl == ["ghi-789"]
 
-    @patch('askdelphi.session.AskDelphiAuth')
+    @patch('api_client.session.AskDelphiAuth')
     def test_session_uses_auth_manager(self, mock_auth_class):
         """Test that session uses auth manager when available."""
-        from askdelphi.session import AskDelphiSession
+        from api_client.session import AskDelphiSession
         
         mock_auth = Mock()
         mock_auth.get_api_token.return_value = "api_token_123"
