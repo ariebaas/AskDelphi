@@ -13,6 +13,9 @@ cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
 
+# Force traditional auth mode for e2e tests (no caching complexity)
+os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
+
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 

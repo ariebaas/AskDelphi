@@ -25,7 +25,9 @@ from config import env
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
-    logging.info("Cleaned up cached tokens")
+
+# Force traditional auth mode for e2e tests (no caching complexity)
+os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
 
 # Configure logging to write to both file and console
