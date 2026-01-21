@@ -113,27 +113,8 @@
             "instructions": [
               {
                 "id": "instr-2-1-1",
-                "title": "",
-                "content": "
-                    •	Je gaat de vermogensbestanddelen beoordelen in relatie met de openstaande schuld waar sanering voor wordt gevraagd. 
-                    Let op:
-                    Het moet de formele belastingschuld betreffen. Zie artikel 26.3.4 Leidraad Invordering 2008 en paragraaf 43.4.1 IIB.
-
-                    Vermogensbestanddelen
-                    •	Log in Inzicht en kies voor de knop 'invordering'.
-                    •	Vul daar het BSN/RSIN in. Je komt dan in het klantprofiel.
-                    •	Linksboven zie je drie streepjes waar je op klikt nu kun je verschillende optie aanklikken. Voor de invordering is vooral van belang de knop “invordering” hier zie je alle vermogensbestanddelen die bij de Belastingdienst bekend zijn 
-                    LET OP: 
-                    De gegevens met betrekking tot panden is niet volledig. Hiervoor moet je altijd het Kadaster (laten) raadplegen. 
-
-                    •	Je gaat vervolgens RBG raadplegen. Daar kun je zien wat voor banksaldo’s er waren in voorgaande jaren.
-                    •	In RBG kies 'zoek rekeninghouders'.
-                    •	Toets het RSIN/BSN in en kies een jaartal. Per jaartal moet je steeds opnieuw het RSIN/BSN intoetsen. De saldo’s in RBG zijn de saldo’s aan het eind van een jaar.
-                    •	Vermogen in het verleden is geen afwijsgrond onder tijdelijke instructie saneringen. Hou hier rekening mee bij het opvragen van aanvullende stukken en neem altijd  ook contact op met de ondernemer.
-
-                    Als je tot de conclusie komt dat er voldoende vermogen is en/of was tot aan het verzoek wijs het verzoek dan af met as reden dat er vanaf de bekendmaking van de belastingaanslag tot aan het indiening van het verzoek om sanering op enig moment voldoende middelen aanwezig waren om de aanslag(en) te kunnen voldoen.  
-
-                    Zie ook de werkinstructies Beoordelen Vermogensbestanddelen",
+                "title": "Check op vermogensbestanddelen",
+                "content": "Je gaat de vermogensbestanddelen beoordelen in relatie met de openstaande schuld waar sanering voor wordt gevraagd. Let op: Het moet de formele belastingschuld betreffen. Zie artikel 26.3.4 Leidraad Invordering 2008 en paragraaf 43.4.1 IIB.\\n\\nVermogensbestanddelen:\\n- Log in Inzicht en kies voor de knop 'invordering'.\\n- Vul daar het BSN/RSIN in. Je komt dan in het klantprofiel.\\n- Linksboven zie je drie streepjes waar je op klikt nu kun je verschillende optie aanklikken. Voor de invordering is vooral van belang de knop 'invordering' hier zie je alle vermogensbestanddelen die bij de Belastingdienst bekend zijn.\\n\\nLET OP: De gegevens met betrekking tot panden is niet volledig. Hiervoor moet je altijd het Kadaster (laten) raadplegen.\\n\\n- Je gaat vervolgens RBG raadplegen. Daar kun je zien wat voor banksaldo's er waren in voorgaande jaren.\\n- In RBG kies 'zoek rekeninghouders'.\\n- Toets het RSIN/BSN in en kies een jaartal. Per jaartal moet je steeds opnieuw het RSIN/BSN intoetsen. De saldo's in RBG zijn de saldo's aan het eind van een jaar.\\n- Vermogen in het verleden is geen afwijsgrond onder tijdelijke instructie saneringen. Hou hier rekening mee bij het opvragen van aanvullende stukken en neem altijd ook contact op met de ondernemer.\\n\\nAls je tot de conclusie komt dat er voldoende vermogen is en/of was tot aan het verzoek wijs het verzoek dan af met als reden dat er vanaf de bekendmaking van de belastingaanslag tot aan het indiening van het verzoek om sanering op enig moment voldoende middelen aanwezig waren om de aanslag(en) te kunnen voldoen.\\n\\nZie ook de werkinstructies Beoordelen Vermogensbestanddelen.",
                 "topicType": "Simple topic",
                 "tags": ["instruction"],
                 "parentTopicId": "step-2-1"
