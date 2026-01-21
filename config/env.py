@@ -24,7 +24,15 @@ SKIP_CHECKOUT_CHECKIN = get_env("SKIP_CHECKOUT_CHECKIN", "true").lower() == "tru
 ASKDELPHI_AUTH_MODE = get_env("ASKDELPHI_AUTH_MODE", "traditional").lower()
 
 # Token caching (only used when ASKDELPHI_AUTH_MODE="cache")
-USE_AUTH_CACHE = ASKDELPHI_AUTH_MODE == "cache"
+# Automatically disabled for mock server (localhost)
+_use_cache_from_env = get_env("USE_AUTH_CACHE", "").lower()
+if _use_cache_from_env:
+    USE_AUTH_CACHE = _use_cache_from_env == "true"
+else:
+    # Auto-detect: disable for mock server (localhost), enable for production
+    base_url = get_env("ASKDELPHI_BASE_URL", "")
+    is_mock_server = "localhost" in base_url or "127.0.0.1" in base_url
+    USE_AUTH_CACHE = ASKDELPHI_AUTH_MODE == "cache" and not is_mock_server
 
 ASKDELPHI_BASE_URL = get_env("ASKDELPHI_BASE_URL")
 ASKDELPHI_API_KEY = get_env("ASKDELPHI_API_KEY")
