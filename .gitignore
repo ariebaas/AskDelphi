@@ -43,3 +43,6 @@ export/
 *.json
 !examples/
 !examples/**
+tests/*.log
+tests/export_*.json
+examples/*.txt
