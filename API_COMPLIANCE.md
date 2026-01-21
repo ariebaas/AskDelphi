@@ -144,6 +144,15 @@ This document verifies that the Digital Coach mock server and client implementat
 }
 ```
 
+### RelationsPayload ✅
+```python
+{
+    "parent": Optional[str],
+    "children": Optional[List[str]],
+    "related": Optional[List[str]]
+}
+```
+
 ### TopicPayload ✅
 ```python
 {
@@ -153,7 +162,8 @@ This document verifies that the Digital Coach mock server and client implementat
     "topicTypeNamespace": str,
     "parentId": Optional[str],
     "metadata": Optional[dict],
-    "tags": Optional[List[str]]
+    "tags": Optional[List[str]],
+    "relations": Optional[RelationsPayload]
 }
 ```
 
@@ -203,6 +213,23 @@ This document verifies that the Digital Coach mock server and client implementat
 - ✅ Project creation and deletion
 - ✅ All tests passing
 
+## Relations Support ✅
+
+**Parent-Child Relations:**
+- Topics can specify parent via `parentId` field
+- Relations object includes:
+  - `parent`: Parent topic ID (optional)
+  - `children`: List of child topic IDs (optional)
+  - `related`: List of related topic IDs (optional)
+- Relations are automatically built from topic hierarchy during import
+- Relations are preserved and exported in export endpoint
+- Supports unlimited nesting depth
+
+**Test Coverage:**
+- ✅ process_sanering.json: 14 topics with 13 child relations
+- ✅ Relations verified in export: 8 topics with children
+- ✅ Parent-child hierarchy maintained through import/export cycle
+
 ## Compliance Summary
 
 | Category | Status | Notes |
@@ -212,11 +239,12 @@ This document verifies that the Digital Coach mock server and client implementat
 | Topics CRUD | ✅ | Create, read, update, delete implemented |
 | Checkout/Checkin | ✅ | Proper state management |
 | Parts Management | ✅ | Full CRUD operations |
-| Export | ✅ | Complete export with metadata |
+| Relations | ✅ | Parent-child relations with full hierarchy support |
+| Export | ✅ | Complete export with metadata and relations |
 | Data Models | ✅ | All models match API spec |
 | Security | ✅ | Bearer token validation |
 | Error Handling | ✅ | Proper HTTP status codes |
-| Test Coverage | ✅ | Comprehensive e2e tests |
+| Test Coverage | ✅ | Comprehensive e2e tests + process_sanering tests |
 
 ## Conclusion
 
