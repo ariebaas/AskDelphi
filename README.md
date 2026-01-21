@@ -46,7 +46,25 @@ ASKDELPHI_NT_ACCOUNT=dummy-user
 ASKDELPHI_ACL=Everyone
 ASKDELPHI_PROJECT_ID=dummy-project
 DEBUG=false
+SKIP_CHECKOUT_CHECKIN=true
 ```
+
+### Environment Variabelen
+
+| Variabele | Default | Beschrijving |
+|-----------|---------|-------------|
+| `ASKDELPHI_BASE_URL` | - | Base URL van AskDelphi API (bijv. http://localhost:8000) |
+| `ASKDELPHI_API_KEY` | - | API key voor authenticatie |
+| `ASKDELPHI_TENANT` | - | Tenant ID |
+| `ASKDELPHI_NT_ACCOUNT` | - | NT account naam |
+| `ASKDELPHI_ACL` | - | Access Control List (komma-gescheiden) |
+| `ASKDELPHI_PROJECT_ID` | - | Project ID |
+| `DEBUG` | `false` | Verbose logging (true/false) |
+| `SKIP_CHECKOUT_CHECKIN` | `true` | Skip checkout/checkin workflow (true/false) |
+
+**SKIP_CHECKOUT_CHECKIN:**
+- `true` (default): Sneller, geen checkout/checkin calls (3x sneller)
+- `false`: Met checkout/checkin workflow (production-compatible)
 
 ## Gebruik
 
@@ -76,6 +94,16 @@ Dit voert uit:
 - ✅ Export content test (15 topics)
 - ✅ Import workflow test (12 topics + CRUD operations)
 - ✅ Alle logs naar `tests/e2e_test_YYYYMMDD_HHMMSS.log`
+
+**Met Debug Logging:**
+```powershell
+$env:DEBUG="true"; python tests/test_end_to_end.py
+```
+
+**Met Checkout/Checkin (production mode):**
+```powershell
+$env:SKIP_CHECKOUT_CHECKIN="false"; python tests/test_end_to_end.py
+```
 
 ### 2. Import + Export Workflow
 
