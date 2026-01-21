@@ -82,6 +82,7 @@ def run(input_file: str, schema_file: str) -> None:
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=False,
     )
 
     process_id = data["process"].get("id")
