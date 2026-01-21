@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
 import pytest
 
-from api_client.auth import parse_cms_url, TokenCache, AskDelphiAuth
+from src.api_client.auth import parse_cms_url, TokenCache, AskDelphiAuth
 
 
 class TestParseCmsUrl:
@@ -144,7 +144,7 @@ class TestAskDelphiAuth:
             AskDelphiAuth(tenant_id="tenant-123")
 
     @patch.dict('os.environ', {'ASKDELPHI_PORTAL_CODE': 'ABC123-XYZ789'})
-    @patch('api_client.auth.requests.Session')
+    @patch('src.api_client.auth.requests.Session')
     def test_authenticate_with_portal_code(self, mock_session):
         """Test authenticatie met portal code."""
         auth = AskDelphiAuth(
@@ -171,7 +171,7 @@ class TestAskDelphiAuth:
         mock_session.return_value.get.return_value = mock_response
         
         # Mock API token response
-        with patch('api_client.auth.requests.get') as mock_get:
+        with patch('src.api_client.auth.requests.get') as mock_get:
             import base64
             payload = {
                 "exp": int(time.time()) + 3600,
@@ -234,10 +234,10 @@ class TestAskDelphiAuth:
 class TestSessionIntegration:
     """Test integratie met AskDelphiSession."""
 
-    @patch('api_client.session.AskDelphiAuth')
+    @patch('src.api_client.session.AskDelphiAuth')
     def test_session_with_cms_url(self, mock_auth_class):
         """Test sessie initialisatie met CMS URL."""
-        from api_client.session import AskDelphiSession
+        from src.api_client.session import AskDelphiSession
         
         cms_url = "https://company.askdelphi.com/cms/tenant/abc-123/project/def-456/acl/ghi-789/page"
         
@@ -250,10 +250,10 @@ class TestSessionIntegration:
         assert session.project_id == "def-456"
         assert session.acl == ["ghi-789"]
 
-    @patch('api_client.session.AskDelphiAuth')
+    @patch('src.api_client.session.AskDelphiAuth')
     def test_session_uses_auth_manager(self, mock_auth_class):
         """Test dat sessie auth manager gebruikt wanneer beschikbaar."""
-        from api_client.session import AskDelphiSession
+        from src.api_client.session import AskDelphiSession
         
         mock_auth = Mock()
         mock_auth.get_api_token.return_value = "api_token_123"

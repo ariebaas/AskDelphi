@@ -4,7 +4,7 @@ Deze module biedt helper methoden om projecten aan te maken en op te halen
 in AskDelphi met behulp van de AskDelphiSession client.
 """
 
-from api_client.session import AskDelphiSession
+from .session import AskDelphiSession
 
 
 class ProjectService:

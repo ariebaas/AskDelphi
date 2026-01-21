@@ -1,0 +1,37 @@
+2026-01-21 21:09:26,451 - __main__ - INFO - ======================================================================
+2026-01-21 21:09:26,452 - __main__ - INFO - IMPORT WORKFLOW GESTART
+2026-01-21 21:09:26,452 - __main__ - INFO - ======================================================================
+2026-01-21 21:09:26,452 - __main__ - INFO - ✓ Proces geladen: procesbeschrijving/process_sanering.json
+2026-01-21 21:09:26,454 - __main__ - INFO - ✓ Schema gevalideerd: procesbeschrijving/process_schema.json
+2026-01-21 21:09:26,454 - importer.mapper - INFO - Proces gemapt: proces-sanering - Sanering
+2026-01-21 21:09:26,462 - importer.mapper - INFO - ✓ Proces gemapt naar 1 root topic met 2 kinderen
+2026-01-21 21:09:26,464 - root - INFO - Controleren of proces 'proces-sanering' al bestaat...
+2026-01-21 21:09:26,469 - root - INFO - Proces 'proces-sanering' gevonden. Verwijderen inclusief alle child topics...
+2026-01-21 21:09:26,512 - root - INFO - ✓ Proces 'proces-sanering' en alle child topics succesvol verwijderd
+2026-01-21 21:09:26,512 - importer.importer - INFO - Import gestart van 1 root topic(s)
+2026-01-21 21:09:26,514 - importer.importer - INFO - ✓ Topic aangemaakt: Sanering
+2026-01-21 21:09:26,517 - importer.importer - INFO -   ✓ Topic aangemaakt: Selecteer Zaak
+2026-01-21 21:09:26,520 - importer.importer - INFO -     ✓ Topic aangemaakt: Stap 1 – Open postbak in WAB
+2026-01-21 21:09:26,523 - importer.importer - INFO -       ✓ Topic aangemaakt: Ga naar de WAB-Post omgeving
+2026-01-21 21:09:26,527 - importer.importer - INFO -     ✓ Topic aangemaakt: Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken
+2026-01-21 21:09:26,530 - importer.importer - INFO -       ✓ Topic aangemaakt: Todo
+2026-01-21 21:09:26,534 - importer.importer - INFO -       ✓ Topic aangemaakt: Todo
+2026-01-21 21:09:26,538 - importer.importer - INFO -     ✓ Topic aangemaakt: Stap 3 – In behandeling nemen poststuk saneringen
+2026-01-21 21:09:26,541 - importer.importer - INFO -       ✓ Topic aangemaakt: Todo
+2026-01-21 21:09:26,545 - importer.importer - INFO -     ✓ Topic aangemaakt: Stap 4 – Controleer taken op je naam
+2026-01-21 21:09:26,547 - importer.importer - INFO -       ✓ Topic aangemaakt: Todo
+2026-01-21 21:09:26,552 - importer.importer - INFO -   ✓ Topic aangemaakt: Quick scan verzoek
+2026-01-21 21:09:26,555 - importer.importer - INFO -     ✓ Topic aangemaakt: Stap 1– Check op vermogensbestanddelen
+2026-01-21 21:09:26,557 - importer.importer - INFO -       ✓ Topic aangemaakt: Check op vermogensbestanddelen
+2026-01-21 21:09:26,559 - importer.importer - INFO - Import succesvol voltooid
+2026-01-21 21:09:26,559 - __main__ - INFO - 
+Export van alle content...
+2026-01-21 21:09:26,563 - __main__ - INFO - ✓ Export opgeslagen: C:\Users\arieb\CascadeProjects\digitalecoach_client\log\export_20260121_210926.json
+2026-01-21 21:09:26,563 - __main__ - INFO - 
+======================================================================
+2026-01-21 21:09:26,563 - __main__ - INFO - IMPORT SUCCESVOL VOLTOOID!
+2026-01-21 21:09:26,563 - __main__ - INFO - ======================================================================
+2026-01-21 21:09:26,563 - __main__ - INFO - Log file: C:\Users\arieb\CascadeProjects\digitalecoach_client\log\import_20260121_210926.log
+2026-01-21 21:09:26,563 - __main__ - INFO - Export file: C:\Users\arieb\CascadeProjects\digitalecoach_client\log\export_20260121_210926.json
+2026-01-21 21:09:26,563 - __main__ - INFO - Topics geïmporteerd: 14
+2026-01-21 21:09:26,563 - __main__ - INFO - ======================================================================

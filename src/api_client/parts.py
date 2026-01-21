@@ -4,7 +4,7 @@ Deze module biedt helper methoden om parts (bijv. contentPart)
 geassocieerd met een topic in AskDelphi te beheren.
 """
 
-from api_client.session import AskDelphiSession
+from .session import AskDelphiSession
 
 
 class PartService:

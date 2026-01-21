@@ -8,8 +8,9 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from config.topic_types import DEFAULT_TOPIC_TYPES
-import config.env as env_config
+from ..config.topic_types import DEFAULT_TOPIC_TYPES
+from .. import config
+env_config = config.env
 
 logger = logging.getLogger(__name__)
 

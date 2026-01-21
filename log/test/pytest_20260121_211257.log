@@ -1,0 +1,26 @@
+2026-01-21 21:12:57,241 - src.api_client.auth - INFO - Cached tokens geladen uit C:\Users\arieb\AppData\Local\Temp\pytest-of-arieb\pytest-49\test_token_cache_save_and_load0\tokens.json
+2026-01-21 21:12:57,246 - src.api_client.auth - INFO - IDs geparst uit CMS URL
+2026-01-21 21:12:57,247 - src.api_client.auth - ERROR - Ontbrekende vereiste credentials: ASKDELPHI_PROJECT_ID (of ASKDELPHI_CMS_URL), ASKDELPHI_ACL_ENTRY_ID (of ASKDELPHI_CMS_URL)
+2026-01-21 21:12:57,249 - src.api_client.auth - INFO - ============================================================
+2026-01-21 21:12:57,249 - src.api_client.auth - INFO - AUTHENTICATIE GESTART
+2026-01-21 21:12:57,249 - src.api_client.auth - INFO - ============================================================
+2026-01-21 21:12:57,250 - src.api_client.auth - INFO - Stap 1: Portal code uitwisselen voor tokens...
+2026-01-21 21:12:57,250 - src.api_client.auth - INFO - Received access token: access_token_123...
+2026-01-21 21:12:57,250 - src.api_client.auth - INFO - Received refresh token: refresh_token_456...
+2026-01-21 21:12:57,250 - src.api_client.auth - INFO - Full URL from portal: https://company.askdelphi.com/project/page
+2026-01-21 21:12:57,250 - src.api_client.auth - INFO - Extracted base URL: https://company.askdelphi.com
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO - Tokens saved to cache file
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO - Step 2: Getting editing API token...
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO -  Editing API token ontvangen: eyJ.eyJleHAiOiAxNzY5MDI5OTc3LC...
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO - ============================================================
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO - AUTHENTICATION SUCCESSFUL
+2026-01-21 21:12:57,252 - src.api_client.auth - INFO - ============================================================
+2026-01-21 21:12:57,264 - root - INFO - ============================================================
+2026-01-21 21:12:57,264 - root - INFO - TESTING AUTHENTICATION AND CONNECTION:
+2026-01-21 21:12:57,264 - root - INFO - ============================================================
+2026-01-21 21:12:57,338 - root - INFO - ============================================================
+2026-01-21 21:12:57,338 - root - INFO - TESTING CONTENT EXPORT:
+2026-01-21 21:12:57,339 - root - INFO - ============================================================
+2026-01-21 21:12:57,352 - root - INFO - ============================================================
+2026-01-21 21:12:57,353 - root - INFO - IMPORTING PROCESS_SANERING.JSON WITH RELATIONS SUPPORT
+2026-01-21 21:12:57,353 - root - INFO - ============================================================

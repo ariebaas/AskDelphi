@@ -1,0 +1,12 @@
+2026-01-21 21:06:41,472 - src.api_client.auth - INFO - Cached tokens geladen uit C:\Users\arieb\AppData\Local\Temp\pytest-of-arieb\pytest-45\test_token_cache_save_and_load0\tokens.json
+2026-01-21 21:06:41,477 - src.api_client.auth - INFO - IDs geparst uit CMS URL
+2026-01-21 21:06:41,479 - src.api_client.auth - ERROR - Ontbrekende vereiste credentials: ASKDELPHI_PROJECT_ID (of ASKDELPHI_CMS_URL), ASKDELPHI_ACL_ENTRY_ID (of ASKDELPHI_CMS_URL)
+2026-01-21 21:06:41,743 - root - INFO - ============================================================
+2026-01-21 21:06:41,743 - root - INFO - TESTING AUTHENTICATION AND CONNECTION:
+2026-01-21 21:06:41,752 - root - INFO - ============================================================
+2026-01-21 21:06:41,760 - root - INFO - ============================================================
+2026-01-21 21:06:41,761 - root - INFO - TESTING CONTENT EXPORT:
+2026-01-21 21:06:41,761 - root - INFO - ============================================================
+2026-01-21 21:06:41,773 - root - INFO - ============================================================
+2026-01-21 21:06:41,773 - root - INFO - IMPORTING PROCESS_SANERING.JSON WITH RELATIONS SUPPORT
+2026-01-21 21:06:41,773 - root - INFO - ============================================================

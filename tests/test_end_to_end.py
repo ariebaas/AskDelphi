@@ -16,10 +16,10 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
-from api_client.session import AskDelphiSession
-from importer.mapper import DigitalCoachMapper
-from importer.importer import DigitalCoachImporter
-from config import env
+from src.api_client.session import AskDelphiSession
+from src.importer.mapper import DigitalCoachMapper
+from src.importer.importer import DigitalCoachImporter
+from src.config import env
 
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():

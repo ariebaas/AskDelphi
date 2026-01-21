@@ -15,9 +15,9 @@ from typing import Optional
 import requests
 from dotenv import load_dotenv
 
-from config.env import DEBUG
-from api_client.exceptions import AskDelphiAuthError
-from api_client.auth import AskDelphiAuth, parse_cms_url
+from ..config.env import DEBUG
+from .exceptions import AskDelphiAuthError
+from .auth import AskDelphiAuth, parse_cms_url
 
 
 class AskDelphiSession:

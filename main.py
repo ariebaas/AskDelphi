@@ -16,12 +16,12 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from api_client.session import AskDelphiSession
-from api_client.exceptions import AskDelphiNotFoundError
-from config import env
-from importer.validator import ProcessValidator
-from importer.mapper import DigitalCoachMapper
-from importer.importer import DigitalCoachImporter
+from src.api_client.session import AskDelphiSession
+from src.api_client.exceptions import AskDelphiNotFoundError
+from src.config import env
+from src.importer.validator import ProcessValidator
+from src.importer.mapper import DigitalCoachMapper
+from src.importer.importer import DigitalCoachImporter
 
 # Only configure logging when main.py is run directly, not when imported
 if __name__ == '__main__' or not os.environ.get('PYTEST_CURRENT_TEST'):

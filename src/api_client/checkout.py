@@ -4,7 +4,7 @@ Deze module biedt een kleine helper rond AskDelphiSession
 om checkout en checkin operaties op topics uit te voeren.
 """
 
-from api_client.session import AskDelphiSession
+from .session import AskDelphiSession
 
 
 class CheckoutService:

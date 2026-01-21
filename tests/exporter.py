@@ -23,8 +23,8 @@ os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from api_client.session import AskDelphiSession
-from config import env
+from src.api_client.session import AskDelphiSession
+from src.config import env
 
 log_dir = os.path.dirname(__file__)
 os.makedirs(log_dir, exist_ok=True)

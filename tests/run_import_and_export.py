@@ -25,11 +25,11 @@ os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from api_client.session import AskDelphiSession
-from config import env
-from importer.validator import ProcessValidator
-from importer.mapper import DigitalCoachMapper
-from importer.importer import DigitalCoachImporter
+from src.api_client.session import AskDelphiSession
+from src.config import env
+from src.importer.validator import ProcessValidator
+from src.importer.mapper import DigitalCoachMapper
+from src.importer.importer import DigitalCoachImporter
 
 log_dir = os.path.dirname(__file__)
 os.makedirs(log_dir, exist_ok=True)

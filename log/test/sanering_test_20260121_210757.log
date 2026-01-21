@@ -1,0 +1,231 @@
+[SANERING] 2026-01-21 21:07:57 INFO: Cached tokens geladen uit C:\Users\arieb\AppData\Local\Temp\pytest-of-arieb\pytest-47\test_token_cache_save_and_load0\tokens.json
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 ERROR: Ontbrekende vereiste credentials: ASKDELPHI_PROJECT_ID (of ASKDELPHI_CMS_URL), ASKDELPHI_ACL_ENTRY_ID (of ASKDELPHI_CMS_URL)
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: AUTHENTICATIE GESTART
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: Stap 1: Portal code uitwisselen voor tokens...
+[SANERING] 2026-01-21 21:07:57 INFO: Received access token: access_token_123...
+[SANERING] 2026-01-21 21:07:57 INFO: Received refresh token: refresh_token_456...
+[SANERING] 2026-01-21 21:07:57 INFO: Full URL from portal: https://company.askdelphi.com/project/page
+[SANERING] 2026-01-21 21:07:57 INFO: Extracted base URL: https://company.askdelphi.com
+[SANERING] 2026-01-21 21:07:57 INFO: Tokens saved to cache file
+[SANERING] 2026-01-21 21:07:57 INFO: Step 2: Getting editing API token...
+[SANERING] 2026-01-21 21:07:57 INFO:  Editing API token ontvangen: eyJ.eyJleHAiOiAxNzY5MDI5Njc3LC...
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: AUTHENTICATION SUCCESSFUL
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: TESTING AUTHENTICATION AND CONNECTION:
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver is reachable (status=401)
+[SANERING] 2026-01-21 21:07:57 INFO: Resetting mockserver state...
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver reset complete
+[SANERING] 2026-01-21 21:07:57 INFO: Test 1: Creating AskDelphiSession with valid credentials...
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ AskDelphiSession created successfully
+[SANERING] 2026-01-21 21:07:57 INFO: Test 2: Verifying session token retrieval via AskDelphiSession...
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Session token obtained and used successfully (404 = project not found, auth worked)
+[SANERING] 2026-01-21 21:07:57 INFO: Test 3: Testing invalid credentials (should fail)...
+[SANERING] 2026-01-21 21:07:57 INFO: IDs geparst uit CMS URL
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Invalid credentials correctly rejected (status=401)
+[SANERING] 2026-01-21 21:07:57 INFO: Test 4: Testing request without Authorization header (should fail)...
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Request without auth header correctly rejected (status=401)
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: ALL AUTHENTICATION TESTS PASSED!
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: TESTING CONTENT EXPORT:
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver is reachable (status=401)
+[SANERING] 2026-01-21 21:07:57 INFO: Resetting mockserver state...
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver reset complete
+[SANERING] 2026-01-21 21:07:57 INFO: Setting up test data...
+[SANERING] 2026-01-21 21:07:57 INFO: Proces gemapt: onboard-account - Onboard nieuwe medewerker
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Proces gemapt naar 1 root topic met 2 kinderen
+[SANERING] 2026-01-21 21:07:57 INFO: Import gestart van 1 root topic(s)
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Topic aangemaakt: Onboard nieuwe medewerker
+[SANERING] 2026-01-21 21:07:57 INFO:   ✓ Topic aangemaakt: Voorbereiding
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Account aanmaken
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Stap 1: Ga naar HR-systeem
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Stap 2: Vul gegevens in
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Werkplek voorbereiden
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Laptop klaarleggen
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Toegangspas aanmaken
+[SANERING] 2026-01-21 21:07:57 INFO:   ✓ Topic aangemaakt: Eerste werkdag
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Welkom en rondleiding
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Welkom heten
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Rondleiding kantoor
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Introductie IT-systemen
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Email en Outlook
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Intranet en documenten
+[SANERING] 2026-01-21 21:07:57 INFO: Import succesvol voltooid
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Imported 1 root topics
+[SANERING] 2026-01-21 21:07:57 INFO: Calling export endpoint...
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Export endpoint called successfully
+[SANERING] 2026-01-21 21:07:57 INFO: Validating export structure...
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Export structure is valid
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Metadata valid (exported 15 topics)
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Content design valid (41 topic types)
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Relations structure valid (parent=None, children=2)
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Topics valid (15 topics exported)
+[SANERING] 2026-01-21 21:07:57 INFO:   First topic: Onboard nieuwe medewerker
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: EXPORT TEST PASSED!
+[SANERING] 2026-01-21 21:07:57 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:57 INFO: Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver is reachable (status=401)
+[SANERING] 2026-01-21 21:07:57 INFO: Resetting mockserver state...
+[SANERING] 2026-01-21 21:07:57 INFO: Mockserver reset complete
+[SANERING] 2026-01-21 21:07:57 INFO: Loaded example JSON from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\procesbeschrijving\process_onboard_account.json
+[SANERING] 2026-01-21 21:07:57 INFO: Process id=onboard-account title=Onboard nieuwe medewerker (#steps=0)
+[SANERING] 2026-01-21 21:07:57 INFO: Proces gemapt: onboard-account - Onboard nieuwe medewerker
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Proces gemapt naar 1 root topic met 2 kinderen
+[SANERING] 2026-01-21 21:07:57 INFO: Mapped process to 1 root topic(s)
+[SANERING] 2026-01-21 21:07:57 INFO: TOPIC TREE STRUCTURE:
+[onboard-account] Onboard nieuwe medewerker (Digitale Coach Homepagina)
+  ├─ [task-1] Voorbereiding (Task)
+    ├─ [step-1-1] Account aanmaken (Action)
+      ├─ [instr-1-1-1] Stap 1: Ga naar HR-systeem (Simple topic)
+      ├─ [instr-1-1-2] Stap 2: Vul gegevens in (Simple topic)
+    ├─ [step-1-2] Werkplek voorbereiden (Action)
+      ├─ [instr-1-2-1] Laptop klaarleggen (Simple topic)
+      ├─ [instr-1-2-2] Toegangspas aanmaken (Simple topic)
+  ├─ [task-2] Eerste werkdag (Task)
+    ├─ [step-2-1] Welkom en rondleiding (Action)
+      ├─ [instr-2-1-1] Welkom heten (Simple topic)
+      ├─ [instr-2-1-2] Rondleiding kantoor (Simple topic)
+    ├─ [step-2-2] Introductie IT-systemen (Action)
+      ├─ [instr-2-2-1] Email en Outlook (Simple topic)
+      ├─ [instr-2-2-2] Intranet en documenten (Simple topic)
+[SANERING] 2026-01-21 21:07:57 INFO: Created AskDelphiSession for base_url=http://127.0.0.1:8000, project_id=None
+[SANERING] 2026-01-21 21:07:57 INFO: Starting import of topic tree into mockserver...
+[SANERING] 2026-01-21 21:07:57 INFO: Import gestart van 1 root topic(s)
+[SANERING] 2026-01-21 21:07:57 INFO: ✓ Topic aangemaakt: Onboard nieuwe medewerker
+[SANERING] 2026-01-21 21:07:57 INFO:   ✓ Topic aangemaakt: Voorbereiding
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Account aanmaken
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Stap 1: Ga naar HR-systeem
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Stap 2: Vul gegevens in
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Werkplek voorbereiden
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Laptop klaarleggen
+[SANERING] 2026-01-21 21:07:57 INFO:       ✓ Topic aangemaakt: Toegangspas aanmaken
+[SANERING] 2026-01-21 21:07:57 INFO:   ✓ Topic aangemaakt: Eerste werkdag
+[SANERING] 2026-01-21 21:07:57 INFO:     ✓ Topic aangemaakt: Welkom en rondleiding
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Welkom heten
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Rondleiding kantoor
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Introductie IT-systemen
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Email en Outlook
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Intranet en documenten
+[SANERING] 2026-01-21 21:07:58 INFO: Import succesvol voltooid
+[SANERING] 2026-01-21 21:07:58 INFO: Import finished
+[SANERING] 2026-01-21 21:07:58 INFO: Homepage topic check: GET /topics/onboard-account -> status=200
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: TESTING PARTS (CONTENT) MANAGEMENT:
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: Checkout topic instr-1-1-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Create part customPart for topic instr-1-1-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Get parts for topic instr-1-1-2: status=200, count=2
+[SANERING] 2026-01-21 21:07:58 INFO: Update part customPart for topic instr-1-1-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Delete part customPart for topic instr-1-1-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Verify part deletion: remaining parts=['contentPart'] (should not contain customPart)
+[SANERING] 2026-01-21 21:07:58 INFO: Checkin topic instr-1-1-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: TESTING TOPIC UPDATE:
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: Checkout topic step-1-1 for update: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Update topic step-1-1: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Checkin topic step-1-1 after update: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Verify update: topic title is now 'Account aanmaken (Updated)'
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: TESTING TOPIC DELETION:
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: Delete topic instr-2-2-2: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Verify deletion: GET /topics/instr-2-2-2 -> status=404 (should be 404)
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: TESTING PROJECT DELETION:
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: Create test project test-project-delete: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Verify project exists: GET /projects/test-project-delete -> status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Delete project test-project-delete: status=200
+[SANERING] 2026-01-21 21:07:58 INFO: Verify deletion: GET /projects/test-project-delete -> status=404 (should be 404)
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: ALL TESTS PASSED!
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: IMPORTING PROCESS_SANERING.JSON WITH RELATIONS SUPPORT
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: Resetting mockserver state...
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Mockserver reset complete
+[SANERING] 2026-01-21 21:07:58 INFO: Loaded process_sanering.json from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\procesbeschrijving\process_sanering.json
+[SANERING] 2026-01-21 21:07:58 INFO: Process: id=proces-sanering, title=Sanering, tasks=2
+[SANERING] 2026-01-21 21:07:58 INFO: Proces gemapt: proces-sanering - Sanering
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Proces gemapt naar 1 root topic met 2 kinderen
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Mapped process to 1 root topic(s)
+[SANERING] 2026-01-21 21:07:58 INFO: TOPIC TREE STRUCTURE:
+[proces-sanering] Sanering (Digitale Coach Homepagina)
+  ├─ [task-1] Selecteer Zaak (Task)
+    ├─ [step-1-1] Stap 1 – Open postbak in WAB (Action)
+      ├─ [instr-1-1-1] Ga naar de WAB-Post omgeving (Simple topic)
+    ├─ [step-1-2] Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken (Action)
+      ├─ [instr-1-2-1] Todo (Simple topic)
+      ├─ [instr-1-2-2] Todo (Simple topic)
+    ├─ [step-1-3] Stap 3 – In behandeling nemen poststuk saneringen (Action)
+      ├─ [instr-1-3-1] Todo (Simple topic)
+    ├─ [step-1-4] Stap 4 – Controleer taken op je naam (Action)
+      ├─ [instr-1-4-1] Todo (Simple topic)
+  ├─ [task-2] Quick scan verzoek (Task)
+    ├─ [step-2-1] Stap 1– Check op vermogensbestanddelen (Action)
+      ├─ [instr-2-1-1] Check op vermogensbestanddelen (Simple topic)
+[SANERING] 2026-01-21 21:07:58 INFO: Created AskDelphiSession for base_url=http://127.0.0.1:8000
+[SANERING] 2026-01-21 21:07:58 INFO: Starting import of topic tree...
+[SANERING] 2026-01-21 21:07:58 INFO: Import gestart van 1 root topic(s)
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Topic aangemaakt: Sanering
+[SANERING] 2026-01-21 21:07:58 INFO:   ✓ Topic aangemaakt: Selecteer Zaak
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Stap 1 – Open postbak in WAB
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Ga naar de WAB-Post omgeving
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Stap 3 – In behandeling nemen poststuk saneringen
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Stap 4 – Controleer taken op je naam
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 21:07:58 INFO:   ✓ Topic aangemaakt: Quick scan verzoek
+[SANERING] 2026-01-21 21:07:58 INFO:     ✓ Topic aangemaakt: Stap 1– Check op vermogensbestanddelen
+[SANERING] 2026-01-21 21:07:58 INFO:       ✓ Topic aangemaakt: Check op vermogensbestanddelen
+[SANERING] 2026-01-21 21:07:58 INFO: Import succesvol voltooid
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Import finished
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: VERIFYING IMPORT AND RELATIONS
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Root topic retrieved: Sanering
+[SANERING] 2026-01-21 21:07:58 INFO:   Relations: parent=None, children=2
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: EXPORTING CONTENT
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Export retrieved
+[SANERING] 2026-01-21 21:07:58 INFO:   Topics exported: 14
+[SANERING] 2026-01-21 21:07:58 INFO:   Exported at: 2026-01-21T20:07:58.120119Z
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: VALIDATING RELATIONS IN EXPORT
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Sanering: 2 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Selecteer Zaak: 4 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Stap 1 – Open postbak in WAB: 1 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken: 2 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Stap 3 – In behandeling nemen poststuk saneringen: 1 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Stap 4 – Controleer taken op je naam: 1 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Quick scan verzoek: 1 children
+[SANERING] 2026-01-21 21:07:58 INFO:   Topic Stap 1– Check op vermogensbestanddelen: 1 children
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Relations validation complete
+[SANERING] 2026-01-21 21:07:58 INFO:   Topics with children: 8
+[SANERING] 2026-01-21 21:07:58 INFO:   Total child relations: 13
+[SANERING] 2026-01-21 21:07:58 INFO: ✓ Export saved to C:\Users\arieb\CascadeProjects\digitalecoach_client\log\test\export_sanering_20260121_210758.json
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
+[SANERING] 2026-01-21 21:07:58 INFO: ALL TESTS PASSED!
+[SANERING] 2026-01-21 21:07:58 INFO: ============================================================
