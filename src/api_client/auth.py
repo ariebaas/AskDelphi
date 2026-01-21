@@ -49,76 +49,76 @@ def log_response(response: requests.Response) -> None:
 
 
 def _parse_json_response(response: requests.Response) -> dict:
-    """Parse JSON response with fallback encoding strategies.
+    """Parse JSON response met fallback encoding strategieën.
     
-    Tries multiple approaches to parse JSON:
-    1. Standard response.json()
-    2. Manual UTF-8 decode
-    3. Latin-1 decode (accepts any byte)
+    Probeert meerdere benaderingen om JSON te parsen:
+    1. Standaard response.json()
+    2. Handmatige UTF-8 decodering
+    3. Latin-1 decodering (accepteert elke byte)
     
     Args:
         response: HTTP response object
         
     Returns:
-        Parsed JSON data as dictionary
+        Geparste JSON data als dictionary
         
     Raises:
-        Exception: If all parsing attempts fail
+        Exception: Indien alle parsing pogingen mislukken
     """
     try:
         data = response.json()
-        logger.debug(f"Parsed JSON response: {json.dumps(data, indent=2)}")
+        logger.debug(f"JSON response geparst: {json.dumps(data, indent=2)}")
         return data
     except (ValueError, UnicodeDecodeError) as e:
-        logger.warning(f"Standard JSON parsing failed: {e}")
+        logger.warning(f"Standaard JSON parsing mislukt: {e}")
 
     try:
         text = response.content.decode('utf-8')
         data = json.loads(text)
-        logger.debug(f"Parsed JSON via manual utf-8 decode: {json.dumps(data, indent=2)}")
+        logger.debug(f"JSON geparst via handmatige utf-8 decodering: {json.dumps(data, indent=2)}")
         return data
     except (UnicodeDecodeError, json.JSONDecodeError) as e2:
-        logger.warning(f"Manual utf-8 decode failed: {e2}")
+        logger.warning(f"Handmatige utf-8 decodering mislukt: {e2}")
 
     try:
         text = response.content.decode('latin-1')
         data = json.loads(text)
-        logger.debug(f"Parsed JSON via latin-1 decode: {json.dumps(data, indent=2)}")
+        logger.debug(f"JSON geparst via latin-1 decodering: {json.dumps(data, indent=2)}")
         return data
     except json.JSONDecodeError as e3:
-        logger.error(f"All JSON parsing attempts failed!")
-        logger.error(f" Original error: {e}")
-        logger.error(f" UTF-8 error: {e2}")
-        logger.error(f" Latin-1 error: {e3}")
-        logger.error(f" Raw content (hex): {response.content[:200].hex()}")
-        logger.error(f" Raw content (repr): {repr(response.content[:200])}")
+        logger.error(f"Alle JSON parsing pogingen mislukt!")
+        logger.error(f" Originele fout: {e}")
+        logger.error(f" UTF-8 fout: {e2}")
+        logger.error(f" Latin-1 fout: {e3}")
+        logger.error(f" Raw inhoud (hex): {response.content[:200].hex()}")
+        logger.error(f" Raw inhoud (repr): {repr(response.content[:200])}")
 
         error_msg = (
-            f"Failed to parse JSON response from portal.\n"
-            f" Content-Type: {response.headers.get('Content-Type', 'unknown')}\n"
-            f" Content-Encoding: {response.headers.get('Content-Encoding', 'none')}\n"
+            f"Kon JSON response van portal niet parsen.\n"
+            f" Content-Type: {response.headers.get('Content-Type', 'onbekend')}\n"
+            f" Content-Encoding: {response.headers.get('Content-Encoding', 'geen')}\n"
             f" Response encoding: {response.encoding}\n"
-            f" Raw bytes (first 50): {response.content[:50].hex()}\n"
-            f" This might indicate the response is compressed or corrupted.\n"
-            f" Check askdelphi_debug.log for full details."
+            f" Raw bytes (eerste 50): {response.content[:50].hex()}\n"
+            f" Dit kan betekenen dat de response gecomprimeerd of beschadigd is.\n"
+            f" Controleer askdelphi_debug.log voor volledige details."
         )
         raise Exception(error_msg)
 
 
 def _make_request(method: str, url: str, headers: dict, context: str) -> requests.Response:
-    """Make HTTP request with common error handling.
+    """Maak HTTP verzoek met standaard foutafhandeling.
     
     Args:
-        method: HTTP method (GET, POST, etc.)
-        url: Request URL
-        headers: Request headers
-        context: Context string for error messages
+        method: HTTP methode (GET, POST, etc.)
+        url: Verzoek URL
+        headers: Verzoek headers
+        context: Context string voor foutmeldingen
         
     Returns:
-        Response object if successful
+        Response object indien succesvol
         
     Raises:
-        Exception: If request fails
+        Exception: Indien verzoek mislukt
     """
     log_request(method, url, headers)
     
@@ -296,10 +296,10 @@ class AskDelphiAuth:
         self.cache.load()
 
     def _try_cached_tokens(self) -> bool:
-        """Try to authenticate using cached tokens.
+        """Probeer te authenticeren met cached tokens.
         
         Returns:
-            True if cached tokens are valid, False otherwise
+            True indien cached tokens geldig zijn, False anders
         """
         if not (self.cache.access_token and self.cache.publication_url):
             return False
@@ -317,13 +317,13 @@ class AskDelphiAuth:
             return False
 
     def _exchange_portal_code(self, code: str) -> dict:
-        """Exchange portal code for access tokens.
+        """Wissel portal code in voor access tokens.
         
         Args:
-            code: Portal code from user
+            code: Portal code van gebruiker
             
         Returns:
-            Dictionary with accessToken, refreshToken, and url
+            Dictionary met accessToken, refreshToken, en url
         """
         logger.info("Stap 1: Portal code uitwisselen voor tokens...")
         url = f"{PORTAL_SERVER}/api/session/registration?sessionCode={code}"
@@ -357,13 +357,13 @@ class AskDelphiAuth:
         return _parse_json_response(response)
 
     def _extract_and_save_tokens(self, data: dict) -> None:
-        """Extract tokens from portal response and save to cache.
+        """Extraheer tokens uit portal response en sla op in cache.
         
         Args:
-            data: Response data from portal
+            data: Response data van portal
             
         Raises:
-            Exception: If required tokens are missing
+            Exception: Indien vereiste tokens ontbreken
         """
         self.cache.access_token = data.get("accessToken")
         self.cache.refresh_token = data.get("refreshToken")
@@ -375,22 +375,22 @@ class AskDelphiAuth:
         else:
             self.cache.publication_url = ""
 
-        logger.info(f"Received access token: {self.cache.access_token[:20] if self.cache.access_token else 'None'}...")
-        logger.info(f"Received refresh token: {self.cache.refresh_token[:20] if self.cache.refresh_token else 'None'}...")
-        logger.info(f"Extracted base URL: {self.cache.publication_url}")
+        logger.info(f"Access token ontvangen: {self.cache.access_token[:20] if self.cache.access_token else 'Geen'}...")
+        logger.info(f"Refresh token ontvangen: {self.cache.refresh_token[:20] if self.cache.refresh_token else 'Geen'}...")
+        logger.info(f"Base URL geëxtraheerd: {self.cache.publication_url}")
 
         if not self.cache.access_token:
-            error_msg = f"No accessToken in portal response. Response was: {data}"
+            error_msg = f"Geen accessToken in portal response. Response was: {data}"
             logger.error(error_msg)
             raise Exception(error_msg)
 
         if not self.cache.publication_url:
-            error_msg = f"No url in portal response. Response was: {data}"
+            error_msg = f"Geen url in portal response. Response was: {data}"
             logger.error(error_msg)
             raise Exception(error_msg)
 
         self.cache.save()
-        logger.info("Tokens saved to cache file")
+        logger.info("Tokens opgeslagen in cache bestand")
 
     def authenticate(self, portal_code: Optional[str] = None) -> bool:
         """Authenticeer met de API.
@@ -425,11 +425,11 @@ class AskDelphiAuth:
         data = self._exchange_portal_code(code)
         self._extract_and_save_tokens(data)
 
-        logger.info("Stap 2: Getting editing API token...")
+        logger.info("Stap 2: Editing API token ophalen...")
         self._get_api_token()
 
         logger.info("="*60)
-        logger.info("AUTHENTICATION SUCCESSFUL")
+        logger.info("AUTHENTICATIE SUCCESVOL")
         logger.info("="*60)
         return True
 
@@ -585,10 +585,10 @@ class AskDelphiAuth:
             "User-Agent": "AskDelphi-Python-Client/1.0"
         }
 
-        response = _make_request("GET", url, headers, "Token vernieuwen")
+        response = _make_request("GET", url, headers, "Tokens vernieuwen")
 
         if not response.ok:
-            raise Exception(f"Token vernieuwen mislukt: {response.status_code}")
+            raise Exception(f"Tokens vernieuwen mislukt: {response.status_code}")
 
         data = response.json()
         self.cache.access_token = data.get("token") or data.get("accessToken", self.cache.access_token)

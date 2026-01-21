@@ -21,14 +21,14 @@ from .auth import AskDelphiAuth, parse_cms_url
 
 
 def _get_config_value(param_value: Optional[str], env_var: str) -> Optional[str]:
-    """Get configuration value from parameter or environment variable.
+    """Haal configuratie waarde op van parameter of omgevingsvariabele.
     
     Args:
-        param_value: Value passed as parameter
-        env_var: Environment variable name
+        param_value: Waarde doorgegeven als parameter
+        env_var: Naam van omgevingsvariabele
         
     Returns:
-        Parameter value if provided, otherwise environment variable value
+        Parameter waarde indien gegeven, anders omgevingsvariabele waarde
     """
     return param_value or os.getenv(env_var)
 
