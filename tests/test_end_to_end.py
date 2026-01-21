@@ -232,6 +232,15 @@ def test_export_content():
     for field in required_fields:
         assert field in first_topic, f"Topic should have {field}"
     
+    # Validate relations structure
+    relations = first_topic.get("relations", {})
+    assert isinstance(relations, dict), "Relations should be a dictionary"
+    assert "parent" in relations, "Relations should have parent field"
+    assert "children" in relations, "Relations should have children field"
+    assert "related" in relations, "Relations should have related field"
+    assert isinstance(relations["children"], list), "Children should be a list"
+    logging.info(f"✓ Relations structure valid (parent={relations.get('parent')}, children={len(relations.get('children', []))})")
+    
     logging.info(f"✓ Topics valid ({len(topics)} topics exported)")
     logging.info(f"  First topic: {first_topic['title']}")
     

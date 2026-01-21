@@ -26,6 +26,13 @@ class DigitalCoachImporter:
 
     def _import_topic_recursive(self, topic: TopicNode) -> None:
         """Create or update a single topic and recurse into its children."""
+        # Build relations object with children IDs
+        relations = {
+            "parent": topic.parent_id,
+            "children": [child.id for child in topic.children],
+            "related": []
+        }
+        
         payload = {
             "id": topic.id,
             "title": topic.title,
@@ -34,6 +41,7 @@ class DigitalCoachImporter:
             "parentId": topic.parent_id,
             "metadata": topic.metadata,
             "tags": topic.tags,
+            "relations": relations,
         }
 
         try:
