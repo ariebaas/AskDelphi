@@ -189,7 +189,7 @@ def test_export_content():
     )
     
     # Load and import example process
-    with open("examples/process_onboard_account.json", encoding='utf-8-sig') as f:
+    with open("procesbeschrijving/process_onboard_account.json", encoding='utf-8-sig') as f:
         data = json.load(f)
     
     mapper = DigitalCoachMapper()
