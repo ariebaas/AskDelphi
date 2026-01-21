@@ -23,31 +23,33 @@ from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 
-log_dir = os.path.join(os.path.dirname(__file__), 'log')
-os.makedirs(log_dir, exist_ok=True)
+# Only configure logging when main.py is run directly, not when imported
+if __name__ == '__main__' or not os.environ.get('PYTEST_CURRENT_TEST'):
+    log_dir = os.path.join(os.path.dirname(__file__), 'log')
+    os.makedirs(log_dir, exist_ok=True)
 
-timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-log_file = os.path.join(log_dir, f'import_{timestamp}.log')
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_file = os.path.join(log_dir, f'import_{timestamp}.log')
 
-class FlushFileHandler(logging.FileHandler):
-    def emit(self, record):
-        super().emit(record)
-        self.flush()
+    class FlushFileHandler(logging.FileHandler):
+        def emit(self, record):
+            super().emit(record)
+            self.flush()
 
-file_handler = FlushFileHandler(log_file, mode='w', encoding='utf-8')
-file_handler.setLevel(logging.INFO)
-file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-file_handler.setFormatter(file_formatter)
+    file_handler = FlushFileHandler(log_file, mode='w', encoding='utf-8')
+    file_handler.setLevel(logging.INFO)
+    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(file_formatter)
 
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-console_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-console_handler.setFormatter(console_formatter)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    console_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    console_handler.setFormatter(console_formatter)
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
 
 main_logger = logging.getLogger(__name__)
 

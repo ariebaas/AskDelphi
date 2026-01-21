@@ -23,7 +23,7 @@ import config.env as env_config
 import requests
 
 project_root = os.path.dirname(os.path.dirname(__file__))
-log_dir = os.path.join(project_root, "log")
+log_dir = os.path.join(project_root, "log", "test")
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"sanering_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[SANERING] %(asctime)s %(levelname)s: %(message)s"
