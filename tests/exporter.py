@@ -70,8 +70,19 @@ def export_content(output_path: str) -> None:
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=env.USE_AUTH_CACHE,
     )
     logger.info("✓ AskDelphiSession created")
+    
+    # Authenticate if using auth manager
+    if session.auth_manager:
+        logger.info("Authenticating with auth manager...")
+        try:
+            session.auth_manager.authenticate()
+            logger.info("✓ Authenticated successfully")
+        except Exception as e:
+            logger.warning(f"Auth manager authentication failed: {e}")
+            logger.info("Falling back to session token authentication...")
     
     # Call export endpoint
     logger.info("Fetching export from AskDelphi...")

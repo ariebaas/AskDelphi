@@ -89,6 +89,7 @@ def test_authentication_and_connection():
             nt_account=env.ASKDELPHI_NT_ACCOUNT,
             acl=env.ASKDELPHI_ACL,
             project_id=env.ASKDELPHI_PROJECT_ID,
+            use_auth_cache=env.USE_AUTH_CACHE,
         )
         logging.info("✓ AskDelphiSession created successfully")
         assert session is not None
@@ -177,6 +178,7 @@ def test_export_content():
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=env.USE_AUTH_CACHE,
     )
     
     # Load and import example process
@@ -295,6 +297,7 @@ def test_import_onboard_account():
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=env.USE_AUTH_CACHE,
     )
 
     logging.info("Created AskDelphiSession for base_url=%s, project_id=%s", env.ASKDELPHI_BASE_URL, env.ASKDELPHI_PROJECT_ID)

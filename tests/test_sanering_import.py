@@ -112,6 +112,7 @@ def test_sanering_import():
         nt_account=env_config.ASKDELPHI_NT_ACCOUNT,
         acl=env_config.ASKDELPHI_ACL,
         project_id=env_config.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=env_config.USE_AUTH_CACHE,
     )
     
     logging.info("Created AskDelphiSession for base_url=%s", env_config.ASKDELPHI_BASE_URL)

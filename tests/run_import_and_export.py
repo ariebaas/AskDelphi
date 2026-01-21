@@ -68,6 +68,12 @@ def import_and_export(input_file: str, schema_file: str, output_file: str) -> No
     logger.info("IMPORT AND EXPORT WORKFLOW")
     logger.info("=" * 70)
     
+    # Convert relative paths to absolute paths from project root
+    project_root = os.path.dirname(os.path.dirname(__file__))
+    input_file = os.path.normpath(os.path.join(project_root, input_file)) if not os.path.isabs(input_file) else input_file
+    schema_file = os.path.normpath(os.path.join(project_root, schema_file)) if not os.path.isabs(schema_file) else schema_file
+    output_file = os.path.normpath(os.path.join(log_dir, output_file)) if not os.path.isabs(output_file) else output_file
+    
     # Reset mockserver state
     logger.info("\n[0/4] Resetting mockserver state...")
     try:
@@ -82,9 +88,12 @@ def import_and_export(input_file: str, schema_file: str, output_file: str) -> No
         data = json.load(f)
     logger.info(f"✓ Loaded: {input_file}")
     
-    validator = ProcessValidator(schema_file)
-    validator.validate(data)
-    logger.info(f"✓ Validated against schema: {schema_file}")
+    if schema_file and os.path.exists(schema_file):
+        validator = ProcessValidator(schema_file)
+        validator.validate(data)
+        logger.info(f"✓ Validated against schema: {schema_file}")
+    else:
+        logger.info(f"⚠ Schema file not found, skipping validation: {schema_file}")
     
     # Step 2: Map to topic tree
     logger.info("\n[2/4] Mapping process to topic tree...")
@@ -101,6 +110,7 @@ def import_and_export(input_file: str, schema_file: str, output_file: str) -> No
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=env.USE_AUTH_CACHE,
     )
     
     importer = DigitalCoachImporter(session)
