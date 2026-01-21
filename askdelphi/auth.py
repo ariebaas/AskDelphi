@@ -235,7 +235,11 @@ class AskDelphiAuth:
                 logger.info("SUCCESS: Authenticated using cached tokens")
                 return True
             except Exception as e:
-                logger.warning(f"Cached tokens failed: {e}")
+                # Log at debug level for connection errors (common in tests with fake URLs)
+                if "Failed to resolve" in str(e) or "Connection" in str(e):
+                    logger.debug(f"Cached tokens failed (connection issue): {type(e).__name__}")
+                else:
+                    logger.warning(f"Cached tokens failed: {e}")
                 logger.info("Will try portal code authentication...")
 
         # Use portal code
@@ -424,6 +428,7 @@ class AskDelphiAuth:
         Get API token, refreshing if necessary.
 
         Returns:
+            Valid API token
         """
         if self.cache.is_api_token_valid():
             logger.debug("Using cached API token (still valid)")
@@ -435,7 +440,11 @@ class AskDelphiAuth:
             try:
                 self._refresh_tokens()
             except Exception as e:
-                logger.warning(f"Token refresh failed: {e}")
+                # Log at debug level for connection errors (common in tests with fake URLs)
+                if "Failed to resolve" in str(e) or "Connection" in str(e):
+                    logger.debug(f"Token refresh failed (connection issue): {type(e).__name__}")
+                else:
+                    logger.warning(f"Token refresh failed: {e}")
 
         # Get new API token
         self._get_api_token()
@@ -461,7 +470,11 @@ class AskDelphiAuth:
             response = requests.get(url, headers=headers, timeout=30)
         except requests.exceptions.RequestException as e:
             error_msg = f"Failed to get editing API token: {e}"
-            logger.error(error_msg)
+            # Log at debug level for connection errors (common in tests with fake URLs)
+            if "Failed to resolve" in str(e) or "Connection" in str(e):
+                logger.debug(error_msg)
+            else:
+                logger.error(error_msg)
             raise Exception(error_msg)
 
         log_response(response)
@@ -533,7 +546,11 @@ class AskDelphiAuth:
             response = requests.get(url, headers=headers, timeout=30)
         except requests.exceptions.RequestException as e:
             error_msg = f"Token refresh failed: {e}"
-            logger.error(error_msg)
+            # Log at debug level for connection errors (common in tests with fake URLs)
+            if "Failed to resolve" in str(e) or "Connection" in str(e):
+                logger.debug(error_msg)
+            else:
+                logger.error(error_msg)
             raise Exception(error_msg)
 
         if not response.ok:
