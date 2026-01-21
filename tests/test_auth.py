@@ -110,10 +110,10 @@ class TestTokenCache:
 
 
 class TestAskDelphiAuth:
-    """Test AskDelphi authentication manager."""
+    """Test AskDelphi authenticatie manager."""
 
     def test_auth_initialization_with_individual_ids(self):
-        """Test auth initialization with individual IDs."""
+        """Test authenticatie initialisatie met individuele IDs."""
         auth = AskDelphiAuth(
             tenant_id="tenant-123",
             project_id="project-456",
@@ -125,7 +125,7 @@ class TestAskDelphiAuth:
         assert auth.acl_entry_id == "acl-789"
 
     def test_auth_initialization_with_cms_url(self):
-        """Test auth initialization with CMS URL."""
+        """Test authenticatie initialisatie met CMS URL."""
         cms_url = "https://company.askdelphi.com/cms/tenant/abc-123/project/def-456/acl/ghi-789/page"
         auth = AskDelphiAuth(cms_url=cms_url)
         
@@ -134,14 +134,14 @@ class TestAskDelphiAuth:
         assert auth.acl_entry_id == "ghi-789"
 
     def test_auth_initialization_missing_credentials(self):
-        """Test that auth raises error when credentials are missing."""
+        """Test dat authenticatie fout genereert wanneer credentials ontbreken."""
         with pytest.raises(ValueError):
             AskDelphiAuth(tenant_id="tenant-123")
 
     @patch.dict('os.environ', {'ASKDELPHI_PORTAL_CODE': 'ABC123-XYZ789'})
     @patch('api_client.auth.requests.Session')
     def test_authenticate_with_portal_code(self, mock_session):
-        """Test authentication with portal code."""
+        """Test authenticatie met portal code."""
         auth = AskDelphiAuth(
             tenant_id="tenant-123",
             project_id="project-456",
@@ -190,7 +190,7 @@ class TestAskDelphiAuth:
             assert auth.cache.publication_url == "https://company.askdelphi.com"
 
     def test_get_api_token_uses_cache(self):
-        """Test that get_api_token uses cached token if valid."""
+        """Test dat get_api_token cached token gebruikt indien geldig."""
         auth = AskDelphiAuth(
             tenant_id="tenant-123",
             project_id="project-456",
@@ -206,7 +206,7 @@ class TestAskDelphiAuth:
         assert token == "cached_token_123"
 
     def test_token_refresh_on_expiry(self):
-        """Test that token is refreshed when expired."""
+        """Test dat tokens worden vernieuwd wanneer ze verlopen."""
         auth = AskDelphiAuth(
             tenant_id="tenant-123",
             project_id="project-456",
@@ -227,11 +227,11 @@ class TestAskDelphiAuth:
 
 
 class TestSessionIntegration:
-    """Test integration with AskDelphiSession."""
+    """Test integratie met AskDelphiSession."""
 
     @patch('api_client.session.AskDelphiAuth')
     def test_session_with_cms_url(self, mock_auth_class):
-        """Test session initialization with CMS URL."""
+        """Test sessie initialisatie met CMS URL."""
         from api_client.session import AskDelphiSession
         
         cms_url = "https://company.askdelphi.com/cms/tenant/abc-123/project/def-456/acl/ghi-789/page"
@@ -247,7 +247,7 @@ class TestSessionIntegration:
 
     @patch('api_client.session.AskDelphiAuth')
     def test_session_uses_auth_manager(self, mock_auth_class):
-        """Test that session uses auth manager when available."""
+        """Test dat sessie auth manager gebruikt wanneer beschikbaar."""
         from api_client.session import AskDelphiSession
         
         mock_auth = Mock()

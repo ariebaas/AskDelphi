@@ -55,7 +55,7 @@ logger.addHandler(console_handler)
 
 
 def wait_for_mockserver(url: str, timeout: int = 10):
-    """Wait until the mockserver responds or timeout expires."""
+    """Wacht totdat de mockserver reageert of timeout verloopt."""
     logging.info("Waiting for mockserver at %s (timeout=%ss)", url, timeout)
     start = time.time()
     while time.time() - start < timeout:
@@ -71,7 +71,7 @@ def wait_for_mockserver(url: str, timeout: int = 10):
 
 
 def test_authentication_and_connection():
-    """Test authentication and connection to the mock server."""
+    """Test authenticatie en verbinding met de mock server."""
     logging.info("=" * 60)
     logging.info("TESTING AUTHENTICATION AND CONNECTION:")
     logging.info("=" * 60)

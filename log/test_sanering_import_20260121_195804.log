@@ -52,7 +52,7 @@ INFO     root:test_sanering_import.py:147 EXPORTING CONTENT
 INFO     root:test_sanering_import.py:148 ============================================================
 INFO     root:test_sanering_import.py:152 ✓ Export retrieved
 INFO     root:test_sanering_import.py:153   Topics exported: 14
-INFO     root:test_sanering_import.py:154   Exported at: 2026-01-21T18:56:39.334026Z
+INFO     root:test_sanering_import.py:154   Exported at: 2026-01-21T18:58:05.705117Z
 INFO     root:test_sanering_import.py:157 ============================================================
 INFO     root:test_sanering_import.py:158 VALIDATING RELATIONS IN EXPORT
 INFO     root:test_sanering_import.py:159 ============================================================
@@ -67,7 +67,7 @@ INFO     root:test_sanering_import.py:170   Topic Stap 1– Check op vermogensbe
 INFO     root:test_sanering_import.py:172 ✓ Relations validation complete
 INFO     root:test_sanering_import.py:173   Topics with children: 8
 INFO     root:test_sanering_import.py:174   Total child relations: 13
-INFO     root:test_sanering_import.py:181 ✓ Export saved to C:\Users\arieb\CascadeProjects\digitalecoach_client\log\export_sanering_20260121_195639.json
+INFO     root:test_sanering_import.py:181 ✓ Export saved to C:\Users\arieb\CascadeProjects\digitalecoach_client\log\export_sanering_20260121_195805.json
 INFO     root:test_sanering_import.py:183 ============================================================
 INFO     root:test_sanering_import.py:184 ALL TESTS PASSED!
 INFO     root:test_sanering_import.py:185 ============================================================

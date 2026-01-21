@@ -55,7 +55,7 @@ if env_config.DEBUG:
 
 
 def wait_for_mockserver(url, timeout=10):
-    """Wait for mockserver to be ready."""
+    """Wacht totdat de mockserver gereed is."""
     import time
     start = time.time()
     while time.time() - start < timeout:
@@ -68,7 +68,7 @@ def wait_for_mockserver(url, timeout=10):
 
 
 def test_sanering_import():
-    """Import process_sanering.json and test relations."""
+    """Importeer process_sanering.json en test relations."""
     logging.info("=" * 60)
     logging.info("IMPORTING PROCESS_SANERING.JSON WITH RELATIONS SUPPORT")
     logging.info("=" * 60)
