@@ -75,6 +75,8 @@ def run(input_file: str, schema_file: str) -> None:
     mapper = DigitalCoachMapper()
     root_topics = mapper.map_process(data["process"])
 
+    use_auth_cache = env.USE_AUTH_CACHE if hasattr(env, 'USE_AUTH_CACHE') else False
+    
     session = AskDelphiSession(
         base_url=env.ASKDELPHI_BASE_URL,
         api_key=env.ASKDELPHI_API_KEY,
@@ -82,7 +84,7 @@ def run(input_file: str, schema_file: str) -> None:
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
-        use_auth_cache=False,
+        use_auth_cache=use_auth_cache,
     )
 
     process_id = data["process"].get("id")
