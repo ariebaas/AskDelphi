@@ -20,6 +20,19 @@ from .exceptions import AskDelphiAuthError
 from .auth import AskDelphiAuth, parse_cms_url
 
 
+def _get_config_value(param_value: Optional[str], env_var: str) -> Optional[str]:
+    """Get configuration value from parameter or environment variable.
+    
+    Args:
+        param_value: Value passed as parameter
+        env_var: Environment variable name
+        
+    Returns:
+        Parameter value if provided, otherwise environment variable value
+    """
+    return param_value or os.getenv(env_var)
+
+
 class AskDelphiSession:
     """Centrale client voor alle AskDelphi API aanroepen.
 
@@ -59,7 +72,7 @@ class AskDelphiSession:
         """
         load_dotenv()
 
-        cms_url = cms_url or os.getenv("ASKDELPHI_CMS_URL")
+        cms_url = _get_config_value(cms_url, "ASKDELPHI_CMS_URL")
 
         if cms_url:
             try:
@@ -73,11 +86,11 @@ class AskDelphiSession:
                 if DEBUG:
                     print(f" [DEBUG] Kon CMS URL niet parsen: {e}")
 
-        base_url = base_url or os.getenv("ASKDELPHI_BASE_URL")
-        api_key = api_key or os.getenv("ASKDELPHI_API_KEY")
-        tenant = tenant or os.getenv("ASKDELPHI_TENANT")
-        nt_account = nt_account or os.getenv("ASKDELPHI_NT_ACCOUNT")
-        project_id = project_id or os.getenv("ASKDELPHI_PROJECT_ID")
+        base_url = _get_config_value(base_url, "ASKDELPHI_BASE_URL")
+        api_key = _get_config_value(api_key, "ASKDELPHI_API_KEY")
+        tenant = _get_config_value(tenant, "ASKDELPHI_TENANT")
+        nt_account = _get_config_value(nt_account, "ASKDELPHI_NT_ACCOUNT")
+        project_id = _get_config_value(project_id, "ASKDELPHI_PROJECT_ID")
 
         if acl is None:
             acl_str = os.getenv("ASKDELPHI_ACL")

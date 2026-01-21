@@ -28,8 +28,8 @@ class TestRunner:
         self.start_time = None
         self.end_time = None
         self.project_root = Path(__file__).parent.parent
-        self.logs_dir = self.project_root / "log"
-        self.logs_dir.mkdir(exist_ok=True)
+        self.logs_dir = self.project_root / "log" / "test"
+        self.logs_dir.mkdir(exist_ok=True, parents=True)
 
     def cleanup_old_logs(self, keep_count: int = 3):
         """Behoud alleen de laatste N log bestanden en JSON outputs."""
