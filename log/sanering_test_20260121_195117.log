@@ -1,0 +1,73 @@
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: IMPORTING PROCESS_SANERING.JSON WITH RELATIONS SUPPORT
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: Resetting mockserver state...
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Mockserver reset complete
+[SANERING] 2026-01-21 19:51:17 INFO: Loaded process_sanering.json from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\procesbeschrijving\process_sanering.json
+[SANERING] 2026-01-21 19:51:17 INFO: Process: id=proces-sanering, title=Sanering, tasks=2
+[SANERING] 2026-01-21 19:51:17 INFO: Proces gemapt: proces-sanering - Sanering
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Proces gemapt naar 1 root topic met 2 kinderen
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Mapped process to 1 root topic(s)
+[SANERING] 2026-01-21 19:51:17 INFO: TOPIC TREE STRUCTURE:
+[proces-sanering] Sanering (Digitale Coach Homepagina)
+  ├─ [task-1] Selecteer Zaak (Task)
+    ├─ [step-1-1] Stap 1 – Open postbak in WAB (Action)
+      ├─ [instr-1-1-1] Ga naar de WAB-Post omgeving (Simple topic)
+    ├─ [step-1-2] Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken (Action)
+      ├─ [instr-1-2-1] Todo (Simple topic)
+      ├─ [instr-1-2-2] Todo (Simple topic)
+    ├─ [step-1-3] Stap 3 – In behandeling nemen poststuk saneringen (Action)
+      ├─ [instr-1-3-1] Todo (Simple topic)
+    ├─ [step-1-4] Stap 4 – Controleer taken op je naam (Action)
+      ├─ [instr-1-4-1] Todo (Simple topic)
+  ├─ [task-2] Quick scan verzoek (Task)
+    ├─ [step-2-1] Stap 1– Check op vermogensbestanddelen (Action)
+      ├─ [instr-2-1-1] Check op vermogensbestanddelen (Simple topic)
+[SANERING] 2026-01-21 19:51:17 INFO: Created AskDelphiSession for base_url=http://127.0.0.1:8000
+[SANERING] 2026-01-21 19:51:17 INFO: Starting import of topic tree...
+[SANERING] 2026-01-21 19:51:17 INFO: Import gestart van 1 root topic(s)
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Topic aangemaakt: Sanering
+[SANERING] 2026-01-21 19:51:17 INFO:   ✓ Topic aangemaakt: Selecteer Zaak
+[SANERING] 2026-01-21 19:51:17 INFO:     ✓ Topic aangemaakt: Stap 1 – Open postbak in WAB
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Ga naar de WAB-Post omgeving
+[SANERING] 2026-01-21 19:51:17 INFO:     ✓ Topic aangemaakt: Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 19:51:17 INFO:     ✓ Topic aangemaakt: Stap 3 – In behandeling nemen poststuk saneringen
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 19:51:17 INFO:     ✓ Topic aangemaakt: Stap 4 – Controleer taken op je naam
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Todo
+[SANERING] 2026-01-21 19:51:17 INFO:   ✓ Topic aangemaakt: Quick scan verzoek
+[SANERING] 2026-01-21 19:51:17 INFO:     ✓ Topic aangemaakt: Stap 1– Check op vermogensbestanddelen
+[SANERING] 2026-01-21 19:51:17 INFO:       ✓ Topic aangemaakt: Check op vermogensbestanddelen
+[SANERING] 2026-01-21 19:51:17 INFO: Import succesvol voltooid
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Import finished
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: VERIFYING IMPORT AND RELATIONS
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Root topic retrieved: Sanering
+[SANERING] 2026-01-21 19:51:17 INFO:   Relations: parent=None, children=2
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: EXPORTING CONTENT
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Export retrieved
+[SANERING] 2026-01-21 19:51:17 INFO:   Topics exported: 14
+[SANERING] 2026-01-21 19:51:17 INFO:   Exported at: 2026-01-21T18:51:17.448819Z
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: VALIDATING RELATIONS IN EXPORT
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Sanering: 2 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Selecteer Zaak: 4 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Stap 1 – Open postbak in WAB: 1 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken: 2 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Stap 3 – In behandeling nemen poststuk saneringen: 1 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Stap 4 – Controleer taken op je naam: 1 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Quick scan verzoek: 1 children
+[SANERING] 2026-01-21 19:51:17 INFO:   Topic Stap 1– Check op vermogensbestanddelen: 1 children
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Relations validation complete
+[SANERING] 2026-01-21 19:51:17 INFO:   Topics with children: 8
+[SANERING] 2026-01-21 19:51:17 INFO:   Total child relations: 13
+[SANERING] 2026-01-21 19:51:17 INFO: ✓ Export saved to C:\Users\arieb\CascadeProjects\digitalecoach_client\log\export_sanering_20260121_195117.json
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================
+[SANERING] 2026-01-21 19:51:17 INFO: ALL TESTS PASSED!
+[SANERING] 2026-01-21 19:51:17 INFO: ============================================================

@@ -1,5 +1,5 @@
-﻿"""AskDelphi integration package for the Digitalecoach importer.
+﻿"""AskDelphi integratiepakket voor de Digitalecoach importer.
 
-This package contains the session client, service helpers and models
-used to communicate with the AskDelphi (or mock) REST API.
+Dit pakket bevat de sessie client, service helpers en modellen
+die gebruikt worden om te communiceren met de AskDelphi (of mock) REST API.
 """

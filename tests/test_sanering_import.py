@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test script to import, test and export process_sanering.json with relations support."""
+"""Test script om process_sanering.json te importeren, testen en exporteren met relations support."""
 
 import sys
 import os
@@ -8,15 +8,12 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-# Clean up cached tokens before running tests
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
 
-# Force traditional auth mode for e2e tests (no caching complexity)
 os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
-# Add parent directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from askdelphi.session import AskDelphiSession
@@ -25,25 +22,26 @@ from importer.importer import DigitalCoachImporter
 import config.env as env_config
 import requests
 
-
-# Configure logging
-log_file = os.path.join(os.path.dirname(__file__), f"sanering_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+project_root = os.path.dirname(os.path.dirname(__file__))
+log_dir = os.path.join(project_root, "log")
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, f"sanering_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[SANERING] %(asctime)s %(levelname)s: %(message)s"
+
 
 class FlushFileHandler(logging.FileHandler):
     def emit(self, record):
         super().emit(record)
         self.flush()
 
+
 file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
-# Set file handler to DEBUG if env_config.DEBUG is True, otherwise INFO
 file_handler.setLevel(logging.DEBUG if env_config.DEBUG else logging.INFO)
 formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
 file_handler.setFormatter(formatter)
 
 console_handler = logging.StreamHandler()
-# Set console handler to DEBUG if env_config.DEBUG is True, otherwise INFO
 console_handler.setLevel(logging.DEBUG if env_config.DEBUG else logging.INFO)
 console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))
 
@@ -176,7 +174,7 @@ def test_sanering_import():
     logging.info("  Total child relations: %d", children_count)
     
     # Save export to file
-    export_file = os.path.join(os.path.dirname(__file__), f"export_sanering_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+    export_file = os.path.join(log_dir, f"export_sanering_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
     with open(export_file, "w", encoding="utf-8") as f:
         json.dump(export_data, f, indent=2, ensure_ascii=False)
     

@@ -1,9 +1,9 @@
-"""Exporter CLI for AskDelphi Digital Coach.
+"""Exporter CLI voor AskDelphi Digital Coach.
 
-This tool exports all content from AskDelphi (or the mock server) as JSON.
-The output conforms to the AskDelphi export format.
+Dit hulpmiddel exporteert alle content uit AskDelphi (of de mock server) als JSON.
+De output voldoet aan het AskDelphi export format.
 
-Usage:
+Gebruik:
     python exporter.py --output path/to/export.json
 """
 
@@ -15,31 +15,28 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-# Clean up cached tokens before running
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
 
-# Force traditional auth mode (no caching complexity)
 os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
-# Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from askdelphi.session import AskDelphiSession
 from config import env
 
-# Configure logging with both file and console output
 log_dir = os.path.dirname(__file__)
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[EXPORT] %(asctime)s %(levelname)s: %(message)s"
 
-# File handler with flush
+
 class FlushFileHandler(logging.FileHandler):
     def emit(self, record):
         super().emit(record)
         self.flush()
+
 
 file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.INFO)
@@ -47,7 +44,7 @@ formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
 file_handler.setFormatter(formatter)
 
-# Console handler
+console_handler = logging.StreamHandler()
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))

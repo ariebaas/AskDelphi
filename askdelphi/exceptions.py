@@ -1,21 +1,21 @@
-﻿"""Custom exceptions for AskDelphi integration."""
+﻿"""Aangepaste uitzonderingen voor AskDelphi integratie."""
 
 
 class AskDelphiError(Exception):
-    """Base exception for AskDelphi-related errors."""
+    """Basisuitzondering voor AskDelphi-gerelateerde fouten."""
     pass
 
 
 class AskDelphiAuthError(AskDelphiError):
-    """Raised when authentication or session handling fails."""
+    """Wordt gegenereerd wanneer authenticatie of sessiebeheer mislukt."""
     pass
 
 
 class AskDelphiNotFoundError(AskDelphiError):
-    """Raised when a requested resource is not found."""
+    """Wordt gegenereerd wanneer een aangevraagde resource niet wordt gevonden."""
     pass
 
 
 class AskDelphiConflictError(AskDelphiError):
-    """Raised when a conflict occurs (e.g. duplicate ID)."""
+    """Wordt gegenereerd wanneer een conflict optreedt (bijv. dubbele ID)."""
     pass

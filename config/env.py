@@ -1,19 +1,18 @@
-﻿"""Environment configuration loader for the Digitalecoach importer.
+﻿"""Omgevingsconfiguratie loader voor de Digitalecoach importer.
 
-This module loads all relevant settings from a .env file using python-dotenv.
-It centralizes configuration for AskDelphi connectivity."""
+Deze module laadt alle relevante instellingen uit een .env bestand met behulp van python-dotenv.
+Het centraliseert de configuratie voor AskDelphi connectiviteit."""
 
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env from project root
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path)
 
 
 def get_env(name: str, default=None):
-    """Return environment variable value or default if not set."""
+    """Retourneer omgevingsvariabele waarde of standaard indien niet ingesteld."""
     value = os.getenv(name)
     return value if value is not None else default
 
@@ -21,7 +20,6 @@ def get_env(name: str, default=None):
 DEBUG = get_env("DEBUG", "false").lower() == "true"
 SKIP_CHECKOUT_CHECKIN = get_env("SKIP_CHECKOUT_CHECKIN", "true").lower() == "true"
 
-# AskDelphi Configuration
 ASKDELPHI_BASE_URL = get_env("ASKDELPHI_BASE_URL")
 ASKDELPHI_API_KEY = get_env("ASKDELPHI_API_KEY")
 ASKDELPHI_TENANT = get_env("ASKDELPHI_TENANT")

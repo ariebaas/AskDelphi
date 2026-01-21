@@ -1,10 +1,10 @@
-﻿"""End-to-end tests for the Digitalecoach importer against the mock server.
+﻿"""End-to-end tests voor de Digitalecoach importer tegen de mock server.
 
-These tests:
-- Start from a JSON process definition
-- Map it to a topic tree
-- Use AskDelphiSession to talk to the mock server
-- Assert that topics and parts are created as expected
+Deze tests:
+- Starten vanuit een JSON proces definitie
+- Mappen het naar een topic tree
+- Gebruiken AskDelphiSession om met de mock server te communiceren
+- Controleren dat topics en parts zoals verwacht worden aangemaakt
 """
 
 import json
@@ -21,24 +21,21 @@ from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 from config import env
 
-# Clean up cached tokens before running tests
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
 
-# Force traditional auth mode for e2e tests (no caching complexity)
 os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
-
-# Configure logging to write to both file and console
 log_file = os.path.join(os.path.dirname(__file__), f"e2e_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[E2E] %(asctime)s %(levelname)s: %(message)s"
 
-# File handler with flush
+
 class FlushFileHandler(logging.FileHandler):
     def emit(self, record):
         super().emit(record)
         self.flush()
+
 
 file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.INFO)
@@ -46,7 +43,6 @@ formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 formatter.default_msec_format = "%s.%03d"
 file_handler.setFormatter(formatter)
 
-# Console handler
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S'))

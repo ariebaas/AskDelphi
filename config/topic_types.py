@@ -1,31 +1,30 @@
-﻿"""Default topic types configuration for Digital Coach provisioning.
+﻿"""Standaard topic types configuratie voor Digital Coach provisioning.
 
-This module contains a representative subset of AskDelphi topic types
-used for Digital Coach homepages, process pages, steps and instructions.
+Deze module bevat een representatieve subset van AskDelphi topic types
+gebruikt voor Digital Coach homepagina's, procespagina's, stappen en instructies.
 
-Topic Type Usage:
+Topic Type Gebruik:
 - Digitale Coach Homepagina (a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6):
-  Root topic for a Digital Coach process. Used as the top-level container.
+  Root topic voor een Digital Coach proces. Gebruikt als top-level container.
   
 - Digitale Coach Procespagina (b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7):
-  Process page topic. Represents a major section or process within the coach.
+  Procespagina topic. Vertegenwoordigt een grote sectie of proces in de coach.
   
 - Digitale Coach Stap (c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8):
-  Step topic. Represents a single step within a process.
+  Stap topic. Vertegenwoordigt een enkele stap binnen een proces.
   
 - Digitale Coach Instructie (d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9):
-  Instruction topic. Represents detailed instructions for a step.
+  Instructie topic. Vertegenwoordigt gedetailleerde instructies voor een stap.
 
-Extended Topic Types:
-- Used for specialized content types (Questionnaire, Video, Task, etc.)
-- Can be used as alternatives or in addition to Digital Coach types
-- Each has a unique UUID and namespace
+Uitgebreide Topic Types:
+- Gebruikt voor gespecialiseerde content types (Questionnaire, Video, Task, etc.)
+- Kunnen gebruikt worden als alternatief of aanvulling op Digital Coach types
+- Elk heeft een unieke UUID en namespace
 """
 
 import uuid
 
 DEFAULT_TOPIC_TYPES = [
-    # Digital Coach types (UUID keys)
     {
         "key": uuid.UUID("a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6"),
         "title": "Digitale Coach Homepagina",

@@ -1,4 +1,4 @@
-"""Tests for authentication module with URL parsing and token caching."""
+"""Tests voor authenticatie module met URL parsing en token caching."""
 
 import json
 import time
@@ -13,38 +13,38 @@ class TestParseCmsUrl:
     """Test CMS URL parsing."""
 
     def test_parse_valid_cms_url(self):
-        """Test parsing a valid CMS URL."""
+        """Test het parsen van een geldige CMS URL."""
         url = "https://company.askdelphi.com/cms/tenant/abc-123/project/def-456/acl/ghi-789/page"
         tenant, project, acl = parse_cms_url(url)
-        
+
         assert tenant == "abc-123"
         assert project == "def-456"
         assert acl == "ghi-789"
 
     def test_parse_cms_url_case_insensitive(self):
-        """Test that URL parsing is case-insensitive."""
+        """Test dat URL parsing case-insensitief is."""
         url = "https://company.askdelphi.com/cms/TENANT/ABC-123/PROJECT/DEF-456/ACL/GHI-789/page"
         tenant, project, acl = parse_cms_url(url)
-        
+
         assert tenant == "ABC-123"
         assert project == "DEF-456"
         assert acl == "GHI-789"
 
     def test_parse_invalid_cms_url(self):
-        """Test that invalid URL raises ValueError."""
+        """Test dat ongeldige URL ValueError genereert."""
         url = "https://company.askdelphi.com/invalid/url"
-        
+
         with pytest.raises(ValueError):
             parse_cms_url(url)
 
 
 class TestTokenCache:
-    """Test token caching functionality."""
+    """Test token caching functionaliteit."""
 
     def test_token_cache_initialization(self):
-        """Test token cache initialization."""
+        """Test token cache initialisatie."""
         cache = TokenCache()
-        
+
         assert cache.access_token is None
         assert cache.refresh_token is None
         assert cache.publication_url is None
@@ -52,52 +52,46 @@ class TestTokenCache:
         assert cache.api_token_expiry == 0
 
     def test_token_cache_save_and_load(self, tmp_path):
-        """Test saving and loading tokens from cache."""
+        """Test tokens opslaan en laden uit cache."""
         cache_file = tmp_path / "tokens.json"
         cache = TokenCache(str(cache_file))
-        
-        # Set tokens
+
         cache.access_token = "access_123"
         cache.refresh_token = "refresh_456"
         cache.publication_url = "https://company.askdelphi.com"
-        
-        # Save
+
         cache.save()
         assert cache_file.exists()
-        
-        # Load into new cache
+
         cache2 = TokenCache(str(cache_file))
         assert cache2.load()
-        
+
         assert cache2.access_token == "access_123"
         assert cache2.refresh_token == "refresh_456"
         assert cache2.publication_url == "https://company.askdelphi.com"
 
     def test_token_cache_load_nonexistent(self, tmp_path):
-        """Test loading from nonexistent cache file."""
+        """Test laden uit niet-bestaand cache bestand."""
         cache_file = tmp_path / "nonexistent.json"
         cache = TokenCache(str(cache_file))
-        
+
         assert not cache.load()
 
     def test_api_token_validity_check(self):
-        """Test API token validity check."""
+        """Test API token geldigheid controle."""
         cache = TokenCache()
-        
-        # No token
+
         assert not cache.is_api_token_valid()
-        
-        # Token with future expiry
+
         cache.api_token = "token_123"
         cache.api_token_expiry = time.time() + 3600
         assert cache.is_api_token_valid()
-        
-        # Token expiring soon (within 300 sec buffer)
+
         cache.api_token_expiry = time.time() + 100
         assert not cache.is_api_token_valid()
 
     def test_set_api_token_with_jwt(self):
-        """Test setting API token and parsing JWT expiry."""
+        """Test API token instellen en JWT expiry parsing."""
         cache = TokenCache()
         
         # Create a mock JWT token

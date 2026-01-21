@@ -1,10 +1,10 @@
-﻿"""Entry point for the Digitalecoach reference importer.
+﻿"""Ingangspunt voor de Digitalecoach referentie importer.
 
-This script:
-- Loads configuration from .env
-- Validates the input JSON against a schema
-- Maps the process into a topic tree
-- Uses AskDelphiSession to import everything into AskDelphi (or mock)
+Dit script:
+- Laadt configuratie uit .env
+- Valideert de input JSON tegen een schema
+- Mapt het proces naar een topic tree
+- Importeert alles in AskDelphi via AskDelphiSession
 """
 
 import json
@@ -18,7 +18,7 @@ from importer.importer import DigitalCoachImporter
 
 
 def run(input_file: str, schema_file: str) -> None:
-    """Run the full import pipeline for a given process JSON file."""
+    """Voer de volledige import pipeline uit voor een gegeven proces JSON bestand."""
     with open(input_file, "r", encoding="utf-8-sig") as f:
         data = json.load(f)
 
@@ -42,9 +42,9 @@ def run(input_file: str, schema_file: str) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Digitalecoach reference importer")
-    parser.add_argument("--input", required=True, help="Path to process JSON file")
-    parser.add_argument("--schema", required=True, help="Path to JSON schema file")
+    parser = argparse.ArgumentParser(description="Digitalecoach referentie importer")
+    parser.add_argument("--input", required=True, help="Pad naar proces JSON bestand")
+    parser.add_argument("--schema", required=True, help="Pad naar JSON schema bestand")
     args = parser.parse_args()
 
     run(args.input, args.schema)

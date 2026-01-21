@@ -1,10 +1,10 @@
-"""Complete workflow: Import process and then export all content.
+"""Volledige workflow: Importeer proces en exporteer vervolgens alle content.
 
-This script:
-1. Imports a process from JSON
-2. Exports all content to a JSON file
+Dit script:
+1. Importeert een proces uit JSON
+2. Exporteert alle content naar een JSON bestand
 
-Usage:
+Gebruik:
     python run_import_and_export.py --input ../procesbeschrijving/process_onboard_account.json --output export_with_content.json
 """
 
@@ -17,15 +17,12 @@ from datetime import datetime
 from pathlib import Path
 import requests
 
-# Clean up cached tokens before running
 cache_file = Path(".askdelphi_tokens.json")
 if cache_file.exists():
     cache_file.unlink()
 
-# Force traditional auth mode (no caching complexity)
 os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
 
-# Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from askdelphi.session import AskDelphiSession
@@ -34,17 +31,17 @@ from importer.validator import ProcessValidator
 from importer.mapper import DigitalCoachMapper
 from importer.importer import DigitalCoachImporter
 
-# Configure logging with both file and console output
 log_dir = os.path.dirname(__file__)
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"import_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 log_format = "[IMPORT_EXPORT] %(asctime)s %(levelname)s: %(message)s"
 
-# File handler with flush
+
 class FlushFileHandler(logging.FileHandler):
     def emit(self, record):
         super().emit(record)
         self.flush()
+
 
 file_handler = FlushFileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.INFO)

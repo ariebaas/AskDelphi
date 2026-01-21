@@ -1,14 +1,14 @@
-﻿"""JSON schema-based validator for Digital Coach process definitions.
+﻿"""JSON schema-gebaseerde validator voor Digital Coach proces definities.
 
-This module validates the input JSON structure before it is mapped
-and imported into AskDelphi."""
+Deze module valideert de input JSON structuur voordat deze wordt gemapt
+en geïmporteerd in AskDelphi."""
 
 import json
 from jsonschema import validate, ValidationError
 
 
 class ProcessValidator:
-    """Validate a process JSON file against a JSON schema."""
+    """Valideer een proces JSON bestand tegen een JSON schema."""
 
     def __init__(self, schema_path: str) -> None:
         self.schema_path = schema_path
@@ -16,12 +16,12 @@ class ProcessValidator:
             self.schema = json.load(f)
 
     def validate(self, data: dict) -> None:
-        """Validate the given data against the loaded schema.
+        """Valideer de gegeven data tegen het geladen schema.
 
         Raises:
-            ValidationError: if the data does not conform to the schema.
+            ValidationError: indien de data niet conform het schema is.
         """
         try:
             validate(instance=data, schema=self.schema)
         except ValidationError as exc:
-            raise ValidationError(f"Process JSON failed validation: {exc.message}") from exc
+            raise ValidationError(f"Proces JSON validatie mislukt: {exc.message}") from exc

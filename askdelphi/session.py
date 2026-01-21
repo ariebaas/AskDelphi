@@ -1,11 +1,11 @@
-﻿"""AskDelphiSession with debug-mode and .env configuration.
+﻿"""AskDelphiSession met debug-mode en .env configuratie.
 
-This module defines the central AskDelphiSession client that:
-- Manages authentication and session tokens
-- Automatically refreshes tokens when expired
-- Injects tenant, NT-account, ACL and project context
-- Provides debug logging controlled via the DEBUG environment variable
-- Supports CMS URL parsing and token caching
+Deze module definieert de centrale AskDelphiSession client die:
+- Authenticatie en sessie tokens beheert
+- Tokens automatisch vernieuwt wanneer verlopen
+- Tenant, NT-account, ACL en project context injecteert
+- Debug logging biedt gecontroleerd via DEBUG omgevingsvariabele
+- CMS URL parsing en token caching ondersteunt
 """
 
 import os
@@ -21,13 +21,13 @@ from askdelphi.auth import AskDelphiAuth, parse_cms_url
 
 
 class AskDelphiSession:
-    """Central client for all AskDelphi API calls.
+    """Centrale client voor alle AskDelphi API aanroepen.
 
-    This client abstracts away:
-    - Session token retrieval and refresh
-    - Context injection (tenant, NT-account, ACL, project)
-    - Basic error handling and debug logging
-    - CMS URL parsing and token caching
+    Deze client abstraheerd:
+    - Sessie token ophalen en vernieuwen
+    - Context injectie (tenant, NT-account, ACL, project)
+    - Basis foutafhandeling en debug logging
+    - CMS URL parsing en token caching
     """
 
     def __init__(
@@ -41,29 +41,26 @@ class AskDelphiSession:
         cms_url: Optional[str] = None,
         use_auth_cache: bool = True,
     ) -> None:
-        """
-        Initialize AskDelphiSession.
+        """Initialiseer AskDelphiSession.
 
-        Can be initialized in two ways:
-        1. CMS URL: cms_url (parsed to extract tenant, project, acl)
-        2. Traditional: base_url, api_key, tenant, nt_account, acl, project_id
+        Kan op twee manieren worden geïnitialiseerd:
+        1. CMS URL: cms_url (geparst om tenant, project, acl uit te halen)
+        2. Traditioneel: base_url, api_key, tenant, nt_account, acl, project_id
 
         Args:
-            base_url: Base URL for API calls (or ASKDELPHI_BASE_URL from .env)
-            api_key: API key for authentication (or ASKDELPHI_API_KEY from .env)
-            tenant: Tenant ID (or ASKDELPHI_TENANT from .env)
-            nt_account: NT account (or ASKDELPHI_NT_ACCOUNT from .env)
-            acl: ACL list (or ASKDELPHI_ACL from .env)
-            project_id: Project ID (or ASKDELPHI_PROJECT_ID from .env)
-            cms_url: Full CMS URL (alternative to individual parameters)
-            use_auth_cache: Whether to use token caching (from config)
+            base_url: Base URL voor API aanroepen (of ASKDELPHI_BASE_URL uit .env)
+            api_key: API sleutel voor authenticatie (of ASKDELPHI_API_KEY uit .env)
+            tenant: Tenant ID (of ASKDELPHI_TENANT uit .env)
+            nt_account: NT account (of ASKDELPHI_NT_ACCOUNT uit .env)
+            acl: ACL lijst (of ASKDELPHI_ACL uit .env)
+            project_id: Project ID (of ASKDELPHI_PROJECT_ID uit .env)
+            cms_url: Volledige CMS URL (alternatief voor individuele parameters)
+            use_auth_cache: Of token caching moet worden gebruikt
         """
         load_dotenv()
 
-        # Try to get CMS URL from .env if not provided
         cms_url = cms_url or os.getenv("ASKDELPHI_CMS_URL")
 
-        # If CMS URL provided, parse it
         if cms_url:
             try:
                 parsed_tenant, parsed_project, parsed_acl = parse_cms_url(cms_url)
@@ -71,12 +68,11 @@ class AskDelphiSession:
                 project_id = project_id or parsed_project
                 acl = acl or [parsed_acl]
                 if DEBUG:
-                    print(" [DEBUG] Parsed credentials from CMS URL")
+                    print(" [DEBUG] Credentials geparst uit CMS URL")
             except ValueError as e:
                 if DEBUG:
-                    print(f" [DEBUG] Could not parse CMS URL: {e}")
+                    print(f" [DEBUG] Kon CMS URL niet parsen: {e}")
 
-        # Fallback to .env variables
         base_url = base_url or os.getenv("ASKDELPHI_BASE_URL")
         api_key = api_key or os.getenv("ASKDELPHI_API_KEY")
         tenant = tenant or os.getenv("ASKDELPHI_TENANT")
@@ -97,7 +93,6 @@ class AskDelphiSession:
         self.session_token: Optional[str] = None
         self.token_expiry: float = 0
 
-        # Initialize auth manager if using cache
         self.auth_manager: Optional[AskDelphiAuth] = None
         if use_auth_cache and tenant and project_id and acl:
             try:
@@ -108,48 +103,39 @@ class AskDelphiSession:
                     acl_entry_id=acl[0] if acl else None,
                 )
                 if DEBUG:
-                    print(" [DEBUG] Auth manager initialized with caching")
+                    print(" [DEBUG] Auth manager geïnitialiseerd met caching")
             except Exception as e:
                 if DEBUG:
-                    print(f" [DEBUG] Could not initialize auth manager: {e}")
+                    print(f" [DEBUG] Kon auth manager niet initialiseren: {e}")
 
         if DEBUG:
-            print(" [DEBUG] AskDelphiSession initialized")
+            print(" [DEBUG] AskDelphiSession geïnitialiseerd")
             print(f"  Base URL: {self.base_url}")
             print(f"  Tenant: {self.tenant}")
             print(f"  NT Account: {self.nt_account}")
             print(f"  ACL: {self.acl}")
             print(f"  Project: {self.project_id}")
-            print(f"  Using auth cache: {use_auth_cache and self.auth_manager is not None}")
-
-    # -----------------------------
-    # Public HTTP API
-    # -----------------------------
+            print(f"  Auth cache gebruiken: {use_auth_cache and self.auth_manager is not None}")
 
     def get(self, path: str):
-        """Perform a GET request against the AskDelphi API."""
+        """Voer een GET verzoek uit tegen de AskDelphi API."""
         return self._request("GET", path)
 
     def post(self, path: str, json: dict):
-        """Perform a POST request against the AskDelphi API."""
+        """Voer een POST verzoek uit tegen de AskDelphi API."""
         return self._request("POST", path, json=json)
 
     def put(self, path: str, json: dict):
-        """Perform a PUT request against the AskDelphi API."""
+        """Voer een PUT verzoek uit tegen de AskDelphi API."""
         return self._request("PUT", path, json=json)
 
     def delete(self, path: str):
-        """Perform a DELETE request against the AskDelphi API."""
+        """Voer een DELETE verzoek uit tegen de AskDelphi API."""
         return self._request("DELETE", path)
 
-    # -----------------------------
-    # Core request logic
-    # -----------------------------
-
     def _request(self, method: str, path: str, json: dict = None):
-        """Internal helper to send an HTTP request with context and token handling."""
+        """Interne helper om een HTTP verzoek met context en token handling te verzenden."""
 
-        # Use auth manager if available, otherwise use session token
         if self.auth_manager:
             token = self.auth_manager.get_api_token()
             headers = {
@@ -187,7 +173,7 @@ class AskDelphiSession:
 
         if response.status_code == 401:
             if DEBUG:
-                print(" [DEBUG] Token expired, refreshing...")
+                print(" [DEBUG] Token verlopen, vernieuwen...")
             if self.auth_manager:
                 self.auth_manager.authenticate()
                 token = self.auth_manager.get_api_token()
@@ -199,17 +185,13 @@ class AskDelphiSession:
 
         if not response.ok:
             raise AskDelphiAuthError(
-                f"AskDelphi API error {response.status_code}: {response.text}"
+                f"AskDelphi API fout {response.status_code}: {response.text}"
             )
 
         return response.json()
 
-    # -----------------------------
-    # Token management
-    # -----------------------------
-
     def _refresh_token(self) -> None:
-        """Retrieve a new session token from the /auth/session endpoint."""
+        """Haal een nieuw sessie token op van het /auth/session endpoint."""
 
         auth_payload = {
             "apiKey": self.api_key,
@@ -220,7 +202,7 @@ class AskDelphiSession:
         }
 
         if DEBUG:
-            print("\n[DEBUG] Requesting new session token...")
+            print("\n[DEBUG] Nieuw sessie token aanvragen...")
 
         response = requests.post(f"{self.base_url}/auth/session", json=auth_payload)
 
@@ -234,5 +216,5 @@ class AskDelphiSession:
         self.token_expiry = time.time() + data.get("expiresIn", 3600)
 
         if DEBUG:
-            print(f"[DEBUG] New session token: {self.session_token}")
-            print(f"[DEBUG] Token expires in: {data.get('expiresIn', 3600)} sec")
+            print(f"[DEBUG] Nieuw sessie token: {self.session_token}")
+            print(f"[DEBUG] Token verloopt over: {data.get('expiresIn', 3600)} sec")

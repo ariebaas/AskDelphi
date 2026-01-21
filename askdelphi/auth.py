@@ -1,9 +1,9 @@
-"""Authentication module with URL parsing and token caching.
+"""Authenticatie module met URL parsing en token caching.
 
-This module provides:
-- CMS URL parsing to extract tenant, project, and ACL IDs
-- Token caching and persistence
-- Automatic token refresh before expiry
+Deze module biedt:
+- CMS URL parsing om tenant, project en ACL IDs uit te halen
+- Token caching en persistentie
+- Automatische token vernieuwing voor expiry
 - JWT expiry parsing
 """
 
@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 
 def log_request(method: str, url: str, headers: dict) -> None:
-    """Log HTTP request details."""
-    logger.debug(f"Request: {method} {url}")
+    """Log HTTP verzoek details."""
+    logger.debug(f"Verzoek: {method} {url}")
     logger.debug(f"Headers: {headers}")
 
 
@@ -34,48 +34,46 @@ def log_response(response: requests.Response) -> None:
     try:
         logger.debug(f"Response Status: {response.status_code}")
         logger.debug(f"Response Headers: {dict(response.headers)}")
-        logger.debug(f"Response Body (first 500 chars): {response.text[:500]}")
+        logger.debug(f"Response Body (eerste 500 chars): {response.text[:500]}")
     except Exception as e:
-        logger.debug(f"Could not log response details: {e}")
+        logger.debug(f"Kon response details niet loggen: {e}")
 
 
 def parse_cms_url(url: str) -> Tuple[str, str, str]:
-    """
-    Parse an Ask Delphi CMS URL and extract tenant_id, project_id, acl_entry_id.
+    """Parse een Ask Delphi CMS URL en haal tenant_id, project_id, acl_entry_id uit.
 
     URL format:
     https://xxx.askdelphi.com/cms/tenant/{TENANT_ID}/project/{PROJECT_ID}/acl/{ACL_ENTRY_ID}/...
 
     Args:
-        url: The CMS URL from the browser
+        url: De CMS URL uit de browser
 
     Returns:
-        Tuple of (tenant_id, project_id, acl_entry_id)
+        Tuple van (tenant_id, project_id, acl_entry_id)
 
     Raises:
-        ValueError: If URL cannot be parsed
+        ValueError: Indien URL niet kan worden geparst
     """
     pattern = r'/tenant/([^/]+)/project/([^/]+)/acl/([^/]+)'
     match = re.search(pattern, url, re.IGNORECASE)
 
     if not match:
         raise ValueError(
-            f"Could not parse CMS URL: {url}\n"
-            "Expected format: https://xxx.askdelphi.com/cms/tenant/{TENANT_ID}/project/{PROJECT_ID}/acl/{ACL_ENTRY_ID}/..."
+            f"Kon CMS URL niet parsen: {url}\n"
+            "Verwacht format: https://xxx.askdelphi.com/cms/tenant/{TENANT_ID}/project/{PROJECT_ID}/acl/{ACL_ENTRY_ID}/..."
         )
 
     return match.group(1), match.group(2), match.group(3)
 
 
 class TokenCache:
-    """Manages token caching and persistence."""
+    """Beheert token caching en persistentie."""
 
     def __init__(self, cache_file: str = ".askdelphi_tokens.json"):
-        """
-        Initialize token cache.
+        """Initialiseer token cache.
 
         Args:
-            cache_file: Path to cache file for storing tokens
+            cache_file: Pad naar cache bestand voor token opslag
         """
         self.cache_file = cache_file
         self.access_token: Optional[str] = None
@@ -85,11 +83,10 @@ class TokenCache:
         self.api_token_expiry: float = 0
 
     def load(self) -> bool:
-        """
-        Load tokens from cache file.
+        """Laad tokens uit cache bestand.
 
         Returns:
-            True if tokens were loaded, False otherwise
+            True indien tokens werden geladen, False anders
         """
         try:
             path = Path(self.cache_file)
@@ -98,14 +95,14 @@ class TokenCache:
                 self.access_token = data.get("access_token")
                 self.refresh_token = data.get("refresh_token")
                 self.publication_url = data.get("publication_url")
-                logger.info(f"Loaded cached tokens from {self.cache_file}")
+                logger.info(f"Cached tokens geladen uit {self.cache_file}")
                 return True
         except Exception as e:
-            logger.debug(f"No cached tokens loaded: {e}")
+            logger.debug(f"Geen cached tokens geladen: {e}")
         return False
 
     def save(self) -> None:
-        """Save tokens to cache file."""
+        """Sla tokens op in cache bestand."""
         data = {
             "access_token": self.access_token,
             "refresh_token": self.refresh_token,
@@ -114,38 +111,35 @@ class TokenCache:
         }
         try:
             Path(self.cache_file).write_text(json.dumps(data, indent=2))
-            logger.debug(f"Tokens saved to {self.cache_file}")
+            logger.debug(f"Tokens opgeslagen in {self.cache_file}")
         except Exception as e:
-            logger.warning(f"Could not save tokens: {e}")
+            logger.warning(f"Kon tokens niet opslaan: {e}")
 
     def is_api_token_valid(self) -> bool:
-        """Check if API token is still valid (with 300 sec buffer)."""
+        """Controleer of API token nog geldig is (met 300 sec buffer)."""
         return self.api_token and time.time() < self.api_token_expiry - 300
 
     def set_api_token(self, token: str) -> None:
-        """
-        Set API token and parse its expiry time.
+        """Stel API token in en parse zijn expiry tijd.
 
         Args:
             token: JWT token string
         """
         self.api_token = token
 
-        # Parse JWT expiry
         try:
             payload = token.split(".")[1]
-            # Add padding if needed
             payload += "=" * (4 - len(payload) % 4)
             decoded = json.loads(base64.urlsafe_b64decode(payload))
             self.api_token_expiry = decoded.get("exp", time.time() + 3600)
-            logger.debug(f"Token expires at: {datetime.fromtimestamp(self.api_token_expiry)}")
+            logger.debug(f"Token verloopt op: {datetime.fromtimestamp(self.api_token_expiry)}")
         except Exception as e:
-            logger.warning(f"Could not parse JWT expiry: {e}")
-            self.api_token_expiry = time.time() + 3600  # Default 1 hour
+            logger.warning(f"Kon JWT expiry niet parsen: {e}")
+            self.api_token_expiry = time.time() + 3600
 
 
 class AskDelphiAuth:
-    """Manages authentication with automatic token refresh and caching."""
+    """Beheert authenticatie met automatische token vernieuwing en caching."""
 
     PORTAL_SERVER = "https://portal.askdelphi.com"
     API_SERVER = "https://edit.api.askdelphi.com"
@@ -158,104 +152,93 @@ class AskDelphiAuth:
         acl_entry_id: Optional[str] = None,
         token_cache_file: str = ".askdelphi_tokens.json"
     ):
-        """
-        Initialize authentication manager.
+        """Initialiseer authenticatie manager.
 
         Args:
-            cms_url: Full CMS URL containing tenant/project/acl IDs (easiest option)
-            tenant_id: Tenant ID (fallback if cms_url not provided)
-            project_id: Project ID (fallback if cms_url not provided)
-            acl_entry_id: ACL entry ID (fallback if cms_url not provided)
-            token_cache_file: File to cache tokens in
+            cms_url: Volledige CMS URL met tenant/project/acl IDs (makkelijkste optie)
+            tenant_id: Tenant ID (fallback indien cms_url niet gegeven)
+            project_id: Project ID (fallback indien cms_url niet gegeven)
+            acl_entry_id: ACL entry ID (fallback indien cms_url niet gegeven)
+            token_cache_file: Bestand om tokens in op te slaan
         """
-        # Try to get IDs from CMS URL first (easiest option)
         cms_url = cms_url or os.getenv("ASKDELPHI_CMS_URL")
 
         if cms_url:
             try:
                 parsed_tenant, parsed_project, parsed_acl = parse_cms_url(cms_url)
-                logger.info("Parsed IDs from CMS URL")
+                logger.info("IDs geparst uit CMS URL")
                 self.tenant_id = tenant_id or parsed_tenant
                 self.project_id = project_id or parsed_project
                 self.acl_entry_id = acl_entry_id or parsed_acl
             except ValueError as e:
-                logger.warning(f"Could not parse CMS URL: {e}")
-                # Fall back to individual variables
+                logger.warning(f"Kon CMS URL niet parsen: {e}")
                 self.tenant_id = tenant_id or os.getenv("ASKDELPHI_TENANT_ID")
                 self.project_id = project_id or os.getenv("ASKDELPHI_PROJECT_ID")
                 self.acl_entry_id = acl_entry_id or os.getenv("ASKDELPHI_ACL_ENTRY_ID")
         else:
-            # Use individual variables
             self.tenant_id = tenant_id or os.getenv("ASKDELPHI_TENANT_ID")
             self.project_id = project_id or os.getenv("ASKDELPHI_PROJECT_ID")
             self.acl_entry_id = acl_entry_id or os.getenv("ASKDELPHI_ACL_ENTRY_ID")
 
-        # Validate required fields
         missing = []
         if not self.tenant_id:
-            missing.append("ASKDELPHI_TENANT_ID (or ASKDELPHI_CMS_URL)")
+            missing.append("ASKDELPHI_TENANT_ID (of ASKDELPHI_CMS_URL)")
         if not self.project_id:
-            missing.append("ASKDELPHI_PROJECT_ID (or ASKDELPHI_CMS_URL)")
+            missing.append("ASKDELPHI_PROJECT_ID (of ASKDELPHI_CMS_URL)")
         if not self.acl_entry_id:
-            missing.append("ASKDELPHI_ACL_ENTRY_ID (or ASKDELPHI_CMS_URL)")
+            missing.append("ASKDELPHI_ACL_ENTRY_ID (of ASKDELPHI_CMS_URL)")
 
         if missing:
-            error_msg = f"Missing required credentials: {', '.join(missing)}"
+            error_msg = f"Ontbrekende vereiste credentials: {', '.join(missing)}"
             logger.error(error_msg)
             raise ValueError(error_msg)
 
         self.portal_code = os.getenv("ASKDELPHI_PORTAL_CODE")
         self.cache = TokenCache(token_cache_file)
 
-        # Try to load cached tokens
         self.cache.load()
 
     def authenticate(self, portal_code: Optional[str] = None) -> bool:
-        """
-        Authenticate with the API.
+        """Authenticeer met de API.
 
-        First tries to use cached tokens. If not available or expired,
-        uses the portal code to get new tokens.
+        Probeert eerst cached tokens te gebruiken. Indien niet beschikbaar of verlopen,
+        gebruikt de portal code om nieuwe tokens op te halen.
 
         Args:
-            portal_code: Optional portal code to use (overrides stored code)
+            portal_code: Optionele portal code om te gebruiken (overschrijft opgeslagen code)
 
         Returns:
-            True if authentication successful
+            True indien authenticatie succesvol
         """
         logger.info("="*60)
-        logger.info("AUTHENTICATION STARTED")
+        logger.info("AUTHENTICATIE GESTART")
         logger.info("="*60)
 
-        # Try to get API token with existing tokens
         if self.cache.access_token and self.cache.publication_url:
-            logger.info("Found cached tokens, trying to use them...")
+            logger.info("Cached tokens gevonden, proberen te gebruiken...")
             try:
                 self._get_api_token()
-                logger.info("SUCCESS: Authenticated using cached tokens")
+                logger.info("SUCCES: Geverifieerd met cached tokens")
                 return True
             except Exception as e:
-                # Log at debug level for connection errors (common in tests with fake URLs)
                 if "Failed to resolve" in str(e) or "Connection" in str(e):
-                    logger.debug(f"Cached tokens failed (connection issue): {type(e).__name__}")
+                    logger.debug(f"Cached tokens mislukt (verbindingsprobleem): {type(e).__name__}")
                 else:
-                    logger.warning(f"Cached tokens failed: {e}")
-                logger.info("Will try portal code authentication...")
+                    logger.warning(f"Cached tokens mislukt: {e}")
+                logger.info("Zal portal code authenticatie proberen...")
 
-        # Use portal code
         code = portal_code or self.portal_code
         if not code:
             error_msg = (
-                "No portal code available. Provide one via:\n"
-                " - argument to authenticate()\n"
+                "Geen portal code beschikbaar. Geef er een via:\n"
+                " - argument naar authenticate()\n"
                 " - constructor parameter\n"
-                " - ASKDELPHI_PORTAL_CODE in .env file"
+                " - ASKDELPHI_PORTAL_CODE in .env bestand"
             )
             logger.error(error_msg)
             raise ValueError(error_msg)
 
-        # Step 1: Exchange portal code for tokens
-        logger.info("Step 1: Exchanging portal code for tokens...")
+        logger.info("Stap 1: Portal code uitwisselen voor tokens...")
         url = f"{self.PORTAL_SERVER}/api/session/registration?sessionCode={code}"
         headers = {
             "Accept": "application/json",
@@ -381,16 +364,15 @@ class AskDelphiAuth:
         return True
 
     def _format_error_response(self, response: requests.Response, context: str) -> str:
-        """Format a detailed error message from a failed response."""
+        """Formatteer een gedetailleerd foutbericht van een mislukte response."""
         lines = [
-            f"{context} failed!",
+            f"{context} mislukt!",
             f"",
             f" Status Code: {response.status_code} {response.reason}",
             f" URL: {response.url}",
-            f" Content-Type: {response.headers.get('Content-Type', 'unknown')}",
+            f" Content-Type: {response.headers.get('Content-Type', 'onbekend')}",
         ]
 
-        # Try to get response body
         try:
             content_type = response.headers.get('Content-Type', '')
             if 'json' in content_type:
@@ -402,60 +384,55 @@ class AskDelphiAuth:
             else:
                 lines.append(f" Response (text): {response.text[:1000]}")
         except:
-            lines.append(f" Response: (could not decode)")
+            lines.append(f" Response: (kon niet decoderen)")
 
-        # Add troubleshooting hints based on status code
         lines.append("")
-        lines.append("Troubleshooting:")
+        lines.append("Probleemoplossing:")
 
         if response.status_code == 401:
-            lines.append(" - 401 Unauthorized: The portal code may be invalid, expired, or already used.")
-            lines.append(" - Portal codes are ONE-TIME USE. Get a fresh code from the Mobile tab.")
-            lines.append(" - Make sure you're copying the full code (format: ABC123-XYZ789)")
+            lines.append(" - 401 Unauthorized: De portal code kan ongeldig, verlopen of al gebruikt zijn.")
+            lines.append(" - Portal codes zijn EENMALIG GEBRUIK. Haal een verse code uit het Mobile tabblad.")
+            lines.append(" - Zorg dat je de volledige code kopieert (format: ABC123-XYZ789)")
         elif response.status_code == 404:
-            lines.append(" - 404 Not Found: The endpoint doesn't exist at this URL.")
-            lines.append(" - This might mean the portal server URL is wrong.")
-            lines.append(" - The correct portal is always: https://portal.askdelphi.com")
+            lines.append(" - 404 Not Found: Het endpoint bestaat niet op deze URL.")
+            lines.append(" - Dit kan betekenen dat de portal server URL fout is.")
+            lines.append(" - De juiste portal is altijd: https://portal.askdelphi.com")
         elif response.status_code == 403:
-            lines.append(" - 403 Forbidden: Access denied. Check your permissions.")
+            lines.append(" - 403 Forbidden: Toegang geweigerd. Controleer je machtigingen.")
         elif response.status_code >= 500:
-            lines.append(" - 5xx Server Error: The server is having issues. Try again later.")
+            lines.append(" - 5xx Server Error: De server heeft problemen. Probeer later opnieuw.")
 
         return "\n".join(lines)
 
     def get_api_token(self) -> str:
-        """
-        Get API token, refreshing if necessary.
+        """Haal API token op, vernieuw indien nodig.
 
         Returns:
-            Valid API token
+            Geldig API token
         """
         if self.cache.is_api_token_valid():
-            logger.debug("Using cached API token (still valid)")
+            logger.debug("Cached API token gebruiken (nog geldig)")
             return self.cache.api_token
 
-        # Try to refresh if token is expired
         if self.cache.refresh_token and not self.cache.is_api_token_valid():
-            logger.debug("API token expired or expiring soon, trying refresh...")
+            logger.debug("API token verlopen of verloopt binnenkort, probeer vernieuwen...")
             try:
                 self._refresh_tokens()
             except Exception as e:
-                # Log at debug level for connection errors (common in tests with fake URLs)
                 if "Failed to resolve" in str(e) or "Connection" in str(e):
-                    logger.debug(f"Token refresh failed (connection issue): {type(e).__name__}")
+                    logger.debug(f"Token vernieuwen mislukt (verbindingsprobleem): {type(e).__name__}")
                 else:
-                    logger.warning(f"Token refresh failed: {e}")
+                    logger.warning(f"Token vernieuwen mislukt: {e}")
 
-        # Get new API token
         self._get_api_token()
         return self.cache.api_token
 
     def _get_api_token(self) -> None:
-        """Get a new API token using access token."""
-        logger.debug("Getting API token...")
+        """Haal een nieuw API token op met behulp van access token."""
+        logger.debug("API token ophalen...")
 
         if not self.cache.access_token or not self.cache.publication_url:
-            raise Exception("No access token available. Call authenticate() first.")
+            raise Exception("Geen access token beschikbaar. Roep authenticate() eerst aan.")
 
         url = f"{self.cache.publication_url}/api/token/EditingApiToken"
         headers = {
@@ -469,8 +446,7 @@ class AskDelphiAuth:
         try:
             response = requests.get(url, headers=headers, timeout=30)
         except requests.exceptions.RequestException as e:
-            error_msg = f"Failed to get editing API token: {e}"
-            # Log at debug level for connection errors (common in tests with fake URLs)
+            error_msg = f"Kon editing API token niet ophalen: {e}"
             if "Failed to resolve" in str(e) or "Connection" in str(e):
                 logger.debug(error_msg)
             else:
@@ -480,45 +456,42 @@ class AskDelphiAuth:
         log_response(response)
 
         if not response.ok:
-            error_msg = self._format_error_response(response, "Get editing API token")
+            error_msg = self._format_error_response(response, "Editing API token ophalen")
             logger.error(error_msg)
             raise Exception(error_msg)
 
-        # Check if we got HTML instead of JSON (indicates wrong URL)
         content_type = response.headers.get('Content-Type', '')
         if 'html' in content_type.lower():
             error_msg = (
-                "Received HTML instead of JSON from EditingApiToken endpoint.\n"
+                "HTML ontvangen in plaats van JSON van EditingApiToken endpoint.\n"
                 f" URL: {url}\n"
                 f" Content-Type: {content_type}\n"
-                f" This usually means the publication URL is incorrect.\n"
-                f" The URL should be just the base domain (e.g., https://company.askdelphi.com)\n"
-                f" Current publication URL: {self.cache.publication_url}\n"
-                " Try deleting .askdelphi_tokens.json and authenticating with a fresh portal code."
+                f" Dit betekent meestal dat de publication URL incorrect is.\n"
+                f" De URL moet alleen het base domein zijn (bijv. https://company.askdelphi.com)\n"
+                f" Huidige publication URL: {self.cache.publication_url}\n"
+                " Probeer .askdelphi_tokens.json te verwijderen en opnieuw te authenticeren met een verse portal code."
             )
             logger.error(error_msg)
             raise Exception(error_msg)
 
-        # Parse token (might be a JSON string or plain text)
         try:
             token = response.json()
             if isinstance(token, str):
-                pass  # Already a string
+                pass
             elif isinstance(token, dict):
                 token = token.get("token") or token.get("accessToken") or str(token)
         except:
             token = response.text.strip().strip('"')
 
-        logger.info(f" Received editing API token: {token[:30] if len(token) > 30 else token}...")
+        logger.info(f" Editing API token ontvangen: {token[:30] if len(token) > 30 else token}...")
 
-        # Validate that the token looks like a JWT
         if not token.startswith("eyJ"):
             error_msg = (
-                f"Invalid API token received - does not look like a JWT.\n"
-                f" Token starts with: {token[:50]}...\n"
-                f" Expected: eyJ... (base64 encoded JSON)\n"
-                f" This might indicate the server returned an error page instead of a token.\n"
-                f" Check askdelphi_debug.log for details."
+                f"Ongeldig API token ontvangen - ziet er niet uit als JWT.\n"
+                f" Token begint met: {token[:50]}...\n"
+                f" Verwacht: eyJ... (base64 gecodeerde JSON)\n"
+                f" Dit kan betekenen dat de server een foutpagina retourneerde in plaats van een token.\n"
+                f" Controleer askdelphi_debug.log voor details."
             )
             logger.error(error_msg)
             raise Exception(error_msg)
@@ -526,11 +499,11 @@ class AskDelphiAuth:
         self.cache.set_api_token(token)
 
     def _refresh_tokens(self) -> None:
-        """Refresh the access token using refresh token."""
-        logger.debug("Refreshing tokens...")
+        """Vernieuw de access token met behulp van refresh token."""
+        logger.debug("Tokens vernieuwen...")
 
         if not self.cache.refresh_token or not self.cache.publication_url:
-            raise Exception("No refresh token available")
+            raise Exception("Geen refresh token beschikbaar")
 
         url = (
             f"{self.cache.publication_url}/api/token/refresh"
@@ -545,8 +518,7 @@ class AskDelphiAuth:
         try:
             response = requests.get(url, headers=headers, timeout=30)
         except requests.exceptions.RequestException as e:
-            error_msg = f"Token refresh failed: {e}"
-            # Log at debug level for connection errors (common in tests with fake URLs)
+            error_msg = f"Token vernieuwen mislukt: {e}"
             if "Failed to resolve" in str(e) or "Connection" in str(e):
                 logger.debug(error_msg)
             else:
@@ -554,11 +526,11 @@ class AskDelphiAuth:
             raise Exception(error_msg)
 
         if not response.ok:
-            raise Exception(f"Failed to refresh token: {response.status_code}")
+            raise Exception(f"Token vernieuwen mislukt: {response.status_code}")
 
         data = response.json()
         self.cache.access_token = data.get("token") or data.get("accessToken", self.cache.access_token)
         self.cache.refresh_token = data.get("refresh") or data.get("refreshToken", self.cache.refresh_token)
 
         self.cache.save()
-        logger.info("Tokens refreshed successfully")
+        logger.info("Tokens succesvol vernieuwd")

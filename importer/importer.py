@@ -1,7 +1,7 @@
-﻿"""Digital Coach importer that pushes a mapped topic tree into AskDelphi.
+﻿"""Digital Coach importer die een gemapt topic tree in AskDelphi pusht.
 
-This module coordinates the creation or update of topics, checkout/checkin
-and part updates using the AskDelphiSession and helper services.
+Deze module coördineert het aanmaken of updaten van topics, checkout/checkin
+en part updates met behulp van AskDelphiSession en helper services.
 """
 
 import logging
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class DigitalCoachImporter:
-    """Import a Digital Coach topic tree into AskDelphi."""
+    """Importeer een Digital Coach topic tree in AskDelphi."""
 
     def __init__(self, session: AskDelphiSession) -> None:
         self.session = session
@@ -24,32 +24,31 @@ class DigitalCoachImporter:
         self.parts = PartService(session)
 
     def import_topics(self, root_topics: list[TopicNode]) -> None:
-        """Import all root topics and their descendants."""
-        logger.info(f"Starting import of {len(root_topics)} root topic(s)")
+        """Importeer alle root topics en hun afstammelingen."""
+        logger.info(f"Import gestart van {len(root_topics)} root topic(s)")
         for topic in root_topics:
             self._import_topic_recursive(topic)
-        logger.info("Import completed successfully")
+        logger.info("Import succesvol voltooid")
 
     def _import_topic_recursive(self, topic: TopicNode, depth: int = 0) -> None:
-        """Create or update a single topic and recurse into its children."""
+        """Maak of update een enkel topic aan en recurse in zijn kinderen."""
         indent = "  " * depth
-        
+
         if env_config.DEBUG:
-            logger.debug(f"{indent}[IMPORT] Processing topic: {topic.id}")
-            logger.debug(f"{indent}  Title: {topic.title}")
-            logger.debug(f"{indent}  Type: {topic.topic_type.get('title', 'Unknown')}")
+            logger.debug(f"{indent}[IMPORT] Topic verwerkt: {topic.id}")
+            logger.debug(f"{indent}  Titel: {topic.title}")
+            logger.debug(f"{indent}  Type: {topic.topic_type.get('title', 'Onbekend')}")
             logger.debug(f"{indent}  Parent: {topic.parent_id}")
-            logger.debug(f"{indent}  Children: {len(topic.children)}")
+            logger.debug(f"{indent}  Kinderen: {len(topic.children)}")
             logger.debug(f"{indent}  Tags: {topic.tags}")
-            logger.debug(f"{indent}  Metadata keys: {list(topic.metadata.keys())}")
-        
-        # Build relations object with children IDs
+            logger.debug(f"{indent}  Metadata sleutels: {list(topic.metadata.keys())}")
+
         relations = {
             "parent": topic.parent_id,
             "children": [child.id for child in topic.children],
             "related": []
         }
-        
+
         payload = {
             "id": topic.id,
             "title": topic.title,
@@ -62,50 +61,44 @@ class DigitalCoachImporter:
         }
 
         try:
-            # Try to see if topic exists
             self.session.get(f"/topics/{topic.id}")
             if env_config.DEBUG:
-                logger.debug(f"{indent}  → Updating existing topic")
-            # Update existing
+                logger.debug(f"{indent}  → Bestaand topic updaten")
             self.session.put(f"/topics/{topic.id}", json=payload)
-            logger.info(f"{indent}✓ Updated topic: {topic.title}")
+            logger.info(f"{indent}✓ Topic bijgewerkt: {topic.title}")
         except AskDelphiAuthError:
             if env_config.DEBUG:
-                logger.debug(f"{indent}  → Creating new topic")
-            # Create new
+                logger.debug(f"{indent}  → Nieuw topic aanmaken")
             self.session.post("/topics", json=payload)
-            logger.info(f"{indent}✓ Created topic: {topic.title}")
+            logger.info(f"{indent}✓ Topic aangemaakt: {topic.title}")
 
-        # Checkout, update parts, checkin (optional based on config)
         if not env_config.SKIP_CHECKOUT_CHECKIN:
             if env_config.DEBUG:
-                logger.debug(f"{indent}  → Checkout topic")
+                logger.debug(f"{indent}  → Topic checkout")
             self.checkout.checkout(topic.id)
-            
+
             if env_config.DEBUG:
-                logger.debug(f"{indent}  → Update parts")
-            self._update_parts(topic)
-            
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Checkin topic")
-            self.checkout.checkin(topic.id, comment="Automated Digital Coach import")
-        else:
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Skipping checkout/checkin (SKIP_CHECKOUT_CHECKIN=true)")
-            # Still update parts even if skipping checkout/checkin
+                logger.debug(f"{indent}  → Parts updaten")
             self._update_parts(topic)
 
-        # Process children
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Topic checkin")
+            self.checkout.checkin(topic.id, comment="Geautomatiseerde Digital Coach import")
+        else:
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Checkout/checkin overgeslagen (SKIP_CHECKOUT_CHECKIN=true)")
+            self._update_parts(topic)
+
         if topic.children:
             if env_config.DEBUG:
-                logger.debug(f"{indent}  → Processing {len(topic.children)} child topic(s)")
+                logger.debug(f"{indent}  → {len(topic.children)} kind topic(s) verwerkt")
             for child in topic.children:
                 self._import_topic_recursive(child, depth + 1)
         elif env_config.DEBUG:
-            logger.debug(f"{indent}  → No children to process")
+            logger.debug(f"{indent}  → Geen kinderen om te verwerken")
 
     def _update_parts(self, topic: TopicNode) -> None:
-        """Update the contentPart for a topic if content is present."""
+        """Update het contentPart voor een topic indien content aanwezig is."""
         if "content" in topic.metadata:
             self.parts.update_part(
                 topic.id,
