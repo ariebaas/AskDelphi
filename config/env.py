@@ -16,6 +16,7 @@ def get_env(name: str, default=None):
 
 
 DEBUG = get_env("DEBUG", "false").lower() == "true"
+SKIP_CHECKOUT_CHECKIN = get_env("SKIP_CHECKOUT_CHECKIN", "false").lower() == "true"
 
 ASKDELPHI_BASE_URL = get_env("ASKDELPHI_BASE_URL")
 ASKDELPHI_API_KEY = get_env("ASKDELPHI_API_KEY")

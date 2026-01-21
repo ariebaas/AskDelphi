@@ -76,18 +76,24 @@ class DigitalCoachImporter:
             self.session.post("/topics", json=payload)
             logger.info(f"{indent}✓ Created topic: {topic.title}")
 
-        # Checkout, update parts, checkin
-        if env_config.DEBUG:
-            logger.debug(f"{indent}  → Checkout topic")
-        self.checkout.checkout(topic.id)
-        
-        if env_config.DEBUG:
-            logger.debug(f"{indent}  → Update parts")
-        self._update_parts(topic)
-        
-        if env_config.DEBUG:
-            logger.debug(f"{indent}  → Checkin topic")
-        self.checkout.checkin(topic.id, comment="Automated Digital Coach import")
+        # Checkout, update parts, checkin (optional based on config)
+        if not env_config.SKIP_CHECKOUT_CHECKIN:
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Checkout topic")
+            self.checkout.checkout(topic.id)
+            
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Update parts")
+            self._update_parts(topic)
+            
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Checkin topic")
+            self.checkout.checkin(topic.id, comment="Automated Digital Coach import")
+        else:
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Skipping checkout/checkin (SKIP_CHECKOUT_CHECKIN=true)")
+            # Still update parts even if skipping checkout/checkin
+            self._update_parts(topic)
 
         # Process children
         if topic.children:
