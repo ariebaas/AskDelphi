@@ -8,6 +8,8 @@ import logging
 from ..api_client.session import AskDelphiSession
 from ..api_client.checkout import CheckoutService
 from ..api_client.parts import PartService
+from ..api_client.topic import TopicService
+from ..api_client.relations import RelationService
 from ..api_client.exceptions import AskDelphiAuthError
 from .mapper import TopicNode
 from .. import config
@@ -23,6 +25,8 @@ class DigitalCoachImporter:
         self.session = session
         self.checkout = CheckoutService(session)
         self.parts = PartService(session)
+        self.topic = TopicService(session)
+        self.relations = RelationService(session)
 
     def import_topics(self, root_topics: list[TopicNode]) -> None:
         """Importeer alle root topics en hun afstammelingen."""
@@ -77,12 +81,27 @@ class DigitalCoachImporter:
             self._update_parts(topic, topic_version_id)
 
             if env_config.DEBUG:
+                logger.debug(f"{indent}  → Metadata updaten")
+            self._update_metadata(topic, topic_version_id)
+
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Relaties toevoegen")
+            self._add_relations(topic, topic_version_id)
+
+            if env_config.DEBUG:
+                logger.debug(f"{indent}  → Tags toevoegen")
+            self._add_tags(topic, topic_version_id)
+
+            if env_config.DEBUG:
                 logger.debug(f"{indent}  → Topic checkin")
             self.checkout.checkin(topic.id, topic_version_id)
         else:
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Checkout/checkin overgeslagen (SKIP_CHECKOUT_CHECKIN=true)")
             self._update_parts(topic, topic_version_id)
+            self._update_metadata(topic, topic_version_id)
+            self._add_relations(topic, topic_version_id)
+            self._add_tags(topic, topic_version_id)
 
         if topic.children:
             if env_config.DEBUG:
@@ -101,3 +120,48 @@ class DigitalCoachImporter:
                 "contentPart",
                 {"text": topic.metadata["content"]},
             )
+
+    def _update_metadata(self, topic: TopicNode, topic_version_id: str = None) -> None:
+        """Update metadata voor een topic."""
+        if topic.metadata and topic_version_id:
+            try:
+                self.topic.update_metadata(
+                    topic.id,
+                    topic_version_id,
+                    topic.metadata,
+                )
+            except Exception as e:
+                if env_config.DEBUG:
+                    logger.debug(f"Metadata update mislukt: {e}")
+
+    def _add_relations(self, topic: TopicNode, topic_version_id: str = None) -> None:
+        """Voeg relaties toe voor een topic."""
+        if topic_version_id and hasattr(topic, 'relations') and topic.relations:
+            try:
+                for relation_type, target_ids in topic.relations.items():
+                    if target_ids:
+                        self.relations.add_relation(
+                            topic.id,
+                            topic_version_id,
+                            relation_type,
+                            target_ids,
+                        )
+            except Exception as e:
+                if env_config.DEBUG:
+                    logger.debug(f"Relatie toevoegen mislukt: {e}")
+
+    def _add_tags(self, topic: TopicNode, topic_version_id: str = None) -> None:
+        """Voeg tags toe voor een topic."""
+        if topic_version_id and topic.tags:
+            try:
+                for tag in topic.tags:
+                    if isinstance(tag, dict) and 'hierarchyTopicId' in tag and 'hierarchyNodeId' in tag:
+                        self.relations.add_tag(
+                            topic.id,
+                            topic_version_id,
+                            tag['hierarchyTopicId'],
+                            tag['hierarchyNodeId'],
+                        )
+            except Exception as e:
+                if env_config.DEBUG:
+                    logger.debug(f"Tag toevoegen mislukt: {e}")
