@@ -55,14 +55,10 @@ class DigitalCoachImporter:
         }
 
         payload = {
-            "id": topic.id,
-            "title": topic.title,
-            "topicTypeKey": str(topic.topic_type["key"]),
-            "topicTypeNamespace": topic.topic_type["namespace"],
-            "parentId": topic.parent_id,
-            "metadata": topic.metadata,
-            "tags": topic.tags,
-            "relations": relations,
+            "topicId": topic.id,
+            "topicTitle": topic.title,
+            "topicTypeId": str(topic.topic_type["key"]),
+            "copyParentTags": False,
         }
 
         # Maak of update topic aan
