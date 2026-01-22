@@ -29,14 +29,14 @@ if errorlevel 1 (
 
 REM Bepaal input file
 if "%~1"=="" (
-    set "INPUT_FILE=examples\process_onboard_account.json"
+    set "INPUT_FILE=procesbeschrijving\process_onboard_account.json"
 ) else (
     set "INPUT_FILE=%~1"
 )
 
 REM Bepaal schema file
 if "%~2"=="" (
-    set "SCHEMA_FILE=config\schema.json"
+    set "SCHEMA_FILE=procesbeschrijving\process_schema.json"
 ) else (
     set "SCHEMA_FILE=%~2"
 )
