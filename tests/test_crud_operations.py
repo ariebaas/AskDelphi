@@ -16,6 +16,9 @@ Dit script test alle 10 CRUD operaties:
 import pytest
 import uuid
 import logging
+import os
+import requests
+import time
 from pathlib import Path
 
 from src.api_client.session import AskDelphiSession
@@ -23,9 +26,45 @@ from src.api_client.topic import TopicService
 from src.api_client.parts import PartService
 from src.api_client.checkout import CheckoutService
 from src.api_client.relations import RelationService
-from src.config.env import env
+from src.config import env
 
 logger = logging.getLogger(__name__)
+
+# Zet auth mode op traditional (niet cache)
+os.environ["ASKDELPHI_AUTH_MODE"] = "traditional"
+
+# Verwijder cache file
+cache_file = Path(".askdelphi_tokens.json")
+if cache_file.exists():
+    cache_file.unlink()
+
+
+def wait_for_mockserver(url: str, timeout: int = 5):
+    """Wacht totdat de mockserver reageert."""
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            r = requests.get(url)
+            if r.status_code in (200, 401, 404):
+                return True
+        except Exception:
+            time.sleep(0.2)
+    return False
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_mockserver():
+    """Setup mockserver voor alle tests."""
+    logger.info("Checking mockserver...")
+    if not wait_for_mockserver(env.ASKDELPHI_BASE_URL + "/projects/test"):
+        logger.warning("Mockserver niet bereikbaar - tests kunnen falen")
+    
+    # Reset mockserver
+    try:
+        requests.post(f"{env.ASKDELPHI_BASE_URL}/reset")
+        logger.info("Mockserver reset")
+    except Exception as e:
+        logger.warning(f"Kon mockserver niet resetten: {e}")
 
 
 @pytest.fixture
@@ -38,6 +77,7 @@ def session():
         nt_account=env.ASKDELPHI_NT_ACCOUNT,
         acl=env.ASKDELPHI_ACL,
         project_id=env.ASKDELPHI_PROJECT_ID,
+        use_auth_cache=False,
     )
 
 

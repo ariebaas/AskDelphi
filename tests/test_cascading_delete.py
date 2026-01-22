@@ -14,7 +14,7 @@ from src.api_client.topic import TopicService
 from src.api_client.checkout import CheckoutService
 from src.importer.importer import DigitalCoachImporter
 from src.importer.mapper import TopicNode
-from src.config.env import env
+from src.config import env
 
 logger = logging.getLogger(__name__)
 

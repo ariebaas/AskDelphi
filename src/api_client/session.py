@@ -182,7 +182,11 @@ class AskDelphiSession:
                 .replace("{aclEntryId}", acl_str)
             )
 
-        url = f"{self.base_url}{url_path}"
+        # Zorg dat base_url eindigt met / en path begint met /
+        base = self.base_url.rstrip("/")
+        if not url_path.startswith("/"):
+            url_path = "/" + url_path
+        url = f"{base}{url_path}"
 
         if DEBUG:
             print(f"\n [DEBUG] {method} {url}")
