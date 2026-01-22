@@ -366,44 +366,105 @@ Voorbeeld:
 
 ## Testen
 
-### Run alle tests
+### Vereisten voor Tests
 
+1. **Mockserver moet draaien** (voor test_end_to_end.py):
 ```bash
-# Direct runnen (aanbevolen)
-python tests/test_end_to_end.py
-
-# Of met pytest
-pytest tests/test_end_to_end.py -v
+# In separate terminal
+cd ../digitalecoach_server
+uvicorn mock_server:app --reload --port 8000
 ```
 
-### Run specifieke test
+2. **.env bestand moet ingesteld zijn** met correcte credentials:
+```env
+ASKDELPHI_BASE_URL=http://127.0.0.1:8000
+ASKDELPHI_API_KEY=dummy-key
+ASKDELPHI_TENANT=dummy-tenant
+ASKDELPHI_NT_ACCOUNT=dummy-user
+ASKDELPHI_ACL=Everyone
+ASKDELPHI_PROJECT_ID=dummy-project
+DEBUG=false
+```
 
+### Run End-to-End Tests (Aanbevolen)
+
+**Met verbose output en korte traceback:**
 ```bash
-pytest tests/test_end_to_end.py::test_export_content -v -s
+python -m pytest tests/test_end_to_end.py -v --tb=short
+```
+
+**Output:**
+- Toont alle test resultaten
+- Korte error messages bij failures
+- Timestamped log files in `log/test/` folder
+
+**Met debug logging:**
+```bash
+DEBUG=true python -m pytest tests/test_end_to_end.py -v --tb=short
+```
+
+**Run specifieke test:**
+```bash
+python -m pytest tests/test_end_to_end.py::test_authentication_and_connection -v --tb=short
+```
+
+### Run CRUD Operatie Tests
+
+**Volledige CRUD coverage (10 operaties):**
+```bash
+python -m pytest tests/test_crud_operations.py -v
+```
+
+**Cascading DELETE tests:**
+```bash
+python -m pytest tests/test_cascading_delete.py -v
+```
+
+### Run Alle Tests
+
+**Master test runner (alle test suites):**
+```bash
+python tests/run_all_tests.py
 ```
 
 ### Test Resultaten
 
-Alle tests genereren timestamped log files in `tests/` folder:
+Alle tests genereren timestamped log files in `log/test/` folder:
 
-- `e2e_test_YYYYMMDD_HHMMSS.log` – E2E test logs
-- `export_YYYYMMDD_HHMMSS.log` – Export operation logs
-- `import_export_YYYYMMDD_HHMMSS.log` – Import/export workflow logs
+- `pytest_YYYYMMDD_HHMMSS.log` – Pytest logs
+- `test_*.json` – Test reports
 
 ### Tests Beschrijving
 
+**test_end_to_end.py:**
 - **`test_authentication_and_connection`** – Valideert authenticatie, invalid credentials, missing headers
 - **`test_export_content`** – Valideert export structure, metadata, content design, topics
-- **`test_import_onboard_account`** – Complete import workflow met CRUD operations:
-  - Parts management (create, update, delete)
-  - Topic updates (checkout/checkin)
-  - Project management (create, delete)
+- **`test_import_onboard_account`** – Complete import workflow met CRUD operations
+
+**test_crud_operations.py:**
+- **`test_01_create_topic`** – CREATE (v4) operatie
+- **`test_02_read_topic`** – READ (v1) operatie
+- **`test_03_checkout_topic`** – CHECKOUT (v3) operatie
+- **`test_04_read_parts`** – READ Parts (v3) operatie
+- **`test_05_update_part`** – UPDATE Part (v2) operatie
+- **`test_06_update_metadata`** – UPDATE Metadata (v2) operatie
+- **`test_07_add_relation`** – ADD Relation (v2) operatie
+- **`test_08_add_tag`** – ADD Tag (v2) operatie
+- **`test_09_checkin_topic`** – CHECKIN (v4) operatie
+- **`test_10_delete_topic`** – DELETE (v3) operatie
+
+**test_cascading_delete.py:**
+- **`test_cascading_delete_removes_children`** – Parent + children verwijderen
+- **`test_cascading_delete_with_nested_hierarchy`** – Geneste hiërarchie (3 niveaus)
+- **`test_cascading_delete_preserves_siblings`** – Siblings behouden
 
 ### Test Coverage
 
 ✅ **15 topics** exported met valid structure
 ✅ **12 topics** imported met complete CRUD workflow
 ✅ **41 topic types** in content design
+✅ **10 CRUD operaties** getest
+✅ **3 cascading delete scenarios** getest
 ✅ **100% API compliance** met AskDelphi Swagger API
 
 ## Environment Variabelen
