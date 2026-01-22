@@ -229,22 +229,41 @@ python -m pytest tests/test_end_to_end.py -v
 python -m pytest tests/test_sanering_import.py -v
 ```
 
+**Test CRUD Operaties (Volledige API Coverage):**
+```bash
+python -m pytest tests/test_crud_operations.py -v
+```
+
+Dit test alle 10 CRUD operaties:
+- ✅ CREATE (v4) – Nieuw topic aanmaken
+- ✅ READ (v1) – Topic ophalen
+- ✅ READ Parts (v3) – Parts ophalen
+- ✅ UPDATE Part (v2) – Part bijwerken
+- ✅ UPDATE Metadata (v2) – Metadata bijwerken
+- ✅ DELETE (v3) – Topic verwijderen
+- ✅ CHECKOUT (v3) – Topic uitchecken
+- ✅ CHECKIN (v4) – Topic inchecken
+- ✅ ADD Relation (v2) – Relatie toevoegen
+- ✅ ADD Tag (v2) – Tag toevoegen
+
 ## Projectstructuur
 
 ```
 digitalecoach_client/
 ├── src/                         # Source code (organized structure)
-│   ├── api_client/              # AskDelphi API client
+│   ├── api_client/              # AskDelphi API client (volledige CRUD)
 │   │   ├── __init__.py
 │   │   ├── session.py           # Session management & API calls
 │   │   ├── exceptions.py        # Custom exceptions
 │   │   ├── auth.py              # Authentication & token management
-│   │   ├── checkout.py          # Checkout/checkin operations
-│   │   ├── parts.py             # Parts management
+│   │   ├── checkout.py          # Checkout/checkin (v3/v4)
+│   │   ├── parts.py             # Parts management (v2/v3)
+│   │   ├── topic.py             # Topic CRUD (v1/v2/v3)
+│   │   ├── relations.py         # Relations & tags (v2)
 │   │   └── project.py           # Project management
 │   ├── importer/                # Import pipeline
 │   │   ├── mapper.py            # JSON → Topic tree mapper
-│   │   ├── importer.py          # Topic importer
+│   │   ├── importer.py          # Topic importer (volledige CRUD)
 │   │   └── validator.py         # JSON schema validator
 │   └── config/
 │       ├── env.py               # Environment configuration
