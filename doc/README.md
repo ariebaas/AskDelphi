@@ -87,149 +87,147 @@ SKIP_CHECKOUT_CHECKIN=true
 
 ## Gebruik
 
-### 1. End-to-End Tests (Aanbevolen)
+### 1. Master Test Runner (Aanbevolen)
 
-Complete test suite met logging:
+Voer alle tests uit met één commando:
 
 #### Linux/macOS
 ```bash
 # Vanuit project root
-python tests/test_end_to_end.py
+python tests/run_all_tests.py
 ```
 
 #### Windows (PowerShell)
 ```powershell
-# Zorg dat mock server draait (in ander PowerShell venster)
-# cd ..\digitalecoach_server
-# .\venv\Scripts\Activate.ps1
-# uvicorn mock_server:app --reload --port 8000
-
-# In client directory
-python tests/test_end_to_end.py
+# Vanuit project root
+python tests/run_all_tests.py
 ```
 
 Dit voert uit:
-- ✅ Authentication tests (4 tests)
-- ✅ Export content test (15 topics)
-- ✅ Import workflow test (12 topics + CRUD operations)
-- ✅ Alle logs naar `tests/e2e_test_YYYYMMDD_HHMMSS.log`
+- ✅ Authenticatie Tests (16 tests)
+- ✅ End-to-End Integratie Tests (3 tests)
+- ✅ Sanering Import Tests (1 test)
+- ✅ Alle logs naar `log/test/` folder
+- ✅ Automatische cleanup van oude logs
 
 **Met Debug Logging:**
 ```powershell
-$env:DEBUG="true"; python tests/test_end_to_end.py
+$env:DEBUG="true"; python tests/run_all_tests.py
 ```
 
 **Met Checkout/Checkin (production mode):**
 ```powershell
-$env:SKIP_CHECKOUT_CHECKIN="false"; python tests/test_end_to_end.py
+$env:SKIP_CHECKOUT_CHECKIN="false"; python tests/run_all_tests.py
 ```
 
-### 2. Import + Export Workflow
+### 2. Individuele Tests
+
+#### Test Authenticatie
+```bash
+python -m pytest tests/test_auth.py -v
+```
+
+#### Test End-to-End
+```bash
+python -m pytest tests/test_end_to_end.py -v
+```
+
+#### Test Sanering Import
+```bash
+python -m pytest tests/test_sanering_import.py -v
+```
+
+### 3. Import + Export Workflow
 
 Complete workflow: importeer een proces en exporteer alle content in één keer:
 
 #### Linux/macOS
 ```bash
-cd tests
-python run_import_and_export.py \
-  --input ../examples/process_onboard_account.json \
-  --schema ../config/schema.json
+# Vanuit project root
+python main.py
 ```
 
 #### Windows (PowerShell)
 ```powershell
-cd tests
-python run_import_and_export.py `
-  --input ../examples/process_onboard_account.json `
-  --schema ../config/schema.json
+# Vanuit project root
+python main.py
 ```
 
 **Output:**
-- Export JSON: `export_with_content_YYYYMMDD_HHMMSS.json`
-- Log file: `import_export_YYYYMMDD_HHMMSS.log`
+- Export JSON: `log/export_YYYYMMDD_HHMMSS.json`
+- Log file: `log/import_YYYYMMDD_HHMMSS.log`
 
-Dit is de aanbevolen manier omdat het:
+Dit voert uit:
 - ✅ Mock server reset (geen duplicate errors)
-- ✅ Process laadt en valideert
+- ✅ Process laadt en valideert uit `procesbeschrijving/process_onboard_account.json`
 - ✅ Topics importeert
 - ✅ Alles exporteert naar JSON
-- ✅ Timestamped logging
+- ✅ Timestamped logging in `log/` folder
 
-### 3. Alleen Exporteren
-
-#### Linux/macOS
-```bash
-cd tests
-python exporter.py
-```
-
-#### Windows (PowerShell)
+**Met Debug Logging:**
 ```powershell
-cd tests
-python exporter.py
+$env:DEBUG="true"; python main.py
 ```
 
-**Output:**
-- Export JSON: `export_YYYYMMDD_HHMMSS.json`
-- Log file: `export_YYYYMMDD_HHMMSS.log`
-
-Exporteert alle huidige content uit AskDelphi als JSON.
+**Met Checkout/Checkin (production mode):**
+```powershell
+$env:SKIP_CHECKOUT_CHECKIN="false"; python main.py
+```
 
 ## CLI Tools
 
-### `tests/test_end_to_end.py` – End-to-End Tests
+### `tests/run_all_tests.py` – Master Test Runner
 
-Complete test suite met alle functionaliteit:
+Voert alle test suites uit met uitgebreide rapportage:
 
 ```bash
-python tests/test_end_to_end.py
+python tests/run_all_tests.py
 ```
 
 **Tests:**
-- `test_authentication_and_connection()` – Auth flow, invalid credentials, missing headers
-- `test_export_content()` – Export structure, metadata, content design
-- `test_import_onboard_account()` – Complete import workflow met CRUD operations
+- `test_auth.py` – Authenticatie en token caching (16 tests)
+- `test_end_to_end.py` – End-to-end integratie (3 tests)
+- `test_sanering_import.py` – Sanering import (1 test)
 
 **Output:**
-- Log file: `tests/e2e_test_YYYYMMDD_HHMMSS.log`
-- Real-time console output
+- Log files: `log/test/pytest_YYYYMMDD_HHMMSS.log`
+- JSON reports: `log/test/test_*.json`
+- Real-time console output met samenvatting
 
-### `tests/run_import_and_export.py` – Complete Workflow
+### `main.py` – Import + Export Workflow
 
-Importeert een proces en exporteert alle content.
+Complete workflow: importeer proces en exporteer alle content.
 
 ```bash
-cd tests
-python run_import_and_export.py \
-  --input ../examples/process_onboard_account.json \
-  --schema ../config/schema.json \
-  [--output <path>]
+python main.py
 ```
 
-**Opties:**
-- `--input` (verplicht) – Pad naar process JSON
-- `--schema` (verplicht) – Pad naar JSON schema
-- `--output` (optioneel) – Output pad (default: `export_with_content_YYYYMMDD_HHMMSS.json`)
+**Voert uit:**
+- Mock server reset
+- Process laden en valideren uit `procesbeschrijving/process_onboard_account.json`
+- Topics importeren
+- Alles exporteren naar JSON
 
 **Output:**
-- Export JSON: `export_with_content_YYYYMMDD_HHMMSS.json`
-- Log file: `import_export_YYYYMMDD_HHMMSS.log`
+- Export JSON: `log/export_YYYYMMDD_HHMMSS.json`
+- Log file: `log/import_YYYYMMDD_HHMMSS.log`
 
-### `tests/exporter.py` – Exporter
+### Individuele Tests
 
-Exporteert alle content uit AskDelphi als JSON.
-
+**Test Authenticatie:**
 ```bash
-cd tests
-python exporter.py [--output <path>]
+python -m pytest tests/test_auth.py -v
 ```
 
-**Opties:**
-- `--output` (optioneel) – Output pad (default: `export_YYYYMMDD_HHMMSS.json`)
+**Test End-to-End:**
+```bash
+python -m pytest tests/test_end_to_end.py -v
+```
 
-**Output:**
-- Export JSON: `export_YYYYMMDD_HHMMSS.json`
-- Log file: `export_YYYYMMDD_HHMMSS.log`
+**Test Sanering:**
+```bash
+python -m pytest tests/test_sanering_import.py -v
+```
 
 ## Projectstructuur
 
