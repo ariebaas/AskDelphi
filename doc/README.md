@@ -410,14 +410,26 @@ python -m pytest tests/test_end_to_end.py::test_authentication_and_connection -v
 
 ### Run CRUD Operatie Tests
 
-**Volledige CRUD coverage (10 operaties):**
+**Volledige CRUD coverage (10 operaties) - AANBEVOLEN COMMANDO:**
+
+Windows (PowerShell):
+```powershell
+cd c:\Users\arieb\CascadeProjects\digitalecoach_client; python -m pytest tests/test_crud_operations.py -v
+```
+
+Linux/macOS:
 ```bash
-python -m pytest tests/test_crud_operations.py -v
+cd /path/to/digitalecoach_client && python -m pytest tests/test_crud_operations.py -v
+```
+
+**Met debug logging:**
+```bash
+cd c:\Users\arieb\CascadeProjects\digitalecoach_client; DEBUG=true python -m pytest tests/test_crud_operations.py -v
 ```
 
 **Cascading DELETE tests:**
 ```bash
-python -m pytest tests/test_cascading_delete.py -v
+cd c:\Users\arieb\CascadeProjects\digitalecoach_client; python -m pytest tests/test_cascading_delete.py -v
 ```
 
 ### Run Alle Tests
@@ -489,6 +501,23 @@ Voor gedetailleerde documentatie, zie:
 
 ## Troubleshooting
 
+**"src not module" of import errors bij testen:**
+
+Dit probleem treedt op wanneer pytest wordt uitgevoerd van buiten de project root. 
+
+**Oplossing:** Zorg dat je in de project root directory bent en gebruik `python -m pytest`:
+
+```bash
+# CORRECT - Vanuit project root met python -m pytest
+cd c:\Users\arieb\CascadeProjects\digitalecoach_client
+python -m pytest tests/test_crud_operations.py -v
+
+# FOUT - Rechtstreeks pytest commando
+pytest tests/test_crud_operations.py -v
+```
+
+Het `conftest.py` bestand in de project root zorgt ervoor dat de Python path correct wordt ingesteld.
+
 **Module not found errors:**
 ```bash
 # Zorg dat je in de juiste directory bent
@@ -497,7 +526,7 @@ pip install -r requirements.txt
 
 # Of zet PYTHONPATH
 export PYTHONPATH=/path/to/digitalecoach_client
-python tests/test_end_to_end.py
+python -m pytest tests/test_end_to_end.py -v
 ```
 
 **Connection refused:**
