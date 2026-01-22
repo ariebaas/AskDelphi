@@ -87,7 +87,31 @@ SKIP_CHECKOUT_CHECKIN=true
 
 ## Gebruik
 
-### 1. Master Test Runner (Aanbevolen)
+### Snelle Start - Batch Scripts (Windows) ⭐ AANBEVOLEN
+
+**Tests uitvoeren (één klik):**
+```bash
+run_tests.bat
+```
+- Controleert mock server status
+- Voert alle CRUD tests uit
+- Toont duidelijke succes/faal meldingen
+- Pauzeert zodat je resultaten kunt zien
+
+**Import uitvoeren (één klik):**
+```bash
+run_import.bat
+```
+- Gebruikt default: `examples\process_onboard_account.json`
+- Controleert mock server beschikbaarheid
+- Toont duidelijke foutmeldingen
+
+**Import met custom files:**
+```bash
+run_import.bat custom_input.json custom_schema.json
+```
+
+### CLI Tools - Test Runner (Aanbevolen)
 
 Voer alle tests uit met één commando:
 
