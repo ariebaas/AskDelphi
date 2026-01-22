@@ -16,11 +16,11 @@ class CheckoutService:
     def checkout(self, topic_id: str):
         """Checkout een topic voor bewerking."""
         endpoint = f"v3/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/workflowstate"
-        return self.session.post(endpoint, json={"workflowAction": "CheckOut"})
+        return self.session.post(endpoint, json={"action": "CheckOut"})
 
-    def checkin(self, topic_id: str, comment: str = ""):
-        """Checkin een topic na bewerking met een optioneel commentaar."""
-        endpoint = f"v3/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/workflowstate"
+    def checkin(self, topic_id: str, topic_version_id: str):
+        """Checkin een topic na bewerking."""
+        endpoint = f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/topicVersion/{topic_version_id}/workflowstate"
         return self.session.post(
-            endpoint, json={"workflowAction": "CheckIn", "comment": comment}
+            endpoint, json={"action": "CheckIn", "isExternal": False}
         )

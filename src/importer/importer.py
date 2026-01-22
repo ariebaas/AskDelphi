@@ -61,37 +61,28 @@ class DigitalCoachImporter:
             "relations": relations,
         }
 
-        try:
-            # Probeer topic op te halen met v1 endpoint
-            self.session.get(f"v1/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic.id}")
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Bestaand topic updaten")
-            # Update met v2 endpoint (vereist topicVersionId)
-            # Voor nu gebruiken we v4 create endpoint voor nieuwe topics
-            self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
-            logger.info(f"{indent}✓ Topic bijgewerkt: {topic.title}")
-        except AskDelphiAuthError:
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Nieuw topic aanmaken")
-            self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
-            logger.info(f"{indent}✓ Topic aangemaakt: {topic.title}")
+        # Maak of update topic aan
+        result = self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
+        topic_version_id = result.get("topicVersionKey") or result.get("topicVersionId")
+        logger.info(f"{indent}✓ Topic aangemaakt/bijgewerkt: {topic.title}")
 
         if not env_config.SKIP_CHECKOUT_CHECKIN:
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Topic checkout")
-            self.checkout.checkout(topic.id)
+            checkout_result = self.checkout.checkout(topic.id)
+            topic_version_id = checkout_result.get("topicVersionId") or topic_version_id
 
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Parts updaten")
-            self._update_parts(topic)
+            self._update_parts(topic, topic_version_id)
 
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Topic checkin")
-            self.checkout.checkin(topic.id, comment="Geautomatiseerde Digital Coach import")
+            self.checkout.checkin(topic.id, topic_version_id)
         else:
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Checkout/checkin overgeslagen (SKIP_CHECKOUT_CHECKIN=true)")
-            self._update_parts(topic)
+            self._update_parts(topic, topic_version_id)
 
         if topic.children:
             if env_config.DEBUG:
@@ -101,11 +92,12 @@ class DigitalCoachImporter:
         elif env_config.DEBUG:
             logger.debug(f"{indent}  → Geen kinderen om te verwerken")
 
-    def _update_parts(self, topic: TopicNode) -> None:
+    def _update_parts(self, topic: TopicNode, topic_version_id: str = None) -> None:
         """Update het contentPart voor een topic indien content aanwezig is."""
-        if "content" in topic.metadata:
+        if "content" in topic.metadata and topic_version_id:
             self.parts.update_part(
                 topic.id,
+                topic_version_id,
                 "contentPart",
                 {"text": topic.metadata["content"]},
             )
