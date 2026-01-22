@@ -165,3 +165,52 @@ class DigitalCoachImporter:
             except Exception as e:
                 if env_config.DEBUG:
                     logger.debug(f"Tag toevoegen mislukt: {e}")
+
+    def delete_topic_recursive(self, topic: TopicNode, topic_version_id: str = None) -> None:
+        """Verwijder een topic en alle onderliggende topics (cascading delete).
+        
+        Dit zorgt ervoor dat:
+        1. Alle onderliggende topics recursief worden verwijderd
+        2. Relaties worden opgeruimd
+        3. Bovenliggend topic wordt bijgewerkt
+        """
+        if not topic_version_id:
+            logger.warning(f"Kan topic {topic.id} niet verwijderen zonder version ID")
+            return
+        
+        indent = "  " * (self._get_depth(topic) + 1)
+        
+        # Verwijder eerst alle onderliggende topics
+        if topic.children:
+            if env_config.DEBUG:
+                logger.debug(f"{indent}→ {len(topic.children)} onderliggende topic(s) verwijderen")
+            
+            for child in topic.children:
+                # Haal child topic op om version ID te krijgen
+                try:
+                    child_topic = self.topic.get_topic(child.id)
+                    if child_topic:
+                        child_version_id = child_topic.get("topicVersionId") or child_topic.get("topicVersionKey")
+                        if child_version_id:
+                            self.delete_topic_recursive(child, child_version_id)
+                except Exception as e:
+                    if env_config.DEBUG:
+                        logger.debug(f"{indent}  ⚠ Kon child topic {child.id} niet verwijderen: {e}")
+        
+        # Verwijder het topic zelf
+        try:
+            self.topic.delete_topic_recursive(
+                topic.id,
+                topic_version_id,
+                [child.id for child in topic.children]
+            )
+            logger.info(f"{indent}✓ Topic verwijderd: {topic.title}")
+        except Exception as e:
+            logger.error(f"{indent}✗ Kon topic {topic.id} niet verwijderen: {e}")
+
+    def _get_depth(self, topic: TopicNode, depth: int = 0) -> int:
+        """Bereken de diepte van een topic in de hiërarchie."""
+        if not topic.parent_id:
+            return 0
+        # Dit is een vereenvoudigde implementatie
+        return depth
