@@ -28,3 +28,6 @@ ASKDELPHI_ACL = [x.strip() for x in get_env("ASKDELPHI_ACL", "").split(",") if x
 ASKDELPHI_PROJECT_ID = get_env("ASKDELPHI_PROJECT_ID")
 ASKDELPHI_AUTH_MODE = get_env("ASKDELPHI_AUTH_MODE", "traditional").lower()
 USE_AUTH_CACHE = get_env("USE_AUTH_CACHE", "false").lower() == "true"
+
+ASKDELPHI_PORTAL_SERVER = get_env("ASKDELPHI_PORTAL_SERVER", "https://portal.askdelphi.com")
+ASKDELPHI_API_SERVER = get_env("ASKDELPHI_API_SERVER", "https://edit.api.askdelphi.com")

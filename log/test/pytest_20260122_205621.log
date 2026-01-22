@@ -1,0 +1,60 @@
+2026-01-22 20:56:22,180 - root - INFO - ============================================================
+2026-01-22 20:56:22,181 - root - INFO - TESTING AUTHENTICATION AND CONNECTION:
+2026-01-22 20:56:22,181 - root - INFO - ============================================================
+2026-01-22 20:56:22,181 - root - INFO - Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+2026-01-22 20:56:22,203 - root - INFO - Mockserver is reachable (status=401)
+2026-01-22 20:56:22,203 - root - INFO - Resetting mockserver state...
+2026-01-22 20:56:22,209 - root - INFO - Mockserver reset complete
+2026-01-22 20:56:22,219 - root - INFO - Test 1: Creating AskDelphiSession with valid credentials...
+2026-01-22 20:56:22,223 - root - INFO - ✓ AskDelphiSession created successfully
+2026-01-22 20:56:22,223 - root - INFO - Test 2: Verifying session token retrieval via AskDelphiSession...
+2026-01-22 20:56:22,235 - root - INFO - ✓ Session token obtained and used successfully (404 = project not found, auth worked)
+2026-01-22 20:56:22,236 - root - INFO - Test 3: Testing invalid credentials (should fail)...
+2026-01-22 20:56:22,240 - src.api_client.auth - INFO - IDs geparst uit CMS URL
+2026-01-22 20:56:22,246 - root - INFO - ✓ Invalid credentials correctly rejected (status=401)
+2026-01-22 20:56:22,247 - root - INFO - Test 4: Testing request without Authorization header (should fail)...
+2026-01-22 20:56:22,253 - root - INFO - ✓ Request without auth header correctly rejected (status=401)
+2026-01-22 20:56:22,253 - root - INFO - ============================================================
+2026-01-22 20:56:22,253 - root - INFO - ALL AUTHENTICATION TESTS PASSED!
+2026-01-22 20:56:22,253 - root - INFO - ============================================================
+2026-01-22 20:56:22,257 - root - INFO - ============================================================
+2026-01-22 20:56:22,257 - root - INFO - TESTING CONTENT EXPORT:
+2026-01-22 20:56:22,258 - root - INFO - ============================================================
+2026-01-22 20:56:22,258 - root - INFO - Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+2026-01-22 20:56:22,264 - root - INFO - Mockserver is reachable (status=401)
+2026-01-22 20:56:22,265 - root - INFO - Resetting mockserver state...
+2026-01-22 20:56:22,269 - root - INFO - Mockserver reset complete
+2026-01-22 20:56:22,270 - root - INFO - Setting up test data...
+2026-01-22 20:56:22,274 - src.importer.mapper - INFO - Proces gemapt: onboard-account - Onboard nieuwe medewerker
+2026-01-22 20:56:22,275 - src.importer.mapper - INFO - ✓ Proces gemapt naar 1 root topic met 2 kinderen
+2026-01-22 20:56:22,275 - src.importer.importer - INFO - Import gestart van 1 root topic(s)
+2026-01-22 20:56:22,286 - src.importer.importer - INFO - ✓ Topic aangemaakt/bijgewerkt: Onboard nieuwe medewerker
+2026-01-22 20:56:22,499 - root - INFO - Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+2026-01-22 20:56:22,506 - root - INFO - Mockserver is reachable (status=401)
+2026-01-22 20:56:22,506 - root - INFO - Resetting mockserver state...
+2026-01-22 20:56:22,510 - root - INFO - Mockserver reset complete
+2026-01-22 20:56:22,512 - root - INFO - Loaded example JSON from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\procesbeschrijving\process_onboard_account.json
+2026-01-22 20:56:22,512 - root - INFO - Process id=onboard-account title=Onboard nieuwe medewerker (#steps=0)
+2026-01-22 20:56:22,512 - src.importer.mapper - INFO - Proces gemapt: onboard-account - Onboard nieuwe medewerker
+2026-01-22 20:56:22,512 - src.importer.mapper - INFO - ✓ Proces gemapt naar 1 root topic met 2 kinderen
+2026-01-22 20:56:22,512 - root - INFO - Mapped process to 1 root topic(s)
+2026-01-22 20:56:22,512 - root - INFO - TOPIC TREE STRUCTURE:
+[onboard-account] Onboard nieuwe medewerker (Digitale Coach Homepagina)
+  ├─ [task-1] Voorbereiding (Task)
+    ├─ [step-1-1] Account aanmaken (Action)
+      ├─ [instr-1-1-1] Stap 1: Ga naar HR-systeem (Simple topic)
+      ├─ [instr-1-1-2] Stap 2: Vul gegevens in (Simple topic)
+    ├─ [step-1-2] Werkplek voorbereiden (Action)
+      ├─ [instr-1-2-1] Laptop klaarleggen (Simple topic)
+      ├─ [instr-1-2-2] Toegangspas aanmaken (Simple topic)
+  ├─ [task-2] Eerste werkdag (Task)
+    ├─ [step-2-1] Welkom en rondleiding (Action)
+      ├─ [instr-2-1-1] Welkom heten (Simple topic)
+      ├─ [instr-2-1-2] Rondleiding kantoor (Simple topic)
+    ├─ [step-2-2] Introductie IT-systemen (Action)
+      ├─ [instr-2-2-1] Email en Outlook (Simple topic)
+      ├─ [instr-2-2-2] Intranet en documenten (Simple topic)
+2026-01-22 20:56:22,515 - root - INFO - Created AskDelphiSession for base_url=http://127.0.0.1:8000, project_id=None
+2026-01-22 20:56:22,515 - root - INFO - Starting import of topic tree into mockserver...
+2026-01-22 20:56:22,515 - src.importer.importer - INFO - Import gestart van 1 root topic(s)
+2026-01-22 20:56:22,524 - src.importer.importer - INFO - ✓ Topic aangemaakt/bijgewerkt: Onboard nieuwe medewerker

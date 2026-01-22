@@ -1,0 +1,12 @@
+2026-01-22 21:02:38,888 - test_crud_operations - INFO - Checking mockserver...
+2026-01-22 21:02:38,907 - test_crud_operations - INFO - Mockserver reset
+2026-01-22 21:02:38,925 - test_crud_operations - INFO - ✅ CREATE: Topic aangemaakt: 6153d52c-c7ab-46c6-8628-47bb9015af60
+2026-01-22 21:02:38,949 - test_crud_operations - INFO - ✅ READ: Topic gelezen: 794a8771-46cc-4f5a-89a3-7f122959b731
+2026-01-22 21:02:38,973 - test_crud_operations - INFO - ✅ CHECKOUT: Topic uitgecheckt: 34c10688-4bdc-45e7-a30f-edee75f83c15
+2026-01-22 21:02:39,000 - test_crud_operations - INFO - ✅ READ Parts: Parts gelezen voor dd4209fc-6cb0-47a8-b03d-b7ee2f433bd1
+2026-01-22 21:02:39,036 - test_crud_operations - INFO - ✅ UPDATE Part: Part bijgewerkt voor 286fc7f3-0f10-4851-819e-2659789e5101
+2026-01-22 21:02:39,060 - test_crud_operations - INFO - ✅ UPDATE Metadata: Metadata bijgewerkt voor b7ac352d-4c52-41e2-8722-e6316dd830ec
+2026-01-22 21:02:39,091 - test_crud_operations - INFO - ✅ ADD Relation: Relatie toegevoegd van d4efb33e-7b3f-4fc3-802f-b95f44f0f93b naar 4d07188e-4463-4359-a81a-6986632486d2
+2026-01-22 21:02:39,119 - test_crud_operations - INFO - ✅ ADD Tag: Tag toegevoegd aan d14a2717-36c3-4f4b-a979-81fb600be455
+2026-01-22 21:02:39,146 - test_crud_operations - INFO - ✅ CHECKIN: Topic ingecheckt: 0eddf6bb-c122-4404-9009-ce3db3205c74
+2026-01-22 21:02:39,168 - test_crud_operations - INFO - ✅ DELETE: Topic verwijderd: 36856551-b090-4602-971b-13772481ec51

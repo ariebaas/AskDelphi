@@ -1,0 +1,29 @@
+2026-01-22 20:52:23,159 - root - INFO - Waiting for mockserver at http://127.0.0.1:8000/projects/nonexistent (timeout=10s)
+2026-01-22 20:52:23,169 - root - INFO - Mockserver is reachable (status=401)
+2026-01-22 20:52:23,170 - root - INFO - Resetting mockserver state...
+2026-01-22 20:52:23,176 - root - INFO - Mockserver reset complete
+2026-01-22 20:52:23,177 - root - INFO - Loaded example JSON from C:\Users\arieb\CascadeProjects\digitalecoach_client\tests\..\procesbeschrijving\process_onboard_account.json
+2026-01-22 20:52:23,178 - root - INFO - Process id=onboard-account title=Onboard nieuwe medewerker (#steps=0)
+2026-01-22 20:52:23,178 - src.importer.mapper - INFO - Proces gemapt: onboard-account - Onboard nieuwe medewerker
+2026-01-22 20:52:23,179 - src.importer.mapper - INFO - ✓ Proces gemapt naar 1 root topic met 2 kinderen
+2026-01-22 20:52:23,179 - root - INFO - Mapped process to 1 root topic(s)
+2026-01-22 20:52:23,179 - root - INFO - TOPIC TREE STRUCTURE:
+[onboard-account] Onboard nieuwe medewerker (Digitale Coach Homepagina)
+  ├─ [task-1] Voorbereiding (Task)
+    ├─ [step-1-1] Account aanmaken (Action)
+      ├─ [instr-1-1-1] Stap 1: Ga naar HR-systeem (Simple topic)
+      ├─ [instr-1-1-2] Stap 2: Vul gegevens in (Simple topic)
+    ├─ [step-1-2] Werkplek voorbereiden (Action)
+      ├─ [instr-1-2-1] Laptop klaarleggen (Simple topic)
+      ├─ [instr-1-2-2] Toegangspas aanmaken (Simple topic)
+  ├─ [task-2] Eerste werkdag (Task)
+    ├─ [step-2-1] Welkom en rondleiding (Action)
+      ├─ [instr-2-1-1] Welkom heten (Simple topic)
+      ├─ [instr-2-1-2] Rondleiding kantoor (Simple topic)
+    ├─ [step-2-2] Introductie IT-systemen (Action)
+      ├─ [instr-2-2-1] Email en Outlook (Simple topic)
+      ├─ [instr-2-2-2] Intranet en documenten (Simple topic)
+2026-01-22 20:52:23,182 - root - INFO - Created AskDelphiSession for base_url=http://127.0.0.1:8000, project_id=None
+2026-01-22 20:52:23,183 - root - INFO - Starting import of topic tree into mockserver...
+2026-01-22 20:52:23,183 - src.importer.importer - INFO - Import gestart van 1 root topic(s)
+2026-01-22 20:52:23,194 - src.importer.importer - INFO - ✓ Topic aangemaakt/bijgewerkt: Onboard nieuwe medewerker

@@ -20,6 +20,8 @@ from urllib.parse import urlparse
 
 import requests
 
+from ..config.env import ASKDELPHI_PORTAL_SERVER, ASKDELPHI_API_SERVER
+
 logger = logging.getLogger(__name__)
 
 # Constants
@@ -28,8 +30,8 @@ TOKEN_EXPIRY_BUFFER = 300
 DEFAULT_TOKEN_EXPIRY = 3600
 JWT_PREFIX = "eyJ"
 RESPONSE_TEXT_LIMIT = 1000
-PORTAL_SERVER = "https://portal.askdelphi.com"
-API_SERVER = "https://edit.api.askdelphi.com"
+PORTAL_SERVER = ASKDELPHI_PORTAL_SERVER
+API_SERVER = ASKDELPHI_API_SERVER
 
 
 def log_request(method: str, url: str, headers: dict) -> None:

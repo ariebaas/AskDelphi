@@ -1,0 +1,3 @@
+2026-01-22 21:02:29,299 - test_crud_operations - INFO - Checking mockserver...
+2026-01-22 21:02:29,332 - test_crud_operations - INFO - Mockserver reset
+2026-01-22 21:02:29,357 - test_crud_operations - INFO - ✅ CHECKOUT: Topic uitgecheckt: c2ec8a05-eb6e-4e9d-a016-adfac1fbe52e
