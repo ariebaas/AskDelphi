@@ -70,38 +70,33 @@ class DigitalCoachImporter:
         topic_version_id = result.get("topicVersionKey") or result.get("topicVersionId")
         logger.info(f"{indent}✓ Topic aangemaakt/bijgewerkt: {topic.title}")
 
-        if not env_config.SKIP_CHECKOUT_CHECKIN:
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Topic checkout")
-            checkout_result = self.checkout.checkout(topic.id)
-            topic_version_id = checkout_result.get("topicVersionId") or topic_version_id
+        # Checkout topic voor bewerking
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Topic checkout")
+        checkout_result = self.checkout.checkout(topic.id)
+        topic_version_id = checkout_result.get("topicVersionId") or topic_version_id
 
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Parts updaten")
-            self._update_parts(topic, topic_version_id)
+        # Update parts, metadata, relaties en tags
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Parts updaten")
+        self._update_parts(topic, topic_version_id)
 
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Metadata updaten")
-            self._update_metadata(topic, topic_version_id)
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Metadata updaten")
+        self._update_metadata(topic, topic_version_id)
 
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Relaties toevoegen")
-            self._add_relations(topic, topic_version_id)
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Relaties toevoegen")
+        self._add_relations(topic, topic_version_id)
 
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Tags toevoegen")
-            self._add_tags(topic, topic_version_id)
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Tags toevoegen")
+        self._add_tags(topic, topic_version_id)
 
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Topic checkin")
-            self.checkout.checkin(topic.id, topic_version_id)
-        else:
-            if env_config.DEBUG:
-                logger.debug(f"{indent}  → Checkout/checkin overgeslagen (SKIP_CHECKOUT_CHECKIN=true)")
-            self._update_parts(topic, topic_version_id)
-            self._update_metadata(topic, topic_version_id)
-            self._add_relations(topic, topic_version_id)
-            self._add_tags(topic, topic_version_id)
+        # Checkin topic
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  → Topic checkin")
+        self.checkout.checkin(topic.id, topic_version_id)
 
         if topic.children:
             if env_config.DEBUG:
