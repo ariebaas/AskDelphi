@@ -13,20 +13,23 @@ class PartService:
     def __init__(self, session: AskDelphiSession) -> None:
         self.session = session
 
-    def get_parts(self, topic_id: str):
+    def get_parts(self, topic_id: str, topic_version_id: str):
         """Haal alle parts op voor een gegeven topic."""
-        return self.session.get(f"/topics/{topic_id}/parts")
+        endpoint = f"v3/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/topicVersion/{topic_version_id}/part"
+        return self.session.get(endpoint)
 
-    def create_part(self, topic_id: str, name: str, content: dict):
+    def create_part(self, topic_id: str, topic_version_id: str, name: str, content: dict):
         """Maak een nieuw part aan voor een topic."""
+        endpoint = f"v3/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/topicVersion/{topic_version_id}/part"
         return self.session.post(
-            f"/topics/{topic_id}/parts",
+            endpoint,
             json={"name": name, "content": content},
         )
 
-    def update_part(self, topic_id: str, name: str, content: dict):
+    def update_part(self, topic_id: str, topic_version_id: str, name: str, content: dict):
         """Update een bestaand part voor een topic."""
+        endpoint = f"v2/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic_id}/topicVersion/{topic_version_id}/part/{name}"
         return self.session.put(
-            f"/topics/{topic_id}/parts/{name}",
-            json={"name": name, "content": content},
+            endpoint,
+            json={"part": content},
         )

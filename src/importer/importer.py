@@ -62,15 +62,18 @@ class DigitalCoachImporter:
         }
 
         try:
-            self.session.get(f"/topics/{topic.id}")
+            # Probeer topic op te halen met v1 endpoint
+            self.session.get(f"v1/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic/{topic.id}")
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Bestaand topic updaten")
-            self.session.put(f"/topics/{topic.id}", json=payload)
+            # Update met v2 endpoint (vereist topicVersionId)
+            # Voor nu gebruiken we v4 create endpoint voor nieuwe topics
+            self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
             logger.info(f"{indent}✓ Topic bijgewerkt: {topic.title}")
         except AskDelphiAuthError:
             if env_config.DEBUG:
                 logger.debug(f"{indent}  → Nieuw topic aanmaken")
-            self.session.post("/topics", json=payload)
+            self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
             logger.info(f"{indent}✓ Topic aangemaakt: {topic.title}")
 
         if not env_config.SKIP_CHECKOUT_CHECKIN:

@@ -171,7 +171,18 @@ class AskDelphiSession:
             "projectId": self.project_id,
         }
 
-        url = f"{self.base_url}{path}"
+        # Vervang template parameters in path
+        url_path = path
+        if self.tenant and self.project_id and self.acl:
+            acl_str = self.acl[0] if isinstance(self.acl, list) else self.acl
+            url_path = (
+                path
+                .replace("{tenantId}", self.tenant)
+                .replace("{projectId}", self.project_id)
+                .replace("{aclEntryId}", acl_str)
+            )
+
+        url = f"{self.base_url}{url_path}"
 
         if DEBUG:
             print(f"\n [DEBUG] {method} {url}")
