@@ -125,6 +125,11 @@ def run(input_file: str, schema_file: str) -> None:
         use_auth_cache=use_auth_cache,
     )
 
+    if use_auth_cache and session.auth_manager:
+        main_logger.info("Authenticatie met token caching...")
+        session.auth_manager.authenticate()
+        main_logger.info("✓ Geauthenticeerd met token caching")
+
     process_id = data["process"].get("id")
     delete_process_if_exists(session, process_id)
 
