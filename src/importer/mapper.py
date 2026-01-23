@@ -95,14 +95,19 @@ class DigitalCoachMapper:
             logger.debug(f"  Taak gemapt: {task.get('id')} - {task.get('title')}")
 
         task_type = self._get_topic_type(task, "Digitale Coach Stap")
+        metadata = {
+            "description": task.get("description", ""),
+        }
+        # Add parentTopicRelationTypeId if available
+        if "parentTopicRelationTypeId" in task:
+            metadata["parentTopicRelationTypeId"] = task["parentTopicRelationTypeId"]
+        
         node = TopicNode(
             id=task["id"],
             title=task["title"],
             topic_type=task_type,
             parent_id=parent_id,
-            metadata={
-                "description": task.get("description", ""),
-            },
+            metadata=metadata,
             tags=task.get("tags", []),
         )
 
@@ -122,14 +127,19 @@ class DigitalCoachMapper:
             logger.debug(f"      Stap gemapt: {step.get('id')} - {step.get('title')}")
 
         step_type = self._get_topic_type(step, "Digitale Coach Stap")
+        metadata = {
+            "description": step.get("description", ""),
+        }
+        # Add parentTopicRelationTypeId if available
+        if "parentTopicRelationTypeId" in step:
+            metadata["parentTopicRelationTypeId"] = step["parentTopicRelationTypeId"]
+        
         node = TopicNode(
             id=step["id"],
             title=step["title"],
             topic_type=step_type,
             parent_id=parent_id,
-            metadata={
-                "description": step.get("description", ""),
-            },
+            metadata=metadata,
             tags=step.get("tags", []),
         )
 
@@ -149,13 +159,18 @@ class DigitalCoachMapper:
             logger.debug(f"          Instructie gemapt: {instr.get('id')} - {instr.get('title')}")
 
         instr_type = self._get_topic_type(instr, "Digitale Coach Instructie")
+        metadata = {
+            "content": instr.get("content", ""),
+        }
+        # Add parentTopicRelationTypeId if available
+        if "parentTopicRelationTypeId" in instr:
+            metadata["parentTopicRelationTypeId"] = instr["parentTopicRelationTypeId"]
+        
         return TopicNode(
             id=instr["id"],
             title=instr["title"],
             topic_type=instr_type,
             parent_id=parent_id,
-            metadata={
-                "content": instr.get("content", ""),
-            },
+            metadata=metadata,
             tags=instr.get("tags", []),
         )

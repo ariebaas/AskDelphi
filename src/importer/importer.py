@@ -66,6 +66,9 @@ class DigitalCoachImporter:
         # Add parentTopicId if this is not a root topic
         if topic.parent_id:
             payload["parentTopicId"] = topic.parent_id
+            # Add parentTopicRelationTypeId if available in metadata
+            if "parentTopicRelationTypeId" in topic.metadata:
+                payload["parentTopicRelationTypeId"] = topic.metadata["parentTopicRelationTypeId"]
         
         # Add description if available in metadata
         if "description" in topic.metadata and topic.metadata["description"]:
