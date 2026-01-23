@@ -43,6 +43,7 @@ export/
 *.json
 !examples/
 !examples/**
+!procesbeschrijving/*_uuid.json
 tests/*.log
 tests/export_*.json
 examples/*.txt

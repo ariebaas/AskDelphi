@@ -1,0 +1,158 @@
+﻿{
+  "process": {
+    "id": "33622d63-6fa1-5ff6-ab09-959208768a2a",
+    "title": "Sanering",
+    "description": "Sanering (LIC)",
+    "tags": [
+      "CAP",
+      "Inning en betalingsverkeer",
+      "process"
+    ],
+    "tasks": [
+      {
+        "id": "29fd612e-77cc-59c9-a5b6-af1f7dbd2736",
+        "title": "Selecteer Zaak",
+        "description": "Selecteer Zaak.",
+        "topicType": "Task",
+        "tags": [
+          "Sanering"
+        ],
+        "parentTopicId": "33622d63-6fa1-5ff6-ab09-959208768a2a",
+        "steps": [
+          {
+            "id": "75408b20-47c6-5c3b-87aa-53523d64874e",
+            "title": "Stap 1 – Open postbak in WAB",
+            "description": "Todo",
+            "topicType": "Action",
+            "tags": [
+              "postbak"
+            ],
+            "parentTopicId": "29fd612e-77cc-59c9-a5b6-af1f7dbd2736",
+            "instructions": [
+              {
+                "id": "c8deb840-4dc5-5fd6-b7f5-cd11c47bff79",
+                "title": "Ga naar de WAB-Post omgeving",
+                "content": "Ga naar de WAB-Post omgeving via de link https://wab.belastingdienst.nl/ProcessPortal",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "75408b20-47c6-5c3b-87aa-53523d64874e"
+              }
+            ]
+          },
+          {
+            "id": "15eb7227-2607-5da8-92c0-b77c53eafd5a",
+            "title": "Stap 2 – Selecteer alleen kwijtscheldings / saneringsverzoeken",
+            "description": "Todo",
+            "topicType": "Action",
+            "tags": [
+              "postbak"
+            ],
+            "parentTopicId": "29fd612e-77cc-59c9-a5b6-af1f7dbd2736",
+            "instructions": [
+              {
+                "id": "ce4dcf2c-ee6d-53e9-8f79-9ac8bab24deb",
+                "title": "Todo",
+                "content": "Links in het grijze gedeelte druk je op de saved search ‘’Taskforce KWT/SAN’’, ‘’Taskforce KWT/SAN reactie ontvangen’’ en ‘’Taskforce KWT/SAN Reactie termijn afgelopen’’.  Op deze manier verschijnen de saneringsverzoeken in de werkomgeving",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a"
+              },
+              {
+                "id": "a969b847-d812-53fc-827a-64aa30d49ba4",
+                "title": "Todo",
+                "content": "Je kunt deze saved search favoriet maken door op het vergrootglas vóór de saved search te klikken en daarna op de ster die er onder staat.",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a"
+              }
+            ]
+          },
+          {
+            "id": "54631096-12ee-514a-a056-e4b5ea7de335",
+            "title": "Stap 3 – In behandeling nemen poststuk saneringen",
+            "description": "Todo",
+            "topicType": "Action",
+            "tags": [
+              "postbak"
+            ],
+            "parentTopicId": "29fd612e-77cc-59c9-a5b6-af1f7dbd2736",
+            "instructions": [
+              {
+                "id": "867563a9-43c5-5571-8df8-3a8e5642a766",
+                "title": "Todo",
+                "content": "- Op je scherm in WAB zie je in het midden alle inkomende post.\n - Standaard is de werkbak aflopend gesorteerd, het oudste verzoek staat bovenaan, en je pakt altijd het oudste onbehandelde verzoek op.\n - Klik op de titel van de bovenste post om deze te openen. Je komt hierdoor in het behandelscherm.",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "54631096-12ee-514a-a056-e4b5ea7de335"
+              }
+            ]
+          },
+          {
+            "id": "88446bcb-20ee-54a2-9929-9c67ae1d00c1",
+            "title": "Stap 4 – Controleer taken op je naam",
+            "description": "Todo",
+            "topicType": "Action",
+            "tags": [
+              "postbak"
+            ],
+            "parentTopicId": "29fd612e-77cc-59c9-a5b6-af1f7dbd2736",
+            "instructions": [
+              {
+                "id": "22856867-2bb1-5438-88c6-dda1e5ec9230",
+                "title": "Todo",
+                "content": "- In deze taak zie je welke posten je op naam hebt.\n - Door in de zoekbalk bovenin je User-ID in te toetsen zie je welke je onderhanden hebt.",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "88446bcb-20ee-54a2-9929-9c67ae1d00c1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f38a89bf-16da-56ca-a64e-cda9c63a7ca2",
+        "title": "Quick scan verzoek",
+        "description": "Todo",
+        "topicType": "Task",
+        "tags": [
+          "Sanering"
+        ],
+        "parentTopicId": "33622d63-6fa1-5ff6-ab09-959208768a2a",
+        "steps": [
+          {
+            "id": "250bcc53-0c46-548f-b11e-c64c1d0b1ded",
+            "title": "Stap 1– Check op vermogensbestanddelen",
+            "description": "Todo",
+            "topicType": "Action",
+            "tags": [
+              "sanering"
+            ],
+            "parentTopicId": "f38a89bf-16da-56ca-a64e-cda9c63a7ca2",
+            "instructions": [
+              {
+                "id": "7f4012a0-ffe1-579c-99b1-0bd8f5619e7c",
+                "title": "Check op vermogensbestanddelen",
+                "content": "Je gaat de vermogensbestanddelen beoordelen in relatie met de openstaande schuld waar sanering voor wordt gevraagd. Let op: Het moet de formele belastingschuld betreffen. Zie artikel 26.3.4 Leidraad Invordering 2008 en paragraaf 43.4.1 IIB.\\n\\nVermogensbestanddelen:\\n- Log in Inzicht en kies voor de knop 'invordering'.\\n- Vul daar het BSN/RSIN in. Je komt dan in het klantprofiel.\\n- Linksboven zie je drie streepjes waar je op klikt nu kun je verschillende optie aanklikken. Voor de invordering is vooral van belang de knop 'invordering' hier zie je alle vermogensbestanddelen die bij de Belastingdienst bekend zijn.\\n\\nLET OP: De gegevens met betrekking tot panden is niet volledig. Hiervoor moet je altijd het Kadaster (laten) raadplegen.\\n\\n- Je gaat vervolgens RBG raadplegen. Daar kun je zien wat voor banksaldo's er waren in voorgaande jaren.\\n- In RBG kies 'zoek rekeninghouders'.\\n- Toets het RSIN/BSN in en kies een jaartal. Per jaartal moet je steeds opnieuw het RSIN/BSN intoetsen. De saldo's in RBG zijn de saldo's aan het eind van een jaar.\\n- Vermogen in het verleden is geen afwijsgrond onder tijdelijke instructie saneringen. Hou hier rekening mee bij het opvragen van aanvullende stukken en neem altijd ook contact op met de ondernemer.\\n\\nAls je tot de conclusie komt dat er voldoende vermogen is en/of was tot aan het verzoek wijs het verzoek dan af met als reden dat er vanaf de bekendmaking van de belastingaanslag tot aan het indiening van het verzoek om sanering op enig moment voldoende middelen aanwezig waren om de aanslag(en) te kunnen voldoen.\\n\\nZie ook de werkinstructies Beoordelen Vermogensbestanddelen.",
+                "topicType": "Simple topic",
+                "tags": [
+                  "instruction"
+                ],
+                "parentTopicId": "250bcc53-0c46-548f-b11e-c64c1d0b1ded"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
