@@ -93,6 +93,8 @@ class DigitalCoachMapper:
         """Map een enkele taak en zijn stappen."""
         if env_config.DEBUG:
             logger.debug(f"  Taak gemapt: {task.get('id')} - {task.get('title')}")
+            logger.debug(f"    Parent ID: {parent_id}")
+            logger.debug(f"    Fields in task: {list(task.keys())}")
 
         task_type = self._get_topic_type(task, "Digitale Coach Stap")
         metadata = {
@@ -101,6 +103,10 @@ class DigitalCoachMapper:
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in task:
             metadata["parentTopicRelationTypeId"] = task["parentTopicRelationTypeId"]
+            if env_config.DEBUG:
+                logger.debug(f"    Added parentTopicRelationTypeId: {task['parentTopicRelationTypeId']}")
+        elif env_config.DEBUG:
+            logger.debug(f"    parentTopicRelationTypeId NOT found in task")
         
         node = TopicNode(
             id=task["id"],
