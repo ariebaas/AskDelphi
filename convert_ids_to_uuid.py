@@ -15,8 +15,13 @@ Example:
 import json
 import uuid
 import sys
+import io
 from pathlib import Path
 from typing import Any, Dict
+
+# Force UTF-8 output on Windows
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Deterministic UUID namespace for converting strings to UUIDs
 UUID_NAMESPACE = uuid.NAMESPACE_DNS
@@ -62,8 +67,13 @@ def convert_process_file(input_file: str, output_file: str) -> None:
     """Convert IDs in a process JSON file to UUID format."""
     print(f"Reading: {input_file}")
     
-    with open(input_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    # Try utf-8-sig first (handles BOM), then fall back to utf-8
+    try:
+        with open(input_file, 'r', encoding='utf-8-sig') as f:
+            data = json.load(f)
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        with open(input_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
     
     print("Converting IDs to UUID format...")
     id_mapping = {}
@@ -75,7 +85,7 @@ def convert_process_file(input_file: str, output_file: str) -> None:
             print(f"  {original} → {converted}")
     
     print(f"Writing: {output_file}")
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, 'w', encoding='utf-8-sig') as f:
         json.dump(converted_data, f, indent=2, ensure_ascii=False)
     
     print("✓ Conversion complete")
