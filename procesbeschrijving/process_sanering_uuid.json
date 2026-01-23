@@ -3,6 +3,8 @@
     "id": "33622d63-6fa1-5ff6-ab09-959208768a2a",
     "title": "Sanering",
     "description": "Sanering (LIC)",
+    "topic_type_id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
+    "topic_type_title": "Digitale Coach Homepagina",
     "tags": [
       "CAP",
       "Inning en betalingsverkeer",
@@ -37,9 +39,13 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "75408b20-47c6-5c3b-87aa-53523d64874e"
+                "parentTopicId": "75408b20-47c6-5c3b-87aa-53523d64874e",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               }
-            ]
+            ],
+            "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+            "topic_type_title": "Digitale Coach Stap"
           },
           {
             "id": "15eb7227-2607-5da8-92c0-b77c53eafd5a",
@@ -59,7 +65,9 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a"
+                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               },
               {
                 "id": "a969b847-d812-53fc-827a-64aa30d49ba4",
@@ -69,9 +77,13 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a"
+                "parentTopicId": "15eb7227-2607-5da8-92c0-b77c53eafd5a",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               }
-            ]
+            ],
+            "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+            "topic_type_title": "Digitale Coach Stap"
           },
           {
             "id": "54631096-12ee-514a-a056-e4b5ea7de335",
@@ -91,9 +103,13 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "54631096-12ee-514a-a056-e4b5ea7de335"
+                "parentTopicId": "54631096-12ee-514a-a056-e4b5ea7de335",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               }
-            ]
+            ],
+            "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+            "topic_type_title": "Digitale Coach Stap"
           },
           {
             "id": "88446bcb-20ee-54a2-9929-9c67ae1d00c1",
@@ -113,11 +129,17 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "88446bcb-20ee-54a2-9929-9c67ae1d00c1"
+                "parentTopicId": "88446bcb-20ee-54a2-9929-9c67ae1d00c1",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               }
-            ]
+            ],
+            "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+            "topic_type_title": "Digitale Coach Stap"
           }
-        ]
+        ],
+        "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+        "topic_type_title": "Digitale Coach Stap"
       },
       {
         "id": "f38a89bf-16da-56ca-a64e-cda9c63a7ca2",
@@ -147,11 +169,17 @@
                 "tags": [
                   "instruction"
                 ],
-                "parentTopicId": "250bcc53-0c46-548f-b11e-c64c1d0b1ded"
+                "parentTopicId": "250bcc53-0c46-548f-b11e-c64c1d0b1ded",
+                "topic_type_id": "d4e5f6a7-b8c9-4adb-e2f3-a4b5c6d7e8f9",
+                "topic_type_title": "Digitale Coach Instructie"
               }
-            ]
+            ],
+            "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+            "topic_type_title": "Digitale Coach Stap"
           }
-        ]
+        ],
+        "topic_type_id": "c3d4e5f6-a7b8-49ca-d1e2-f3a4b5c6d7e8",
+        "topic_type_title": "Digitale Coach Stap"
       }
     ]
   }
