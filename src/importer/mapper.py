@@ -79,6 +79,9 @@ class DigitalCoachMapper:
         # Store parentTopicRelationTypeId if available (root topic can have parent)
         if "parentTopicRelationTypeId" in process:
             metadata["parentTopicRelationTypeId"] = process["parentTopicRelationTypeId"]
+        # Store parentTopicVersionId if available
+        if "parentTopicVersionId" in process:
+            metadata["parentTopicVersionId"] = process["parentTopicVersionId"]
         
         home = TopicNode(
             id=process.get("id", "dc-home"),
@@ -122,6 +125,9 @@ class DigitalCoachMapper:
                 logger.debug(f"    Added parentTopicRelationTypeId: {task['parentTopicRelationTypeId']}")
         elif env_config.DEBUG:
             logger.debug(f"    parentTopicRelationTypeId NOT found in task")
+        # Add parentTopicVersionId if available
+        if "parentTopicVersionId" in task:
+            metadata["parentTopicVersionId"] = task["parentTopicVersionId"]
         
         node = TopicNode(
             id=task["id"],
@@ -159,6 +165,9 @@ class DigitalCoachMapper:
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in step:
             metadata["parentTopicRelationTypeId"] = step["parentTopicRelationTypeId"]
+        # Add parentTopicVersionId if available
+        if "parentTopicVersionId" in step:
+            metadata["parentTopicVersionId"] = step["parentTopicVersionId"]
         
         node = TopicNode(
             id=step["id"],
@@ -196,6 +205,9 @@ class DigitalCoachMapper:
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in instr:
             metadata["parentTopicRelationTypeId"] = instr["parentTopicRelationTypeId"]
+        # Add parentTopicVersionId if available
+        if "parentTopicVersionId" in instr:
+            metadata["parentTopicVersionId"] = instr["parentTopicVersionId"]
         
         return TopicNode(
             id=instr["id"],

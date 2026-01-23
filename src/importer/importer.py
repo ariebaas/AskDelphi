@@ -79,6 +79,13 @@ class DigitalCoachImporter:
                     logger.debug(f"{indent}  → parentTopicRelationTypeId: {topic.metadata['parentTopicRelationTypeId']}")
             elif env_config.DEBUG:
                 logger.debug(f"{indent}  → parentTopicRelationTypeId: NOT in metadata")
+            # Add parentTopicVersionId if available in metadata
+            if "parentTopicVersionId" in topic.metadata:
+                payload["parentTopicVersionId"] = topic.metadata["parentTopicVersionId"]
+                if env_config.DEBUG:
+                    logger.debug(f"{indent}  → parentTopicVersionId: {topic.metadata['parentTopicVersionId']}")
+            elif env_config.DEBUG:
+                logger.debug(f"{indent}  → parentTopicVersionId: NOT in metadata")
         elif env_config.DEBUG:
             logger.debug(f"{indent}  → parent_id is empty/None")
         
