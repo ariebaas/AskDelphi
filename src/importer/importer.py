@@ -58,6 +58,7 @@ class DigitalCoachImporter:
             "topicId": topic.id,
             "topicTitle": topic.title,
             "topicTypeId": str(topic.topic_type["key"]),
+            "topicTypeNamespace": topic.topic_type.get("namespace", "AskDelphi.DigitalCoach"),
             "copyParentTags": False,
             "language": "nl-NL",
         }
