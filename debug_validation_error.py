@@ -68,6 +68,15 @@ def test_payload_variations(session: AskDelphiSession, topic: TopicNode) -> None
             } if topic.parent_id else base_payload.copy()
         },
         {
+            "name": "With description and tags",
+            "payload": {
+                **base_payload,
+                "language": "nl-NL",
+                "description": topic.metadata.get("description", ""),
+                "tags": topic.tags if topic.tags else []
+            }
+        },
+        {
             "name": "With status",
             "payload": {
                 **base_payload,
@@ -81,13 +90,27 @@ def test_payload_variations(session: AskDelphiSession, topic: TopicNode) -> None
                 **base_payload,
                 "language": "nl-NL",
                 "parentTopicId": topic.parent_id,
+                "description": topic.metadata.get("description", ""),
+                "tags": topic.tags if topic.tags else [],
                 "status": "Published",
                 "contentType": "RichText"
             } if topic.parent_id else {
                 **base_payload,
                 "language": "nl-NL",
+                "description": topic.metadata.get("description", ""),
+                "tags": topic.tags if topic.tags else [],
                 "status": "Published",
                 "contentType": "RichText"
+            }
+        },
+        {
+            "name": "With topicTypeNamespace",
+            "payload": {
+                **base_payload,
+                "language": "nl-NL",
+                "topicTypeNamespace": "AskDelphi.DigitalCoach",
+                "description": topic.metadata.get("description", ""),
+                "tags": topic.tags if topic.tags else []
             }
         }
     ]
