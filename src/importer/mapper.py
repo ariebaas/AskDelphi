@@ -68,14 +68,21 @@ class DigitalCoachMapper:
         """Maak het Digital Coach homepagina topic en zijn kinderen aan."""
         home_type = self._get_topic_type(process, "Digitale Coach Homepagina")
         
+        metadata = {
+            "description": process.get("description", ""),
+        }
+        # Store topic_type_id and topic_type_namespace from JSON if available
+        if "topic_type_id" in process:
+            metadata["topic_type_id"] = process["topic_type_id"]
+        if "topic_type_namespace" in process:
+            metadata["topic_type_namespace"] = process["topic_type_namespace"]
+        
         home = TopicNode(
             id=process.get("id", "dc-home"),
             title=process.get("title", "Digitale Coach"),
             topic_type=home_type,
             parent_id=None,
-            metadata={
-                "description": process.get("description", ""),
-            },
+            metadata=metadata,
             tags=process.get("tags", []),
         )
 
@@ -100,6 +107,11 @@ class DigitalCoachMapper:
         metadata = {
             "description": task.get("description", ""),
         }
+        # Store topic_type_id and topic_type_namespace from JSON if available
+        if "topic_type_id" in task:
+            metadata["topic_type_id"] = task["topic_type_id"]
+        if "topic_type_namespace" in task:
+            metadata["topic_type_namespace"] = task["topic_type_namespace"]
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in task:
             metadata["parentTopicRelationTypeId"] = task["parentTopicRelationTypeId"]
@@ -136,6 +148,11 @@ class DigitalCoachMapper:
         metadata = {
             "description": step.get("description", ""),
         }
+        # Store topic_type_id and topic_type_namespace from JSON if available
+        if "topic_type_id" in step:
+            metadata["topic_type_id"] = step["topic_type_id"]
+        if "topic_type_namespace" in step:
+            metadata["topic_type_namespace"] = step["topic_type_namespace"]
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in step:
             metadata["parentTopicRelationTypeId"] = step["parentTopicRelationTypeId"]
@@ -168,6 +185,11 @@ class DigitalCoachMapper:
         metadata = {
             "content": instr.get("content", ""),
         }
+        # Store topic_type_id and topic_type_namespace from JSON if available
+        if "topic_type_id" in instr:
+            metadata["topic_type_id"] = instr["topic_type_id"]
+        if "topic_type_namespace" in instr:
+            metadata["topic_type_namespace"] = instr["topic_type_namespace"]
         # Add parentTopicRelationTypeId if available
         if "parentTopicRelationTypeId" in instr:
             metadata["parentTopicRelationTypeId"] = instr["parentTopicRelationTypeId"]
