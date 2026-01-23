@@ -87,6 +87,58 @@ SKIP_CHECKOUT_CHECKIN=true
 
 ## Gebruik
 
+### UUID Conversion Utility
+
+If your process JSON files contain string IDs instead of UUID format, use the UUID conversion utility to standardize them:
+
+**What it does:**
+- Converts string IDs to valid UUID format (e.g., `task-1` → `29fd612e-77cc-59c9-a5b6-af1f7dbd2736`)
+- Uses deterministic UUID v5 mapping (same input always produces same UUID)
+- Converts all ID-related fields: `id`, `topicId`, `parentId`, `parent`, `parentTopicId`
+- Preserves already-valid UUIDs unchanged
+- Generates a mapping report showing all conversions
+
+**Usage:**
+
+```bash
+# Convert with auto-generated output filename
+python convert_ids_to_uuid.py input.json
+
+# Convert with custom output filename
+python convert_ids_to_uuid.py input.json output.json
+
+# Show help
+python convert_ids_to_uuid.py --help
+```
+
+**Example:**
+
+```bash
+python convert_ids_to_uuid.py procesbeschrijving/process_sanering.json procesbeschrijving/process_sanering_uuid.json
+```
+
+**Output:**
+```
+Reading: procesbeschrijving/process_sanering.json
+Converting IDs to UUID format...
+Converted 14 IDs:
+  instr-1-1-1 → c8deb840-4dc5-5fd6-b7f5-cd11c47bff79
+  instr-1-2-1 → ce4dcf2c-ee6d-53e9-8f79-9ac8bab24deb
+  proces-sanering → 33622d63-6fa1-5ff6-ab09-959208768a2a
+  step-1-1 → 75408b20-47c6-5c3b-87aa-53523d64874e
+  task-1 → 29fd612e-77cc-59c9-a5b6-af1f7dbd2736
+  ... (more conversions)
+Writing: procesbeschrijving/process_sanering_uuid.json
+✓ Conversion complete
+```
+
+**Result:**
+- New JSON file with all IDs converted to UUID format
+- All parent-child relationships preserved with UUID references
+- Ready to use with the import workflow
+
+**Note:** The conversion is deterministic - running it multiple times with the same input produces identical UUIDs, ensuring consistency across your process definitions.
+
 ### Snelle Start - Scripts (Windows/macOS/Linux) ⭐ AANBEVOLEN
 
 #### Windows (Batch Scripts)
