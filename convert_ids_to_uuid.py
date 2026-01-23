@@ -48,7 +48,8 @@ def convert_ids_in_dict(obj: Any, id_mapping: Dict[str, str]) -> Any:
     if isinstance(obj, dict):
         result = {}
         for key, value in obj.items():
-            if key in ("id", "topicId", "parentId", "parent") and isinstance(value, str):
+            # Convert all ID-related fields to UUID
+            if key in ("id", "topicId", "parentId", "parent", "parentTopicId") and isinstance(value, str):
                 # Convert ID to UUID
                 if value not in id_mapping:
                     id_mapping[value] = string_to_uuid(value)
