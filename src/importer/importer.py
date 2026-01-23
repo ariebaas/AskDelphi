@@ -65,6 +65,14 @@ class DigitalCoachImporter:
         # Add parentTopicId if this is not a root topic
         if topic.parent_id:
             payload["parentTopicId"] = topic.parent_id
+        
+        # Add description if available in metadata
+        if "description" in topic.metadata and topic.metadata["description"]:
+            payload["description"] = topic.metadata["description"]
+        
+        # Add tags if available
+        if topic.tags:
+            payload["tags"] = topic.tags if isinstance(topic.tags, list) else [topic.tags]
 
         if env_config.DEBUG:
             logger.debug(f"{indent}  Payload: {payload}")
