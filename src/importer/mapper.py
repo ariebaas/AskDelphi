@@ -33,6 +33,26 @@ class DigitalCoachMapper:
 
     def __init__(self) -> None:
         self.topic_types = {t["title"]: t for t in DEFAULT_TOPIC_TYPES}
+        # Also index by UUID key for direct lookup
+        self.topic_types_by_id = {str(t["key"]): t for t in DEFAULT_TOPIC_TYPES}
+
+    def _get_topic_type(self, node: dict, default_name: str = "Digitale Coach Homepagina") -> Dict[str, Any]:
+        """Get topic type by ID (new format), title (new format), or name (legacy format)."""
+        # Try by ID first (new format with topic_type_id)
+        if "topic_type_id" in node:
+            topic_type = self.topic_types_by_id.get(node["topic_type_id"])
+            if topic_type:
+                return topic_type
+        
+        # Try by title (new format with topic_type_title)
+        if "topic_type_title" in node:
+            topic_type = self.topic_types.get(node["topic_type_title"])
+            if topic_type:
+                return topic_type
+        
+        # Fall back to topicType field (legacy format)
+        topic_type_name = node.get("topicType", default_name)
+        return self.topic_types.get(topic_type_name, self.topic_types.get(default_name, self.topic_types["Digitale Coach Homepagina"]))
 
     def map_process(self, process: dict) -> List[TopicNode]:
         """Map het root proces naar een lijst van root TopicNode objecten."""
@@ -46,8 +66,8 @@ class DigitalCoachMapper:
 
     def _map_homepage(self, process: dict) -> TopicNode:
         """Maak het Digital Coach homepagina topic en zijn kinderen aan."""
-        topic_type_name = process.get("topicType", "Digitale Coach Homepagina")
-        home_type = self.topic_types.get(topic_type_name, self.topic_types["Digitale Coach Homepagina"])
+        home_type = self._get_topic_type(process, "Digitale Coach Homepagina")
+        
         home = TopicNode(
             id=process.get("id", "dc-home"),
             title=process.get("title", "Digitale Coach"),
@@ -74,8 +94,7 @@ class DigitalCoachMapper:
         if env_config.DEBUG:
             logger.debug(f"  Taak gemapt: {task.get('id')} - {task.get('title')}")
 
-        topic_type_name = task.get("topicType", "Task")
-        task_type = self.topic_types.get(topic_type_name, self.topic_types.get("Task", self.topic_types["Digitale Coach Stap"]))
+        task_type = self._get_topic_type(task, "Digitale Coach Stap")
         node = TopicNode(
             id=task["id"],
             title=task["title"],
@@ -102,8 +121,7 @@ class DigitalCoachMapper:
         if env_config.DEBUG:
             logger.debug(f"      Stap gemapt: {step.get('id')} - {step.get('title')}")
 
-        topic_type_name = step.get("topicType", "Digitale Coach Stap")
-        step_type = self.topic_types.get(topic_type_name, self.topic_types["Digitale Coach Stap"])
+        step_type = self._get_topic_type(step, "Digitale Coach Stap")
         node = TopicNode(
             id=step["id"],
             title=step["title"],
@@ -130,8 +148,7 @@ class DigitalCoachMapper:
         if env_config.DEBUG:
             logger.debug(f"          Instructie gemapt: {instr.get('id')} - {instr.get('title')}")
 
-        topic_type_name = instr.get("topicType", "Digitale Coach Instructie")
-        instr_type = self.topic_types.get(topic_type_name, self.topic_types["Digitale Coach Instructie"])
+        instr_type = self._get_topic_type(instr, "Digitale Coach Instructie")
         return TopicNode(
             id=instr["id"],
             title=instr["title"],
