@@ -87,29 +87,50 @@ SKIP_CHECKOUT_CHECKIN=true
 
 ## Gebruik
 
-### Snelle Start - Batch Scripts (Windows) ⭐ AANBEVOLEN
+### Snelle Start - Scripts (Windows/macOS/Linux) ⭐ AANBEVOLEN
+
+#### Windows (Batch Scripts)
 
 **Tests uitvoeren (één klik):**
 ```bash
 run_tests.bat
 ```
-- Controleert mock server status
-- Voert alle CRUD tests uit
-- Toont duidelijke succes/faal meldingen
-- Pauzeert zodat je resultaten kunt zien
 
 **Import uitvoeren (één klik):**
 ```bash
 run_import.bat
 ```
-- Gebruikt default: `examples\process_onboard_account.json`
-- Controleert mock server beschikbaarheid
-- Toont duidelijke foutmeldingen
 
 **Import met custom files:**
 ```bash
 run_import.bat custom_input.json custom_schema.json
 ```
+
+#### macOS/Linux (Shell Scripts)
+
+**Tests uitvoeren:**
+```bash
+chmod +x run_tests.sh
+./run_tests.sh
+```
+
+**Import uitvoeren:**
+```bash
+chmod +x run_import.sh
+./run_import.sh
+```
+
+**Import met custom files:**
+```bash
+./run_import.sh custom_input.json custom_schema.json
+```
+
+**Features (all platforms):**
+- ✅ Controleert mock server status
+- ✅ Voert alle CRUD tests uit
+- ✅ Toont duidelijke succes/faal meldingen
+- ✅ Gebruikt default: `procesbeschrijving\process_onboard_account.json`
+- ✅ Ondersteunt custom input en schema files
 
 ### CLI Tools - Test Runner (Aanbevolen)
 
