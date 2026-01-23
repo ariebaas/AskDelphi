@@ -137,17 +137,17 @@ class AskDelphiSession:
 
     def post(self, path: str, json: dict):
         """Voer een POST verzoek uit tegen de AskDelphi API."""
-        return self._request("POST", path, json=json)
+        return self._request("POST", path, data=json)
 
     def put(self, path: str, json: dict):
         """Voer een PUT verzoek uit tegen de AskDelphi API."""
-        return self._request("PUT", path, json=json)
+        return self._request("PUT", path, data=json)
 
     def delete(self, path: str):
         """Voer een DELETE verzoek uit tegen de AskDelphi API."""
         return self._request("DELETE", path)
 
-    def _request(self, method: str, path: str, json: dict = None):
+    def _request(self, method: str, path: str, data: dict = None):
         """Interne helper om een HTTP verzoek met context en token handling te verzenden."""
 
         if self.auth_manager:
@@ -166,7 +166,7 @@ class AskDelphiSession:
 
         # Don't add _context to payload - it's not part of the API contract
         # The context is already embedded in the URL path parameters
-        payload = json or {}
+        payload = data or {}
 
         # Vervang template parameters in path
         url_path = path
