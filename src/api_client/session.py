@@ -10,6 +10,7 @@ Deze module definieert de centrale AskDelphiSession client die:
 
 import os
 import time
+import json
 from typing import Optional
 
 import requests
@@ -185,15 +186,27 @@ class AskDelphiSession:
         url = f"{base}{url_path}"
 
         if DEBUG:
-            print(f"\n [DEBUG] {method} {url}")
+            print(f"\n[DEBUG] {method} {url}")
             print(f"  Headers: {headers}")
-            print(f"  Payload: {payload}")
+            print(f"  Payload: {json.dumps(payload, indent=2, ensure_ascii=False)}")
 
-        response = requests.request(method, url, json=payload, headers=headers)
+        try:
+            response = requests.request(method, url, json=payload, headers=headers)
+        except Exception as e:
+            if DEBUG:
+                print(f"[DEBUG] Request Exception: {type(e).__name__}")
+                print(f"  Message: {str(e)}")
+                import traceback
+                print(f"  Traceback: {traceback.format_exc()}")
+            raise
 
         if DEBUG:
-            print(f" [DEBUG] Response {response.status_code}")
-            print(f"  Body: {response.text}")
+            print(f"[DEBUG] Response {response.status_code}")
+            print(f"  Headers: {dict(response.headers)}")
+            try:
+                print(f"  Body: {json.dumps(response.json(), indent=2, ensure_ascii=False)}")
+            except:
+                print(f"  Body (raw): {response.text}")
 
         if response.status_code == 401:
             if DEBUG:
