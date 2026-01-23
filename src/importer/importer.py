@@ -59,10 +59,24 @@ class DigitalCoachImporter:
             "topicTitle": topic.title,
             "topicTypeId": str(topic.topic_type["key"]),
             "copyParentTags": False,
+            "language": "nl-NL",
         }
+        
+        # Add parentTopicId if this is not a root topic
+        if topic.parent_id:
+            payload["parentTopicId"] = topic.parent_id
+
+        if env_config.DEBUG:
+            logger.debug(f"{indent}  Payload: {payload}")
 
         # Maak of update topic aan
-        result = self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
+        try:
+            result = self.session.post(f"v4/tenant/{{tenantId}}/project/{{projectId}}/acl/{{aclEntryId}}/topic", json=payload)
+        except Exception as e:
+            logger.error(f"{indent}✗ Topic creatie mislukt: {topic.title}")
+            logger.error(f"{indent}  Fout: {str(e)}")
+            logger.error(f"{indent}  Payload: {payload}")
+            raise
         topic_version_id = result.get("topicVersionKey") or result.get("topicVersionId")
         logger.info(f"{indent}✓ Topic aangemaakt/bijgewerkt: {topic.title}")
 
