@@ -163,13 +163,9 @@ class AskDelphiSession:
                 "X-API-Key": self.api_key,
             }
 
+        # Don't add _context to payload - it's not part of the API contract
+        # The context is already embedded in the URL path parameters
         payload = json or {}
-        payload["_context"] = {
-            "tenant": self.tenant,
-            "ntAccount": self.nt_account,
-            "acl": self.acl,
-            "projectId": self.project_id,
-        }
 
         # Vervang template parameters in path
         url_path = path
