@@ -3,8 +3,10 @@
     "id": "33622d63-6fa1-5ff6-ab09-959208768a2a",
     "title": "Sanering",
     "description": "Sanering (LIC)",
-    "topic_type_id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
-    "topic_type_title": "Digitale Coach Homepagina",
+    "topic_type_id": "b6019c40-bf59-457f-abf3-ad100bace005",
+    "topic_type_title": "process",
+    "parentTopicId": "aefedf71-d67e-4596-8995-c84f30bfe100",
+    "parentTopicRelationTypeId": "aefedf71-d67e-4596-8995-c84f30bfe100",
     "tags": [
       "CAP",
       "Inning en betalingsverkeer",

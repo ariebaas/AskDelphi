@@ -76,12 +76,15 @@ class DigitalCoachMapper:
             metadata["topic_type_id"] = process["topic_type_id"]
         if "topic_type_namespace" in process:
             metadata["topic_type_namespace"] = process["topic_type_namespace"]
+        # Store parentTopicRelationTypeId if available (root topic can have parent)
+        if "parentTopicRelationTypeId" in process:
+            metadata["parentTopicRelationTypeId"] = process["parentTopicRelationTypeId"]
         
         home = TopicNode(
             id=process.get("id", "dc-home"),
             title=process.get("title", "Digitale Coach"),
             topic_type=home_type,
-            parent_id=None,
+            parent_id=process.get("parentTopicId"),  # Root topic can have parent
             metadata=metadata,
             tags=process.get("tags", []),
         )
