@@ -151,7 +151,8 @@ def upload_topics(
     force: bool = False,
     rate_limit_ms: int = 100,
     verbose: bool = False,
-    mock_server: bool = False
+    mock_server: bool = False,
+    production: bool = False
 ) -> None:
     """
     Upload topics from a JSON file to AskDelphi API.
@@ -163,6 +164,8 @@ def upload_topics(
         force: Skip confirmation prompt
         rate_limit_ms: Delay between API calls
         verbose: Enable verbose logging
+        mock_server: Use mock server on localhost:8001
+        production: Use production API with authentication
     """
     print("\n" + "=" * 60)
     print("DIGITAL COACH TOPIC UPLOAD")
@@ -226,6 +229,23 @@ def upload_topics(
         
         session = MockSession(session_token)
         print("Mock server session initialized!")
+    elif production:
+        print("Production mode: Using AskDelphiSession with authentication")
+        session = AskDelphiSession(use_auth_cache=True)
+        print("Client initialized!")
+        
+        # Authenticate via auth_manager
+        print("Authenticating with production API...")
+        try:
+            if session.auth_manager:
+                session.auth_manager.authenticate()
+                print("✓ Authentication successful!")
+            else:
+                print("Error: Auth manager not initialized. Check .env configuration.")
+                sys.exit(1)
+        except Exception as e:
+            print(f"Error: Authentication failed: {e}")
+            sys.exit(1)
     else:
         session = AskDelphiSession()
         print("Client initialized!")
@@ -302,22 +322,32 @@ def upload_topics(
             continue
 
         try:
-            # Create topic using mock server payload format
-            # Mock server expects: id, title, topicTypeKey, topicTypeNamespace, parentId, metadata, tags, relations
-            payload = {
-                "id": topic_id,
-                "title": title,
-                "topicTypeKey": topic_type_id,
-                "topicTypeNamespace": "AskDelphi.DigitalCoach",
-                "metadata": topic_data.get("metadata", {}),
-                "tags": topic_data.get("tags", []),
-            }
+            if mock_server:
+                # Mock server payload format
+                payload = {
+                    "id": topic_id,
+                    "title": title,
+                    "topicTypeKey": topic_type_id,
+                    "topicTypeNamespace": "AskDelphi.DigitalCoach",
+                    "metadata": topic_data.get("metadata", {}),
+                    "tags": topic_data.get("tags", []),
+                }
+                endpoint = "/topics"
+            else:
+                # Production API v4 payload format (minimal)
+                payload = {
+                    "topicId": topic_id,
+                    "topicTitle": title,
+                    "topicTypeId": topic_type_id,
+                    "copyParentTags": False,
+                }
+                endpoint = "v4/tenant/{tenantId}/project/{projectId}/acl/{aclEntryId}/topic"
 
             if DEBUG:
                 print(f"  [DEBUG] Creating topic with payload: {json.dumps(payload, indent=2)}")
 
             result = session.post(
-                "/topics",
+                endpoint,
                 json=payload
             )
 
@@ -379,6 +409,11 @@ def main():
         help="Use mock server on localhost:8001 instead of production API"
     )
     parser.add_argument(
+        "--production",
+        action="store_true",
+        help="Use production API with authentication (requires .env configuration)"
+    )
+    parser.add_argument(
         "-v", "--verbose",
         action="store_true",
         help="Enable verbose logging"
@@ -394,7 +429,8 @@ def main():
             force=args.force,
             rate_limit_ms=args.rate_limit,
             verbose=args.verbose,
-            mock_server=args.mock_server
+            mock_server=args.mock_server,
+            production=args.production
         )
     except Exception as e:
         print(f"\nError: {e}", file=sys.stderr)
