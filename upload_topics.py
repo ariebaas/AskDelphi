@@ -186,11 +186,14 @@ def upload_topics(
     session = AskDelphiSession()
     print("Client initialized!")
     
-    # Authenticate
+    # Authenticate via auth_manager if available
     print("Authenticating...")
     try:
-        session.authenticate()
-        print("Authentication successful!")
+        if session.auth_manager:
+            session.auth_manager.authenticate()
+            print("Authentication successful!")
+        else:
+            print("Warning: No auth_manager available. Using session token auth.")
     except Exception as e:
         print(f"Error: Authentication failed: {e}")
         sys.exit(1)
@@ -240,12 +243,12 @@ def upload_topics(
 
     # Process new topics
     print(f"\nCreating {len(new_topics)} new topic(s)...\n")
-    topics = modified_data.get("topics", {})
+    topics_dict = modified_data.get("topics", {})
     created_count = 0
     error_count = 0
 
     for topic_id in new_topics:
-        topic_data = topics[topic_id]
+        topic_data = topics_dict[topic_id]
         title = topic_data.get("title", "Untitled")
         topic_type_id = topic_data.get("topic_type_id")
 
@@ -255,19 +258,22 @@ def upload_topics(
             continue
 
         try:
-            # Create topic using minimal payload (matching working ask-delphi-api)
+            # Create topic using mock server payload format
+            # Mock server expects: id, title, topicTypeKey, topicTypeNamespace, parentId, metadata, tags, relations
             payload = {
-                "topicId": str(uuid.uuid4()),
-                "topicTitle": title,
-                "topicTypeId": topic_type_id,
-                "copyParentTags": False,
+                "id": topic_id,
+                "title": title,
+                "topicTypeKey": topic_type_id,
+                "topicTypeNamespace": "AskDelphi.DigitalCoach",
+                "metadata": topic_data.get("metadata", {}),
+                "tags": topic_data.get("tags", []),
             }
 
             if DEBUG:
                 print(f"  [DEBUG] Creating topic with payload: {json.dumps(payload, indent=2)}")
 
             result = session.post(
-                "v4/tenant/{tenantId}/project/{projectId}/acl/{aclEntryId}/topic",
+                "/topics",
                 json=payload
             )
 
