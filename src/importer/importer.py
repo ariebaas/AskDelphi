@@ -56,16 +56,19 @@ class DigitalCoachImporter:
 
         # Use topicTypeId from metadata if available (from JSON), otherwise from topic_type definition
         topic_type_id = topic.metadata.get("topic_type_id") or str(topic.topic_type["key"])
-        topic_type_namespace = topic.metadata.get("topic_type_namespace") or topic.topic_type.get("namespace", "AskDelphi.DigitalCoach")
         
+        # Start with minimal payload (matching working ask-delphi-api implementation)
         payload = {
             "topicId": topic.id,
             "topicTitle": topic.title,
             "topicTypeId": topic_type_id,
-            "topicTypeNamespace": topic_type_namespace,
             "copyParentTags": False,
-            "language": "nl-NL",
         }
+        
+        # Optionally add extended fields (test if these cause issues)
+        # Uncomment to test with extended payload
+        # payload["topicTypeNamespace"] = topic.metadata.get("topic_type_namespace") or topic.topic_type.get("namespace", "AskDelphi.DigitalCoach")
+        # payload["language"] = "nl-NL"
         
         # Add parentTopicId if this is not a root topic
         if topic.parent_id:
