@@ -150,7 +150,8 @@ def upload_topics(
     dry_run: bool = False,
     force: bool = False,
     rate_limit_ms: int = 100,
-    verbose: bool = False
+    verbose: bool = False,
+    mock_server: bool = False
 ) -> None:
     """
     Upload topics from a JSON file to AskDelphi API.
@@ -183,20 +184,63 @@ def upload_topics(
 
     # Initialize client
     print("\nInitializing client...")
-    session = AskDelphiSession()
-    print("Client initialized!")
     
-    # Authenticate via auth_manager if available
-    print("Authenticating...")
-    try:
-        if session.auth_manager:
-            session.auth_manager.authenticate()
-            print("Authentication successful!")
-        else:
-            print("Warning: No auth_manager available. Using session token auth.")
-    except Exception as e:
-        print(f"Error: Authentication failed: {e}")
-        sys.exit(1)
+    if mock_server:
+        print("Mock server mode: Using direct session token authentication")
+        # For mock server, create session directly without portal authentication
+        import requests
+        auth_payload = {
+            "apiKey": "dummy-key",
+            "tenant": "dummy-tenant",
+            "ntAccount": "dummy-user",
+            "acl": ["Everyone"],
+            "projectId": "dummy-project",
+        }
+        try:
+            response = requests.post("http://localhost:8001/auth/session", json=auth_payload)
+            if response.status_code != 200:
+                print(f"Error: Failed to create session: {response.status_code}")
+                sys.exit(1)
+            session_data = response.json()
+            session_token = session_data.get("sessionToken")
+            print(f"Session token obtained: {session_token[:20]}...")
+        except Exception as e:
+            print(f"Error: Failed to connect to mock server: {e}")
+            sys.exit(1)
+        
+        # Create a simple session wrapper for mock server
+        class MockSession:
+            def __init__(self, token):
+                self.token = token
+                self.base_url = "http://localhost:8001"
+            
+            def post(self, path, json):
+                headers = {
+                    "Authorization": f"Bearer {self.token}",
+                    "Content-Type": "application/json",
+                }
+                response = requests.post(f"{self.base_url}{path}", json=json, headers=headers)
+                if response.status_code >= 400:
+                    raise Exception(f"API error {response.status_code}: {response.text}")
+                return response.json()
+        
+        session = MockSession(session_token)
+        print("Mock server session initialized!")
+    else:
+        session = AskDelphiSession()
+        print("Client initialized!")
+        
+        # Authenticate via auth_manager if available
+        print("Authenticating...")
+        try:
+            if session.auth_manager:
+                session.auth_manager.authenticate()
+                print("Authentication successful!")
+            else:
+                print("Warning: No auth_manager available. Using session token auth.")
+        except Exception as e:
+            print(f"Error: Authentication failed: {e}")
+            sys.exit(1)
 
     # Load or use empty original
     if original_file:
@@ -330,6 +374,11 @@ def main():
         help="Delay between API calls in milliseconds (default: 100)"
     )
     parser.add_argument(
+        "--mock-server",
+        action="store_true",
+        help="Use mock server on localhost:8001 instead of production API"
+    )
+    parser.add_argument(
         "-v", "--verbose",
         action="store_true",
         help="Enable verbose logging"
@@ -344,7 +393,8 @@ def main():
             dry_run=args.dry_run,
             force=args.force,
             rate_limit_ms=args.rate_limit,
-            verbose=args.verbose
+            verbose=args.verbose,
+            mock_server=args.mock_server
         )
     except Exception as e:
         print(f"\nError: {e}", file=sys.stderr)
