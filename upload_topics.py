@@ -5,8 +5,13 @@ Digital Coach Topic Upload Script
 Uploads topics from a JSON file to AskDelphi API, following the working
 ask-delphi-api pattern.
 
+Supports two input formats:
+1. Standard format (topics dict): uploadtest.json --original testempty.json
+2. Process format (process object): process_sanering_uuid.json
+
 Usage:
     python upload_topics.py uploadtest.json --original testempty.json
+    python upload_topics.py process_sanering_uuid.json
     python upload_topics.py uploadtest.json --dry-run
 """
 
@@ -31,11 +36,94 @@ def load_json(file_path: str) -> Dict[str, Any]:
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    # Basic validation
-    if "topics" not in data:
-        raise ValueError(f"Invalid format: missing 'topics' in {file_path}")
-
     return data
+
+
+def extract_topics_from_process(process_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract topics from process JSON format (process_sanering_uuid.json).
+    
+    Converts process structure into topics dict format:
+    {
+        "topics": {
+            "topic_id": {
+                "title": "...",
+                "topic_type_id": "...",
+                ...
+            }
+        }
+    }
+    """
+    topics = {}
+    
+    # Check if this is a process format (has "process" key)
+    if "process" in process_data:
+        process = process_data["process"]
+        
+        # Add root process as topic
+        if process.get("id"):
+            topics[process["id"]] = {
+                "title": process.get("title", "Process"),
+                "topic_type_id": process.get("topic_type_id"),
+                "description": process.get("description", ""),
+                "tags": process.get("tags", []),
+            }
+        
+        # Add tasks
+        for task in process.get("tasks", []):
+            if task.get("id"):
+                topics[task["id"]] = {
+                    "title": task.get("title", "Task"),
+                    "topic_type_id": task.get("topic_type_id"),
+                    "description": task.get("description", ""),
+                    "tags": task.get("tags", []),
+                }
+            
+            # Add steps within task
+            for step in task.get("steps", []):
+                if step.get("id"):
+                    topics[step["id"]] = {
+                        "title": step.get("title", "Step"),
+                        "topic_type_id": step.get("topic_type_id"),
+                        "description": step.get("description", ""),
+                        "tags": step.get("tags", []),
+                    }
+                
+                # Add instructions within step
+                for instruction in step.get("instructions", []):
+                    if instruction.get("id"):
+                        topics[instruction["id"]] = {
+                            "title": instruction.get("title", "Instruction"),
+                            "topic_type_id": instruction.get("topic_type_id"),
+                            "description": instruction.get("description", ""),
+                            "tags": instruction.get("tags", []),
+                        }
+        
+        # Add standalone steps
+        for step in process.get("steps", []):
+            if step.get("id"):
+                topics[step["id"]] = {
+                    "title": step.get("title", "Step"),
+                    "topic_type_id": step.get("topic_type_id"),
+                    "description": step.get("description", ""),
+                    "tags": step.get("tags", []),
+                }
+    
+    return {"topics": topics}
+
+
+def normalize_input_format(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Normalize input to standard topics format.
+    
+    Handles both:
+    - Standard format: {"topics": {...}}
+    - Process format: {"process": {...}}
+    """
+    if "topics" in data:
+        return data
+    elif "process" in data:
+        return extract_topics_from_process(data)
+    else:
+        raise ValueError("Invalid format: missing 'topics' or 'process' key")
 
 
 def detect_new_topics(original: Dict[str, Any], modified: Dict[str, Any]) -> List[str]:
@@ -63,7 +151,7 @@ def upload_topics(
     Upload topics from a JSON file to AskDelphi API.
 
     Args:
-        input_file: JSON file with topics to upload
+        input_file: JSON file with topics to upload (supports both formats)
         original_file: Original JSON file for comparison
         dry_run: Only show what would change, don't upload
         force: Skip confirmation prompt
@@ -76,7 +164,16 @@ def upload_topics(
 
     # Load modified file
     print(f"Loading modified file: {input_file}")
-    modified_data = load_json(input_file)
+    raw_data = load_json(input_file)
+    
+    # Normalize to standard format
+    try:
+        modified_data = normalize_input_format(raw_data)
+        print(f"  Input format: {'process' if 'process' in raw_data else 'topics'}")
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+    
     print(f"  Topics in file: {len(modified_data.get('topics', {}))}")
 
     # Initialize client
@@ -87,7 +184,8 @@ def upload_topics(
     # Load or use empty original
     if original_file:
         print(f"\nLoading original file: {original_file}")
-        original_data = load_json(original_file)
+        original_raw = load_json(original_file)
+        original_data = normalize_input_format(original_raw)
     else:
         print("\nNo original file provided. Using empty topics.")
         original_data = {"topics": {}}
