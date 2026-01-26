@@ -16,12 +16,17 @@ Usage:
 """
 
 import argparse
+import io
 import json
 import sys
 import time
 import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Force UTF-8 output on Windows
+if sys.platform == "win32":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 from src.api_client.session import AskDelphiSession
 from src.config.env import DEBUG
@@ -33,7 +38,7 @@ def load_json(file_path: str) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")
 
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, 'r', encoding='utf-8-sig') as f:
         data = json.load(f)
 
     return data
@@ -180,6 +185,15 @@ def upload_topics(
     print("\nInitializing client...")
     session = AskDelphiSession()
     print("Client initialized!")
+    
+    # Authenticate
+    print("Authenticating...")
+    try:
+        session.authenticate()
+        print("Authentication successful!")
+    except Exception as e:
+        print(f"Error: Authentication failed: {e}")
+        sys.exit(1)
 
     # Load or use empty original
     if original_file:
