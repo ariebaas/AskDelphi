@@ -154,6 +154,9 @@ class AskDelphiSession:
             token = self.auth_manager.get_api_token()
             headers = {
                 "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "User-Agent": "AskDelphi-Python-Client/1.0"
             }
         else:
             if not self.session_token or time.time() >= self.token_expiry:
@@ -162,6 +165,9 @@ class AskDelphiSession:
             headers = {
                 "Authorization": f"Bearer {self.session_token}",
                 "X-API-Key": self.api_key,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "User-Agent": "AskDelphi-Python-Client/1.0"
             }
 
         # Don't add _context to payload - it's not part of the API contract
